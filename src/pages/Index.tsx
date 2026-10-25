@@ -152,7 +152,7 @@ const WorkoutPreview = () => (
 
 /* ─── Testimonial Card ───────────────────────────────────────── */
 
-type FounderNote = {
+type Note = {
   name: string;
   role: string;
   text: string;
@@ -160,7 +160,7 @@ type FounderNote = {
   mediaUrl?: string;
 };
 
-const TestimonialCard = ({ testimonial, index }: { testimonial: FounderNote; index: number }) => {
+const TestimonialCard = ({ testimonial, index }: { testimonial: Note; index: number }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const mediaRef = useRef<HTMLVideoElement>(null);
 
@@ -418,13 +418,13 @@ const Index = () => {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────── */}
         <Section className="py-28">
-          <SectionHeading eyebrow="From the Founder" title="A note from" accent="the Founder" sub="This is the founder's own note, not a customer review." />
+          <SectionHeading title="A MESSAGE FROM A USER" />
           <div className="max-w-xl mx-auto">
             <TestimonialCard
               index={0}
               testimonial={{
                 name: "Jared C",
-                role: "Founder",
+                role: "Member",
                 text: "Everyday Performance helped me keep a 14-day streak while traveling. The habits were simple enough to hold whether I was in Boston or Medellín.",
                 avatar: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412bf33b4d0d04441b3.jpg",
                 mediaUrl: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412fc95b245496dfb2b.mp4",

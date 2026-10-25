@@ -67,9 +67,20 @@ describe("marketing trust copy", () => {
     expect(indexHtml).toContain("https://everydayperform.com/og.png");
   });
 
-  it("keeps only the labeled founder note", () => {
-    expect(home).toContain('role: "Founder"');
-    expect(home).toContain("Jared C");
+  it("keeps Jared's note labeled Member under the user-message heading", () => {
+    const note = home.slice(home.indexOf("{/* ── TESTIMONIALS"), home.indexOf("{/* ── FINAL CTA"));
+    expect(note).toContain('title="A MESSAGE FROM A USER"');
+    expect(note).not.toContain("eyebrow=");
+    expect(note).not.toContain("accent=");
+    expect(note).not.toContain("sub=");
+    expect(note).toContain('name: "Jared C"');
+    expect(note).toContain('role: "Member"');
+    expect(note).toContain("Everyday Performance helped me keep a 14-day streak while traveling. The habits were simple enough to hold whether I was in Boston or Medellín.");
+    expect(note).toContain("https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412bf33b4d0d04441b3.jpg");
+    expect(note).toContain("https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412fc95b245496dfb2b.mp4");
+    expect(note.toLowerCase()).not.toContain("founder");
+    expect(home).not.toContain("the founder's own note");
+    expect(home).not.toContain('role: "Founder"');
     expect(home).not.toContain("Sarah Miller");
     expect(home).not.toContain("Marcus Thorne");
     expect(home).not.toContain("Remote Operations Lead");
