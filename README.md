@@ -1,11 +1,13 @@
 # Everyday Performance marketing site
 
-Static marketing homepage for Everyday Performance / Everyday Performance OS. It is the July 2026 Vite + React + TypeScript + Tailwind waitlist export, with the stale waitlist title removed. Account buttons go to the existing app:
+Static marketing homepage for Everyday Performance / Everyday Performance OS. Signup is live. Account buttons go to the app:
 
 - https://app.everydayperform.com/signup
 - https://app.everydayperform.com/login
 
-There is no email waitlist form and no GoHighLevel webhook on this site.
+There is no email waitlist form and no GoHighLevel webhook on this site. Do not describe the product as a waitlist or as coming soon.
+
+Offer copy on the homepage matches the app: a free account does not require a card. Pro is $14.99/mo or $119/yr. The 7-day Pro trial requires a card and auto-renews unless you cancel. Cancel Pro anytime in account settings.
 
 This repository publishes **https://everydayperform.com/** on GitHub Pages. Custom-domain cutover is applied in this repo: the production build uses the site root, canonical and social URLs point at the apex, and the Pages artifact includes `dist/CNAME`. This repository does not change DNS or the registrar. The GitHub Pages custom domain is already `everydayperform.com`; do not clear it.
 
@@ -47,7 +49,9 @@ The workflow is `.github/workflows/deploy.yml`, adapted from [nextweigh-site](ht
 
 ### SPA routes on Pages
 
-GitHub Pages does not rewrite unknown paths to `index.html`. `scripts/spa-fallback.mjs` (run at the end of `npm run build`) copies the built shell to:
+`index.html` includes a static hero (headline, Create an Account link to `https://app.everydayperform.com/signup`, pricing line, and health-disclaimer link) so the first paint and non-JS clients are not an empty `#root`. The shell hides once React renders into `#root`. `scripts/spa-fallback.mjs` removes that block from the route copies below so `/privacy` and `/terms` are not a second homepage.
+
+GitHub Pages does not rewrite unknown paths to `index.html`. `scripts/spa-fallback.mjs` (run at the end of `npm run build`) writes the built shell to:
 
 - `privacy/index.html`
 - `terms/index.html`
@@ -96,7 +100,11 @@ Self-hosted in `public/` (logo, homepage hero, social image, press-kit backgroun
 - `og.png`
 - `press-bg.jpg`
 
-Testimonial photos and the testimonial video still load from `assets.cdn.filesafe.space`. Move those into `public/` later if that CDN goes away. No Google Analytics or Meta pixel. The live site's `/__vibe/*` analytics are not included.
+The homepage shows one founder note from Jared C, labeled Founder. Unverified third-party quotes (Sarah Miller, Marcus Thorne) are not on the site. The founder photo and video still load from `assets.cdn.filesafe.space`. Move those into `public/` later if that CDN goes away.
+
+Social images are the self-hosted `og.png` on `everydayperform.com`. The document author is Everyday Performance. No Google Analytics or Meta pixel. The live site's `/__vibe/*` analytics are not included.
+
+The footer links to `/privacy`, `/terms`, and `support@everydayperform.com`. A legal entity name and mailing address are not in this repo. The footer source has a TODO for Jared; do not invent an LLC or street address.
 
 ## Scripts
 

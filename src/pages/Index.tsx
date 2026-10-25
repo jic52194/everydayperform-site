@@ -8,11 +8,19 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  CARD_LINE,
+  FREE_FAQ_ANSWER,
+  HEALTH_DISCLAIMER,
+  PRICING_TEASER,
+  SIGNUP_URL,
+} from "@/content/marketing";
 
 import { useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { sounds } from "@/lib/sounds";
-import { Star, Play, Pause, CheckCircle2, Circle, Clock, Trophy, Flame, Dumbbell, ShieldCheck, ArrowRight } from "lucide-react";
+import { Play, Pause, CheckCircle2, Circle, Clock, Trophy, Flame, Dumbbell, ShieldCheck, ArrowRight } from "lucide-react";
 
 /* ─── App Preview Cards ─────────────────────────────────────── */
 
@@ -144,15 +152,26 @@ const WorkoutPreview = () => (
 
 /* ─── Testimonial Card ───────────────────────────────────────── */
 
-const TestimonialCard = ({ testimonial, index }: { testimonial: any; index: number }) => {
+type FounderNote = {
+  name: string;
+  role: string;
+  text: string;
+  avatar?: string;
+  mediaUrl?: string;
+};
+
+const TestimonialCard = ({ testimonial, index }: { testimonial: FounderNote; index: number }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const mediaRef = useRef<HTMLVideoElement>(null);
 
   const togglePlay = () => {
-    if (mediaRef.current) {
-      isPlaying ? mediaRef.current.pause() : mediaRef.current.play();
-      setIsPlaying(!isPlaying);
+    if (!mediaRef.current) return;
+    if (isPlaying) {
+      mediaRef.current.pause();
+    } else {
+      void mediaRef.current.play();
     }
+    setIsPlaying(!isPlaying);
   };
 
   return (
@@ -181,9 +200,6 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: any; index: numb
           )}
         </div>
       )}
-      <div className="flex gap-1 mb-5">
-        {[...Array(5)].map((_, idx) => <Star key={idx} className="w-4 h-4 fill-primary text-primary" />)}
-      </div>
       <p className="text-gray-300 text-base leading-relaxed mb-7 flex-1 italic">"{testimonial.text}"</p>
       <div>
         <div className="font-oswald uppercase text-lg font-semibold tracking-wider text-white">{testimonial.name}</div>
@@ -199,6 +215,23 @@ const Section = ({ children, className = "", id }: { children: React.ReactNode; 
     <div className="container mx-auto px-6 lg:px-8 max-w-6xl">{children}</div>
   </section>
 );
+
+function OfferNotes({ showDisclaimer = false }: { showDisclaimer?: boolean }) {
+  return (
+    <div className="flex flex-col items-center gap-2 max-w-xl mx-auto">
+      <p className="text-sm text-foreground/85">{PRICING_TEASER}</p>
+      <p className="text-xs text-muted-foreground/80">{CARD_LINE}</p>
+      {showDisclaimer && (
+        <p className="text-xs text-muted-foreground/80 leading-relaxed">
+          {HEALTH_DISCLAIMER}{" "}
+          <Link to="/terms#health-disclaimer" className="underline underline-offset-2 hover:text-primary">
+            Health disclaimer
+          </Link>
+        </p>
+      )}
+    </div>
+  );
+}
 
 const SectionHeading = ({ eyebrow, title, accent, sub }: { eyebrow?: string; title: string; accent?: string; sub?: string }) => (
   <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="text-center mb-16">
@@ -273,7 +306,7 @@ const Index = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4"
           >
             <Button onPointerDown={() => sounds.playClick()} size="lg" className="group rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-6 sm:px-10 py-4 sm:py-7 h-auto font-oswald uppercase tracking-[0.15em] shadow-[0_0_50px_-15px_rgba(143,143,86,0.6)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_70px_-15px_rgba(143,143,86,0.8)]" asChild>
-              <a href="https://app.everydayperform.com/signup" className="flex items-center justify-center gap-2 text-center">
+              <a href={SIGNUP_URL} className="flex items-center justify-center gap-2 text-center">
                 <span>Create an Account</span>
                 <ArrowRight className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
@@ -283,9 +316,9 @@ const Index = () => {
             </Button>
           </motion.div>
           
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.5 }} className="text-xs text-muted-foreground/70 mb-10">
-            No credit card required • Takes less than 2 minutes • Start with habits, workouts, or both
-          </motion.p>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.5 }} className="mb-10">
+            <OfferNotes showDisclaimer />
+          </motion.div>
 
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.6 }} className="text-xs tracking-widest uppercase text-muted-foreground/70">
             Built for professionals, parents, entrepreneurs, and busy adults who need consistency without hour-long workouts.
@@ -375,7 +408,7 @@ const Index = () => {
           </div>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.4 }} className="flex justify-center">
             <Button onPointerDown={() => sounds.playClick()} size="lg" className="group rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-6 sm:px-10 py-4 sm:py-7 h-auto font-oswald uppercase tracking-[0.15em] shadow-[0_0_50px_-15px_rgba(143,143,86,0.6)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_70px_-15px_rgba(143,143,86,0.8)]" asChild>
-              <a href="https://app.everydayperform.com/signup" className="flex items-center justify-center gap-2 text-center">
+              <a href={SIGNUP_URL} className="flex items-center justify-center gap-2 text-center">
                 <span>Create an Account</span>
                 <ArrowRight className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
               </a>
@@ -385,15 +418,18 @@ const Index = () => {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────── */}
         <Section className="py-28">
-          <SectionHeading eyebrow="Community" title="Real People Building" accent="Consistency in Real Life" sub="Everyday Performance is built for the people who do not have perfect schedules — travelers, parents, builders, operators, and busy professionals." />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {[
-              { name: "Jared C", role: "Remote Operations Lead • Boston / Medellín", text: "Everyday Performance helped me keep a 14-day streak while traveling. The habits were simple enough to hold whether I was in Boston or Medellín.", avatar: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412bf33b4d0d04441b3.jpg", mediaUrl: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412fc95b245496dfb2b.mp4" },
-              { name: "Sarah Miller", role: "Founder, SMM Designs & Mom of 3", text: "I finally built consistency without needing an hour at the gym. Five-minute wins made it possible to show up even with three kids and a business.", avatar: "https://storage.googleapis.com/leadgen-emailbuilder-production/email-ai/gemini-images/ofKMWXsbzYdXDKlGajk5/mj-image-S4mkjABA_1780279285773_wx3mpo88.png" },
-              { name: "Marcus Thorne", role: "Tech Entrepreneur", text: "During a product launch, I did not have perfect time or energy. The streaks, XP, and daily plan kept me accountable when I normally would have fallen off.", avatar: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a062edf0da521d66ffa3e8d.jpeg" },
-            ].map((t, i) => (
-              <TestimonialCard key={i} testimonial={t} index={i} />
-            ))}
+          <SectionHeading eyebrow="From the Founder" title="A note from" accent="the Founder" sub="This is the founder's own note, not a customer review." />
+          <div className="max-w-xl mx-auto">
+            <TestimonialCard
+              index={0}
+              testimonial={{
+                name: "Jared C",
+                role: "Founder",
+                text: "Everyday Performance helped me keep a 14-day streak while traveling. The habits were simple enough to hold whether I was in Boston or Medellín.",
+                avatar: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412bf33b4d0d04441b3.jpg",
+                mediaUrl: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412fc95b245496dfb2b.mp4",
+              }}
+            />
           </div>
         </Section>
 
@@ -415,15 +451,15 @@ const Index = () => {
               Start with today's 5-minute plan. Build small wins. Earn XP. Keep your streak alive. Let consistency become automatic.
             </p>
             <div className="relative z-10 flex flex-col items-center justify-center gap-4">
-              <a href="https://app.everydayperform.com/signup" onPointerDown={() => sounds.playClick()}
+              <a href={SIGNUP_URL} onPointerDown={() => sounds.playClick()}
                 className="inline-flex items-center justify-center gap-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-5 h-auto font-oswald uppercase tracking-[0.18em] shadow-[0_0_50px_-15px_rgba(143,143,86,0.6)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_80px_-15px_rgba(143,143,86,0.9)] text-center"
               >
                 <span>Create an Account</span>
                 <ArrowRight className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1.5" />
               </a>
-              <p className="text-xs text-muted-foreground/70 mt-2">
-                No credit card required • Takes less than 2 minutes
-              </p>
+              <div className="mt-2">
+                <OfferNotes showDisclaimer />
+              </div>
             </div>
           </motion.div>
         </Section>
@@ -440,7 +476,7 @@ const Index = () => {
                   { q: "Is this personalized or a generic template?", a: "Everyday Performance is built around your goals, schedule, fitness level, habits, and available time. The system should help you build a plan that fits your actual life, not someone else's perfect routine." },
                   { q: "What happens if I miss a day?", a: "Missing a day does not mean you failed. Everyday Performance is designed for comeback behavior with streaks, resets, flexible plans, and small wins that help you restart quickly." },
                   { q: "Is this only for advanced fitness people?", a: "No. It is built for busy people at different levels, including beginners, parents, professionals, and anyone trying to become consistent again." },
-                  { q: "What do I get for free?", a: "You can start free and begin building your daily plan. Keep the free tier clear and only mention paid upgrades if the product currently supports them." },
+                  { q: "What do I get for free?", a: FREE_FAQ_ANSWER },
                 ].map((item, i) => (
                   <AccordionItem key={i} value={`item-${i}`}
                     className="bg-[#0e0e0e] border border-white/8 rounded-2xl px-6 data-[state=open]:bg-white/[0.04] data-[state=open]:border-primary/20 transition-all duration-300"
@@ -456,14 +492,12 @@ const Index = () => {
 
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.3 }} className="flex flex-col items-center justify-center mt-16 gap-4">
               <Button onPointerDown={() => sounds.playClick()} size="lg" className="group rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-6 sm:px-10 py-4 sm:py-7 h-auto font-oswald uppercase tracking-[0.15em] shadow-[0_0_50px_-15px_rgba(143,143,86,0.6)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_70px_-15px_rgba(143,143,86,0.8)]" asChild>
-                <a href="https://app.everydayperform.com/signup" className="flex items-center justify-center gap-2 text-center">
+                <a href={SIGNUP_URL} className="flex items-center justify-center gap-2 text-center">
                   <span>Create an Account</span>
                   <ArrowRight className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
               </Button>
-              <p className="text-xs text-muted-foreground/70">
-                No credit card required • Takes less than 2 minutes
-              </p>
+              <OfferNotes />
             </motion.div>
           </div>
         </Section>
@@ -477,7 +511,7 @@ const Index = () => {
       {/* ── STICKY MOBILE CTA ────────────────────────────────── */}
       <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
         <div className="bg-[#050505]/90 backdrop-blur-2xl border-t border-white/8 px-5 py-3">
-          <a href="https://app.everydayperform.com/signup"
+          <a href={SIGNUP_URL}
             className="flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground font-oswald uppercase tracking-[0.18em] text-sm py-4 rounded-full shadow-[0_0_30px_-8px_rgba(143,143,86,0.7)] hover:bg-primary/90 transition-all active:scale-95"
           >
             Create an Account

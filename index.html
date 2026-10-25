@@ -27,6 +27,130 @@
 
 
   <body>
+    <!-- static-shell:start -->
+    <!-- Visible before JavaScript. React replaces the view by filling #root; this shell hides once #root has content. Route copies strip this block. -->
+    <style>
+      #static-shell {
+        position: fixed;
+        inset: 0;
+        z-index: 30;
+        overflow: auto;
+        background: #050505 url("%BASE_URL%hero-bg.png") center 20% / cover no-repeat;
+        color: #f5f5f5;
+        font-family: Inter, system-ui, sans-serif;
+      }
+      #static-shell .scrim {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(to bottom, rgba(5,5,5,0.28), rgba(5,5,5,0.78) 42%, #050505);
+      }
+      #static-shell header,
+      #static-shell footer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem 1.25rem;
+        padding: 1rem 1.25rem;
+      }
+      #static-shell header { justify-content: space-between; }
+      #static-shell header img { height: 48px; width: auto; }
+      #static-shell header a,
+      #static-shell footer a { color: rgba(255,255,255,0.78); text-decoration: none; }
+      #static-shell main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        padding: 3rem 1.5rem 2.5rem;
+        max-width: 56rem;
+        margin: 0 auto;
+        width: 100%;
+      }
+      #static-shell .eyebrow {
+        color: #8F8F56;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin: 0 0 1.25rem;
+      }
+      #static-shell h1 {
+        font-family: Oswald, sans-serif;
+        font-weight: 700;
+        font-size: clamp(2.4rem, 8vw, 4.75rem);
+        line-height: 1.05;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+        margin: 0 0 1.25rem;
+      }
+      #static-shell .lede {
+        color: rgba(245,245,245,0.74);
+        font-size: 1.05rem;
+        max-width: 40rem;
+        line-height: 1.6;
+        margin: 0 0 1.75rem;
+      }
+      #static-shell .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #8F8F56;
+        color: #fff;
+        font-family: Oswald, sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        text-decoration: none;
+        border-radius: 999px;
+        padding: 1rem 2.25rem;
+        font-size: 1rem;
+      }
+      #static-shell .offer { margin: 1.25rem 0 0; font-size: 0.95rem; max-width: 36rem; }
+      #static-shell .fine,
+      #static-shell .disclaimer {
+        margin: 0.55rem 0 0;
+        font-size: 0.75rem;
+        line-height: 1.5;
+        color: rgba(245,245,245,0.66);
+        max-width: 36rem;
+      }
+      #static-shell .disclaimer a { color: #d5d5a4; text-decoration: underline; text-underline-offset: 2px; }
+      #static-shell footer {
+        justify-content: center;
+        font-size: 0.8rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+      body:has(#root > *) #static-shell { display: none !important; }
+    </style>
+    <div id="static-shell">
+      <div class="scrim">
+        <header>
+          <a href="%BASE_URL%">
+            <img src="%BASE_URL%logo.png" alt="Everyday Performance" />
+          </a>
+          <a href="https://app.everydayperform.com/login">Log In</a>
+        </header>
+        <main>
+          <p class="eyebrow">Everyday Performance OS</p>
+          <h1>Built for the Busiest People Alive.</h1>
+          <p class="lede">Everyday Performance gives you short workouts, daily habits, streaks, XP, and adaptive coaching built for parents, professionals, entrepreneurs, and anyone whose schedule never stays perfect.</p>
+          <a class="cta" href="https://app.everydayperform.com/signup">Create an Account</a>
+          <p class="offer">Free forever · Pro $14.99/mo or $119/yr · 7-day trial in app</p>
+          <p class="fine">Free account — no card · Pro $14.99/mo or $119/yr · 7-day Pro trial requires a card and auto-renews.</p>
+          <p class="disclaimer">Fitness and habit ideas for general education — not medical advice. Talk with a clinician before you start. <a href="%BASE_URL%terms#health-disclaimer">Health disclaimer</a></p>
+        </main>
+        <footer>
+          <a href="%BASE_URL%press-kit">Press</a>
+          <a href="%BASE_URL%privacy">Privacy Policy</a>
+          <a href="%BASE_URL%terms">Terms of Service</a>
+          <a href="mailto:support@everydayperform.com">support@everydayperform.com</a>
+          <!-- TODO(Jared): add the legal entity name and mailing address once confirmed. Do not invent an LLC or street address. -->
+        </footer>
+      </div>
+    </div>
+    <!-- static-shell:end -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

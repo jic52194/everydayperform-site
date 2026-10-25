@@ -27,7 +27,7 @@ export default function Terms() {
               You must be at least 18 years old to use this Service. You are responsible for maintaining the confidentiality of your account and password and for restricting access to your device.
             </p>
 
-            <h2>2. Health Disclaimer</h2>
+            <h2 id="health-disclaimer" className="scroll-mt-32">2. Health Disclaimer</h2>
             <p>
               Everyday Performance OS provides fitness, nutrition, and wellness information designed for educational purposes only. You should not rely on this information as a substitute for professional medical advice, diagnosis, or treatment. Always consult with a physician or other healthcare professional before starting any fitness program.
             </p>
