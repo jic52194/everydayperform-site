@@ -67,19 +67,20 @@ describe("marketing trust copy", () => {
     expect(indexHtml).toContain("https://everydayperform.com/og.png");
   });
 
-  it("keeps only the labeled note from the founder's friend", () => {
-    expect(home).toContain('eyebrow="From a Friend"');
-    expect(home).toContain('title="A note from"');
-    expect(home).toContain('accent="the Founder\'s Friend"');
-    expect(home).toContain("founder's friend who uses the app");
-    expect(home).toContain("not a founder claim");
-    expect(home).toContain("not a customer-review roundup");
-    expect(home).toContain('role: "Founder\'s friend · App user"');
-    expect(home).toContain("Jared C");
-    expect(home).not.toContain("From the Founder");
+  it("keeps Jared's note labeled Member under the user-message heading", () => {
+    const note = home.slice(home.indexOf("{/* ── TESTIMONIALS"), home.indexOf("{/* ── FINAL CTA"));
+    expect(note).toContain('title="A MESSAGE FROM A USER"');
+    expect(note).not.toContain("eyebrow=");
+    expect(note).not.toContain("accent=");
+    expect(note).not.toContain("sub=");
+    expect(note).toContain('name: "Jared C"');
+    expect(note).toContain('role: "Member"');
+    expect(note).toContain("Everyday Performance helped me keep a 14-day streak while traveling. The habits were simple enough to hold whether I was in Boston or Medellín.");
+    expect(note).toContain("https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412bf33b4d0d04441b3.jpg");
+    expect(note).toContain("https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412fc95b245496dfb2b.mp4");
+    expect(note.toLowerCase()).not.toContain("founder");
     expect(home).not.toContain("the founder's own note");
-    expect(home).not.toContain('role: "Founder",');
-    expect(home).not.toMatch(/name:\s*"Jared C"[\s\S]{0,200}role:\s*"Founder"/);
+    expect(home).not.toContain('role: "Founder"');
     expect(home).not.toContain("Sarah Miller");
     expect(home).not.toContain("Marcus Thorne");
     expect(home).not.toContain("Remote Operations Lead");

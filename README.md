@@ -100,7 +100,7 @@ Self-hosted in `public/` (logo, homepage hero, social image, press-kit backgroun
 - `og.png`
 - `press-bg.jpg`
 
-The homepage shows one note from Jared C, the founder's friend and an app user. The founder is not named. Unverified third-party quotes (Sarah Miller, Marcus Thorne) are not on the site. Jared's photo and video still load from `assets.cdn.filesafe.space`. Move those into `public/` later if that CDN goes away.
+The homepage shows one note from Jared C under the heading A MESSAGE FROM A USER. His role is Member. Unverified third-party quotes (Sarah Miller, Marcus Thorne) are not on the site. Jared's photo and video still load from `assets.cdn.filesafe.space`. Move those into `public/` later if that CDN goes away.
 
 Social images are the self-hosted `og.png` on `everydayperform.com`. The document author is Everyday Performance. No Google Analytics or Meta pixel. The live site's `/__vibe/*` analytics are not included.
 

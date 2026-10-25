@@ -152,7 +152,7 @@ const WorkoutPreview = () => (
 
 /* ─── Testimonial Card ───────────────────────────────────────── */
 
-type FriendNote = {
+type Note = {
   name: string;
   role: string;
   text: string;
@@ -160,7 +160,7 @@ type FriendNote = {
   mediaUrl?: string;
 };
 
-const TestimonialCard = ({ testimonial, index }: { testimonial: FriendNote; index: number }) => {
+const TestimonialCard = ({ testimonial, index }: { testimonial: Note; index: number }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const mediaRef = useRef<HTMLVideoElement>(null);
 
@@ -416,20 +416,15 @@ const Index = () => {
           </motion.div>
         </Section>
 
-        {/* ── FRIEND NOTE ──────────────────────────────────────── */}
+        {/* ── TESTIMONIALS ─────────────────────────────────────── */}
         <Section className="py-28">
-          <SectionHeading
-            eyebrow="From a Friend"
-            title="A note from"
-            accent="the Founder's Friend"
-            sub="This is a note from the founder's friend who uses the app — not a founder claim, and not a customer-review roundup."
-          />
+          <SectionHeading title="A MESSAGE FROM A USER" />
           <div className="max-w-xl mx-auto">
             <TestimonialCard
               index={0}
               testimonial={{
                 name: "Jared C",
-                role: "Founder's friend · App user",
+                role: "Member",
                 text: "Everyday Performance helped me keep a 14-day streak while traveling. The habits were simple enough to hold whether I was in Boston or Medellín.",
                 avatar: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412bf33b4d0d04441b3.jpg",
                 mediaUrl: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412fc95b245496dfb2b.mp4",
