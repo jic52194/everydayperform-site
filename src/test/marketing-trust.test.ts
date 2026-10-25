@@ -67,9 +67,19 @@ describe("marketing trust copy", () => {
     expect(indexHtml).toContain("https://everydayperform.com/og.png");
   });
 
-  it("keeps only the labeled founder note", () => {
-    expect(home).toContain('role: "Founder"');
+  it("keeps only the labeled note from the founder's friend", () => {
+    expect(home).toContain('eyebrow="From a Friend"');
+    expect(home).toContain('title="A note from"');
+    expect(home).toContain('accent="the Founder\'s Friend"');
+    expect(home).toContain("founder's friend who uses the app");
+    expect(home).toContain("not a founder claim");
+    expect(home).toContain("not a customer-review roundup");
+    expect(home).toContain('role: "Founder\'s friend · App user"');
     expect(home).toContain("Jared C");
+    expect(home).not.toContain("From the Founder");
+    expect(home).not.toContain("the founder's own note");
+    expect(home).not.toContain('role: "Founder",');
+    expect(home).not.toMatch(/name:\s*"Jared C"[\s\S]{0,200}role:\s*"Founder"/);
     expect(home).not.toContain("Sarah Miller");
     expect(home).not.toContain("Marcus Thorne");
     expect(home).not.toContain("Remote Operations Lead");
