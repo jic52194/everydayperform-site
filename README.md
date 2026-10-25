@@ -7,7 +7,7 @@ Static marketing homepage for Everyday Performance / Everyday Performance OS. It
 
 There is no email waitlist form and no GoHighLevel webhook on this site.
 
-This repository publishes a **GitHub Pages preview only**. It does not change DNS for everydayperform.com.
+This repository publishes **https://everydayperform.com/** on GitHub Pages. Custom-domain cutover is applied in this repo: the production build uses the site root, canonical and social URLs point at the apex, and the Pages artifact includes `dist/CNAME`. This repository does not change DNS or the registrar. The GitHub Pages custom domain is already `everydayperform.com`; do not clear it.
 
 ## Run locally
 
@@ -21,29 +21,29 @@ npm run dev
 Dev server: http://localhost:8080/ (home, `/press-kit`, `/privacy`, `/terms`).
 
 ```bash
-npm run build    # production build, base /everydayperform-site/
-npm run preview  # http://localhost:4173/everydayperform-site/
+npm run build    # production build, base /
+npm run preview  # http://localhost:4173/
 npm run lint
 npm run test
 ```
 
-`npm run dev` uses Vite base `/`. `npm run build` defaults to base `/everydayperform-site/` so the preview matches project Pages. Override with `VITE_PAGES_BASE` (must start with `/`).
+`npm run dev` and `npm run build` use Vite base `/`, matching https://everydayperform.com/. Override with `VITE_PAGES_BASE` (must start with `/`) only for a non-root preview path.
 
-## GitHub Pages preview
+## GitHub Pages
 
-Expected URL after merge, once Pages is enabled:
+Production URL:
 
-https://jic52194.github.io/everydayperform-site/
+https://everydayperform.com/
 
-The workflow is `.github/workflows/deploy.yml`, adapted from [nextweigh-site](https://github.com/jic52194/nextweigh-site): Node 22, `npm ci`, `npm run build`, `actions/upload-pages-artifact`, `actions/deploy-pages`. Pull requests run the build only. A push to `main` (or a manual workflow dispatch on `main`) deploys.
+The workflow is `.github/workflows/deploy.yml`, adapted from [nextweigh-site](https://github.com/jic52194/nextweigh-site): Node 22, `npm ci`, `npm run build` with `VITE_PAGES_BASE=/`, `actions/upload-pages-artifact`, `actions/deploy-pages`. Pull requests run the build only. A push to `main` (or a manual workflow dispatch on `main`) deploys.
 
-### Manual steps (Jared)
+### After merge
 
 1. Merge the pull request.
 2. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-3. Leave **Custom domain** empty. Do not add `everydayperform.com`.
+3. Keep **Custom domain** set to `everydayperform.com`. It is already configured. Do not clear it.
 4. Open the Actions tab and confirm **Build & publish GitHub Pages** is green.
-5. Open https://jic52194.github.io/everydayperform-site/ and check `/privacy`, `/terms`, and `/press-kit`.
+5. Open https://everydayperform.com/ and check `/privacy`, `/terms`, and `/press-kit`.
 
 ### SPA routes on Pages
 
@@ -54,25 +54,27 @@ GitHub Pages does not rewrite unknown paths to `index.html`. `scripts/spa-fallba
 - `press-kit/index.html`
 - `404.html` (any other path still loads the app, which shows the not-found page)
 
-Add a new public route to that list when you add one in `src/App.tsx`. There is **no `CNAME` file**. nextweigh-site writes `CNAME` into its build because that site is meant to serve nextweigh.com. A `CNAME` containing `everydayperform.com` would make Pages treat the custom domain as the site URL and send the github.io preview at it. Do not add one until the cutover below is approved.
+Add a new public route to that list when you add one in `src/App.tsx`. The same script writes `dist/CNAME` with the single line `everydayperform.com`, matching nextweigh-site (`writeFileSync` of `CNAME` into `dist` during the build). The Pages artifact is `dist`, so that file is published with the site.
 
-## DNS cutover for everydayperform.com
+## DNS for everydayperform.com
 
-**DO NOT RUN until Jared confirms.**
+Jared confirmed DNS cutover. This repository does not change the registrar, DNS, or GoHighLevel.
 
-Nothing in this repo changes the registrar, DNS, GoHighLevel, or the live site. Enabling a custom domain in GitHub Settings is a separate manual step and must wait for that confirmation.
+Repo-side cutover is applied:
 
-When, and only when, Jared confirms:
+- Production build sets `VITE_PAGES_BASE=/` (the custom domain is the site root).
+- Canonical URL, `og:url`, `og:image`, and `twitter:image` in `index.html` use `https://everydayperform.com/`.
+- `npm run build` writes `dist/CNAME` whose only line is `everydayperform.com`.
+- GitHub Pages **Settings** already has the custom domain `everydayperform.com`. Do not clear it.
 
-1. In DNS, point the apex `everydayperform.com` A records at the GitHub Pages addresses used by nextweigh.com:
-   - `185.199.108.153`
-   - `185.199.109.153`
-   - `185.199.110.153`
-   - `185.199.111.153`
-2. Point `www` CNAME at `jic52194.github.io`.
-3. Set `VITE_PAGES_BASE=/` for the production build (custom domain is the site root, not `/everydayperform-site/`). Update the canonical URL, `og:url`, and `og:image` in `index.html` from `https://jic52194.github.io/everydayperform-site/` to `https://everydayperform.com/`.
-4. Add a `CNAME` file whose only line is `everydayperform.com`, and make sure the Pages artifact includes it (nextweigh places `CNAME` in `dist`). Then, in **Settings → Pages**, set the custom domain to `everydayperform.com`. That settings click is manual and still waits on approval.
-5. Wait until GitHub reports the HTTPS certificate is ready, then check apex and `www`.
+DNS at the registrar (not edited here) is the apex `everydayperform.com` A records used by nextweigh.com:
+
+- `185.199.108.153`
+- `185.199.109.153`
+- `185.199.110.153`
+- `185.199.111.153`
+
+and `www` CNAME at `jic52194.github.io`. After GitHub reports the HTTPS certificate is ready, check the apex and `www`.
 
 ## Pages
 
@@ -99,7 +101,7 @@ Testimonial photos and the testimonial video still load from `assets.cdn.filesaf
 ## Scripts
 
 - `npm run dev` — Vite dev server
-- `npm run build` — production build plus Pages SPA fallback
+- `npm run build` — production build, Pages SPA fallback, and `dist/CNAME`
 - `npm run preview` — serve the production build
 - `npm run lint` — ESLint. The imported export currently reports 3 existing errors (`src/lib/sounds.ts` webkit `AudioContext` cast, and two lines in the homepage testimonial card). They are unchanged and are not part of the Pages build.
 - `npm run test` — Vitest once
