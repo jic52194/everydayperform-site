@@ -9,14 +9,12 @@ function withTrailingSlash(base: string) {
 }
 
 // https://vitejs.dev/config/
-// Project Pages preview: https://jic52194.github.io/everydayperform-site/
-// `npm run dev` stays at /. Set VITE_PAGES_BASE=/ only for the custom-domain
-// cutover in the README. Do not do that until Jared confirms.
+// Production custom domain is https://everydayperform.com/ at the site root.
+// `npm run dev` and `npm run build` use base `/`. The Pages workflow sets
+// VITE_PAGES_BASE=/. Override VITE_PAGES_BASE (must start with `/`) only
+// to preview a different base path.
 export default defineConfig(({ mode }) => ({
-  base: withTrailingSlash(
-    process.env.VITE_PAGES_BASE ??
-      (mode === "development" ? "/" : "/everydayperform-site/"),
-  ),
+  base: withTrailingSlash(process.env.VITE_PAGES_BASE ?? "/"),
   server: {
     host: "::",
     port: 8080,

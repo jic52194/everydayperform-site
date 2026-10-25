@@ -21,12 +21,11 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Production build for project Pages
+      - name: Production build for everydayperform.com
         run: npm run build
         env:
-          # Project site: https://jic52194.github.io/everydayperform-site/
-          # Do not set this to "/" until the custom-domain cutover in the README.
-          VITE_PAGES_BASE: /everydayperform-site/
+          # Custom domain site root: https://everydayperform.com/
+          VITE_PAGES_BASE: /
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:
