@@ -7,7 +7,7 @@ import {
   PRICING_TEASER,
   SIGNUP_URL,
 } from "../content/marketing";
-import { stripStaticShell } from "../../scripts/spa-fallback.mjs";
+import { buildRouteHtml, stripStaticShell } from "../../scripts/spa-fallback.mjs";
 
 const indexHtml = readFileSync("index.html", "utf8");
 const home = readFileSync("src/pages/Index.tsx", "utf8");
@@ -121,5 +121,20 @@ describe("marketing trust copy", () => {
     expect(stripped).not.toContain('id="static-shell"');
     expect(stripped).not.toContain(SIGNUP_URL);
     expect(stripped).toContain('<div id="root"></div>');
+  });
+
+  it("keeps October 25 terms text in the route shell when JavaScript has not painted", () => {
+    const html = buildRouteHtml(
+      indexHtml,
+      '<h1>Terms of Use</h1><p>Last updated October 25, 2026</p><h2 id="health-disclaimer">Health information</h2>',
+    );
+    expect(html).toContain("Terms of Use");
+    expect(html).toContain("Last updated October 25, 2026");
+    expect(html).toContain('id="health-disclaimer"');
+    expect(html).toContain('<div id="root"></div>');
+    expect(html).toContain('id="static-shell"');
+    expect(html).not.toContain("Busiest People");
+    expect(html).not.toContain("A MESSAGE FROM A USER");
+    expect(html).not.toContain(SIGNUP_URL);
   });
 });
