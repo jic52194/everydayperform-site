@@ -49,7 +49,7 @@ The workflow is `.github/workflows/deploy.yml`, adapted from [nextweigh-site](ht
 
 ### SPA routes on Pages
 
-`index.html` includes a static hero (headline, Create an Account link to `https://app.everydayperform.com/signup`, pricing line, and health-disclaimer link) so the first paint and non-JS clients are not an empty `#root`. The shell hides once React renders into `#root`. `scripts/spa-fallback.mjs` removes that block from the route copies below so `/privacy` and `/terms` are not a second homepage.
+`index.html` includes a static hero (headline, Create an Account link to `https://app.everydayperform.com/signup`, pricing line, and health-disclaimer link) so the first paint and non-JS clients are not an empty `#root`. The shell hides once React renders into `#root`. `scripts/spa-fallback.mjs` removes that hero from the route copies below so `/privacy` and `/terms` are not a second homepage, then inserts a static render of the matching legal page. Without that, a failed script leaves an empty `#root` and a blank white document.
 
 GitHub Pages does not rewrite unknown paths to `index.html`. `scripts/spa-fallback.mjs` (run at the end of `npm run build`) writes the built shell to:
 
