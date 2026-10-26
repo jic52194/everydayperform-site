@@ -426,8 +426,8 @@ const Index = () => {
                 name: "Jared C",
                 role: "Member",
                 text: "Everyday Performance helped me keep a 14-day streak while traveling. The habits were simple enough to hold whether I was in Boston or Medellín.",
-                avatar: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412bf33b4d0d04441b3.jpg",
-                mediaUrl: "https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412fc95b245496dfb2b.mp4",
+                avatar: `${import.meta.env.BASE_URL}jared-c.jpg`,
+                mediaUrl: `${import.meta.env.BASE_URL}jared-c.mp4`,
               }}
             />
           </div>

@@ -7,7 +7,7 @@ Static marketing homepage for Everyday Performance / Everyday Performance OS. Si
 
 There is no email waitlist form and no GoHighLevel webhook on this site. Do not describe the product as a waitlist or as coming soon.
 
-Offer copy on the homepage matches the app: a free account does not require a card. Pro is $14.99/mo or $119/yr. The 7-day Pro trial requires a card and auto-renews unless you cancel. Cancel Pro anytime in account settings.
+Offer copy on the homepage matches the app: a free account does not require a card. Pro is $14.99/mo or $119/yr. The short pricing line and the fine print both say the 7-day Pro trial requires a card and auto-renews. Cancel Pro anytime in account settings.
 
 This repository publishes **https://everydayperform.com/** on GitHub Pages. Custom-domain cutover is applied in this repo: the production build uses the site root, canonical and social URLs point at the apex, and the Pages artifact includes `dist/CNAME`. This repository does not change DNS or the registrar. The GitHub Pages custom domain is already `everydayperform.com`; do not clear it.
 
@@ -86,10 +86,10 @@ and `www` CNAME at `jic52194.github.io`. After GitHub reports the HTTPS certific
 |---|---|
 | `/` | Marketing homepage |
 | `/press-kit` | Press kit. Inquiries: press@everydayperform.com |
-| `/privacy` | Privacy Policy, adapted from the Everyday Performance OS app `Privacy.tsx` (June 4, 2026). Contact: support@everydayperform.com |
-| `/terms` | Terms of Service, adapted from the app `Terms.tsx` (June 4, 2026). Same contact. Section numbering matches the app source, including the jump from 5 to 7. |
+| `/privacy` | Privacy Policy aligned with the Everyday Performance OS app (last updated October 25, 2026). Contact: support@everydayperform.com |
+| `/terms` | Terms of Use aligned with the app (last updated October 25, 2026). Same contact. The health section keeps the `#health-disclaimer` anchor used by the homepage. |
 
-App-only chrome (in-app back button) is not on these pages. The words of the policies are unchanged. Navbar and footer are the marketing site chrome.
+App-only chrome (in-app back button) is not on these pages. The policy wording matches the app legal pages published October 25, 2026. Navbar and footer are the marketing site chrome. Do not add an LLC name or mailing address unless one is confirmed.
 
 ## Assets
 
@@ -99,12 +99,14 @@ Self-hosted in `public/` (logo, homepage hero, social image, press-kit backgroun
 - `hero-bg.png`
 - `og.png`
 - `press-bg.jpg`
+- `jared-c.jpg`
+- `jared-c.mp4`
 
-The homepage shows one note from Jared C under the heading A MESSAGE FROM A USER. His role is Member. Unverified third-party quotes (Sarah Miller, Marcus Thorne) are not on the site. Jared's photo and video still load from `assets.cdn.filesafe.space`. Move those into `public/` later if that CDN goes away.
+The homepage shows one note from Jared C under the heading A MESSAGE FROM A USER. His role is Member. Unverified third-party quotes (Sarah Miller, Marcus Thorne) are not on the site. His photo and video are the self-hosted files above.
 
 Social images are the self-hosted `og.png` on `everydayperform.com`. The document author is Everyday Performance. No Google Analytics or Meta pixel. The live site's `/__vibe/*` analytics are not included.
 
-The footer links to `/privacy`, `/terms`, and `support@everydayperform.com`. A legal entity name and mailing address are not in this repo. The footer source has a TODO for Jared; do not invent an LLC or street address.
+The footer links to `/privacy`, `/terms`, and `support@everydayperform.com`. It does not name an LLC or a mailing address. Do not add either unless one is confirmed.
 
 ## Scripts
 

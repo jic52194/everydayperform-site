@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
   CARD_LINE,
@@ -26,6 +26,9 @@ describe("marketing trust copy", () => {
   it("states free vs Pro pricing without a blanket no-card claim", () => {
     expect(PRICING_TEASER).toContain("$14.99/mo");
     expect(PRICING_TEASER).toContain("$119/yr");
+    expect(PRICING_TEASER).toContain("Free forever, no card");
+    expect(PRICING_TEASER).toContain("7-day Pro trial requires a card and auto-renews");
+    expect(PRICING_TEASER).not.toContain("7-day trial in app");
     expect(CARD_LINE).toContain("auto-renews");
     expect(CARD_LINE).toContain("card");
     expect(FREE_FAQ_ANSWER).toContain("auto-renews");
@@ -51,12 +54,31 @@ describe("marketing trust copy", () => {
     expect(footer).toContain('to="/privacy"');
     expect(footer).toContain('to="/terms"');
     expect(footer).toContain("support@everydayperform.com");
-    expect(footer).toContain("TODO(Jared)");
+    expect(footer).toContain("Terms of Use");
+    expect(footer).not.toContain("TODO");
+    expect(footer).not.toContain("not on file");
     expect(footer).not.toContain("Everyday Performance LLC");
     expect(indexHtml).toContain("%BASE_URL%privacy");
     expect(indexHtml).toContain("%BASE_URL%terms");
+    expect(indexHtml).toContain("Terms of Use");
+    expect(indexHtml).not.toContain("TODO");
+    expect(indexHtml).not.toContain("not on file");
     expect(privacy).toContain('href="mailto:support@everydayperform.com"');
     expect(terms).toContain('href="mailto:support@everydayperform.com"');
+    expect(privacy).toContain("Last updated October 25, 2026");
+    expect(terms).toContain("Last updated October 25, 2026");
+    expect(privacy).toContain("Apple Health data");
+    expect(privacy).toContain("Private accountability data");
+    expect(privacy).toContain("We do not sell your personal information.");
+    expect(terms).toContain("Accountability and crisis limitations");
+    expect(terms).toContain("The optional Pro trial lasts 7 days, requires a card");
+    expect(terms).toContain("Standard End User License Agreement");
+    for (const source of [privacy, terms, footer, indexHtml]) {
+      expect(source).not.toContain("June 4");
+      expect(source).not.toContain("legal entity");
+      expect(source).not.toContain("not on file");
+      expect(source).not.toContain("TODO");
+    }
   });
 
   it("does not publish Vibe builder meta", () => {
@@ -76,8 +98,12 @@ describe("marketing trust copy", () => {
     expect(note).toContain('name: "Jared C"');
     expect(note).toContain('role: "Member"');
     expect(note).toContain("Everyday Performance helped me keep a 14-day streak while traveling. The habits were simple enough to hold whether I was in Boston or Medellín.");
-    expect(note).toContain("https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412bf33b4d0d04441b3.jpg");
-    expect(note).toContain("https://assets.cdn.filesafe.space/ofKMWXsbzYdXDKlGajk5/media/6a216412fc95b245496dfb2b.mp4");
+    expect(note).toContain("jared-c.jpg");
+    expect(note).toContain("jared-c.mp4");
+    expect(existsSync("public/jared-c.jpg")).toBe(true);
+    expect(existsSync("public/jared-c.mp4")).toBe(true);
+    expect(note).not.toContain("filesafe.space");
+    expect(home).not.toContain("filesafe.space");
     expect(note.toLowerCase()).not.toContain("founder");
     expect(home).not.toContain("the founder's own note");
     expect(home).not.toContain('role: "Founder"');
