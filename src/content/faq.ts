@@ -51,7 +51,7 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
   {
     id: "trial",
     q: "What does the 7-day Pro trial require?",
-    a: "The 7-day Pro trial requires a card and auto-renews unless you cancel before it ends. Pro is $14.99/mo or $119/yr. On the yearly plan, $119/yr works out to $9.92 per month.",
+    a: "The 7-day Pro trial requires a card and auto-renews unless you cancel before it ends. Pro is $14.99/mo or $149.99/yr. On the yearly plan, $149.99/yr works out to $12.50 per month.",
   },
   {
     id: "cancel",
@@ -61,7 +61,7 @@ export const FAQ_ITEMS: readonly FaqItem[] = [
   {
     id: "app-store",
     q: "Is the website price the same as an iPhone subscription?",
-    a: "No. On the website, Pro is $14.99 per month or $119 per year. The iPhone subscription price is the live price and currency shown in the app by the App Store. Website prices are not the App Store price.",
+    a: "No. On the website, Pro is $14.99 per month or $149.99 per year. The iPhone subscription price is the live price and currency shown in the app by the App Store. Website prices are not the App Store price.",
   },
   {
     id: "coach",

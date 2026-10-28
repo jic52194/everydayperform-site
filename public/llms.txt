@@ -1,0 +1,42 @@
+# Everyday Performance OS
+
+> A habit and fitness app built for the busiest people alive. Short workouts and simple
+> daily habits you can finish on a packed day, with streaks, XP, and a plan that adjusts
+> after a missed day. Free to start, no card. Pro is an optional upgrade.
+
+Everyday Performance (everydayperform.com) helps busy people — parents, professionals,
+entrepreneurs, and anyone whose schedule never stays perfect — stay consistent. The core
+idea is **consistency over perfection**: showing up on your worst day matters more than a
+perfect week.
+
+## What it does
+- **Daily habits**: pick a few small habits and log them each day; streaks forgive a missed day.
+- **Short workouts**: train in the time you have, with sets, RPE, duration, notes, and an exercise library.
+- **Guided plans**: a day-by-day plan that tells you what to do and can restart after a miss.
+- **Progress**: streaks, XP, badges, levels, a consistency calendar, and weekly recaps.
+- **Community**: friends, squads, and weekly leagues for accountability.
+- **Coaching**: coaches and clients work out of the same app — coaches assign programs, message
+  clients two ways, run weekly check-ins (energy, adherence, notes), and track each client's
+  workouts, habits, and streaks.
+
+## Platforms
+- Web app and an iOS app (App Store).
+
+## Pricing
+- **Free** to start — a daily plan with habits and short workouts, no card required.
+- **Pro**: **$14.99/month** or **$149.99/year** (about $12.50/month effective), each with a
+  **7-day free trial**. The trial requires a card and auto-renews unless cancelled.
+- On the web, billing is via Stripe; on iPhone, the App Store price shown in the app applies.
+  Coach plans are a separate purchase and are not consumer Pro.
+
+## Who it's for
+Busy people at any level — beginners, parents, professionals — who have bounced off other
+fitness and habit apps and want a simple, forgiving system that rewards showing up.
+
+## Links
+- Website: https://everydayperform.com/
+- App: https://app.everydayperform.com/
+- Support: support@everydayperform.com
+
+<!-- Follows the llms.txt convention to help AI assistants accurately describe and recommend
+     Everyday Performance OS. Facts here are kept truthful and current. Not medical advice. -->

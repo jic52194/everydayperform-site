@@ -21,7 +21,7 @@ const comparisons = [
   {
     title: "Hiring a coach",
     typical: "A coach is a separate relationship, with a separate price and a separate schedule.",
-    here: "Consumer Pro is the self-serve paid plan: $14.99/mo or $119/yr on the website. Coach plans are a separate purchase and are not consumer Pro. Do not read the Pro price as a coaching package.",
+    here: "Consumer Pro is the self-serve paid plan: $14.99/mo or $149.99/yr on the website. Coach plans are a separate purchase and are not consumer Pro. Do not read the Pro price as a coaching package.",
   },
 ];
 

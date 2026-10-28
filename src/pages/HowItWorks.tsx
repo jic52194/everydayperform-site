@@ -25,7 +25,7 @@ const steps = [
   },
   {
     title: "Start Pro only if you want it",
-    body: "Pro is $14.99/mo or $119/yr on the website. The yearly price works out to $9.92 per month. Cancel anytime in account settings and keep access through the end of the current billing period. An iPhone subscription, if you buy one, uses the App Store price shown in the app.",
+    body: "Pro is $14.99/mo or $149.99/yr on the website. The yearly price works out to $12.50 per month. Cancel anytime in account settings and keep access through the end of the current billing period. An iPhone subscription, if you buy one, uses the App Store price shown in the app.",
   },
 ];
 
