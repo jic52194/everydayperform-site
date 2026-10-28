@@ -185,6 +185,8 @@ async function writeSpaFallbacks() {
     compare: built.PAGES.compare,
     guides: built.PAGES.guides,
     "guides/five-minute-day": built.PAGES.fiveMinuteDay,
+    "guides/habit-tracker-for-busy-parents": built.PAGES.busyParents,
+    "guides/5-minute-workouts": built.PAGES.fiveMinuteWorkouts,
     "press-kit": built.PAGES.press,
     privacy: built.PAGES.privacy,
     terms: built.PAGES.terms,
