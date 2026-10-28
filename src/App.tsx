@@ -13,6 +13,10 @@ import Guides from "./pages/Guides";
 import FiveMinuteDay from "./pages/FiveMinuteDay";
 import BusyParents from "./pages/BusyParents";
 import FiveMinuteWorkouts from "./pages/FiveMinuteWorkouts";
+import Entrepreneurs from "./pages/Entrepreneurs";
+import Professionals from "./pages/Professionals";
+import StreakApp from "./pages/StreakApp";
+import Consistency from "./pages/Consistency";
 import PressKit from "./pages/PressKit";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -40,6 +44,10 @@ const App = () => (
           <Route path="/guides/five-minute-day" element={<FiveMinuteDay />} />
           <Route path="/guides/habit-tracker-for-busy-parents" element={<BusyParents />} />
           <Route path="/guides/5-minute-workouts" element={<FiveMinuteWorkouts />} />
+          <Route path="/guides/workout-app-for-entrepreneurs" element={<Entrepreneurs />} />
+          <Route path="/guides/workout-app-for-professionals" element={<Professionals />} />
+          <Route path="/guides/habit-streak-app" element={<StreakApp />} />
+          <Route path="/guides/how-to-stay-consistent" element={<Consistency />} />
           <Route path="/press-kit" element={<PressKit />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
