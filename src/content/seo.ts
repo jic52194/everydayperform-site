@@ -79,6 +79,34 @@ export const PAGES = {
       "Short, equipment-optional 5-minute workouts for professionals and parents with no time. Log it, keep the streak, and let a few minutes still count. Free account, no card.",
     ogType: "article",
   },
+  entrepreneurs: {
+    path: "/guides/workout-app-for-entrepreneurs/",
+    title: "Workout App for Entrepreneurs | Everyday Performance",
+    description:
+      "A workout and habit app for entrepreneurs and founders with no schedule: short sessions, tiny daily habits, and streaks that survive a chaotic week. Free account, no card.",
+    ogType: "article",
+  },
+  professionals: {
+    path: "/guides/workout-app-for-professionals/",
+    title: "Workout App for Busy Professionals | Everyday Performance",
+    description:
+      "A workout app built for busy professionals with no time: short trainable sessions, habits you can finish between meetings, and progress that compounds. Free account, no card.",
+    ogType: "article",
+  },
+  streakApp: {
+    path: "/guides/habit-streak-app/",
+    title: "A Habit Streak App That Forgives a Missed Day | Everyday Performance",
+    description:
+      "A habit streak app where one missed day doesn't erase months: forgiving streaks, XP, and a plan built to restart. Free account, no card.",
+    ogType: "article",
+  },
+  consistency: {
+    path: "/guides/how-to-stay-consistent/",
+    title: "How to Stay Consistent With Workouts | Everyday Performance",
+    description:
+      "How to stay consistent with workouts and habits when motivation runs out: small wins, forgiving streaks, and a system that rewards showing up. Free account, no card.",
+    ogType: "article",
+  },
   press: {
     path: "/press-kit/",
     title: "Press Kit & Media Kit | Everyday Performance OS",
@@ -108,6 +136,10 @@ export const INDEXABLE_PATHS = [
   PAGES.fiveMinuteDay.path,
   PAGES.busyParents.path,
   PAGES.fiveMinuteWorkouts.path,
+  PAGES.entrepreneurs.path,
+  PAGES.professionals.path,
+  PAGES.streakApp.path,
+  PAGES.consistency.path,
   PAGES.press.path,
   PAGES.privacy.path,
   PAGES.terms.path,
@@ -123,6 +155,10 @@ export const SPA_ROUTE_DIRS = [
   "guides/five-minute-day",
   "guides/habit-tracker-for-busy-parents",
   "guides/5-minute-workouts",
+  "guides/workout-app-for-entrepreneurs",
+  "guides/workout-app-for-professionals",
+  "guides/habit-streak-app",
+  "guides/how-to-stay-consistent",
   "press-kit",
   "privacy",
   "terms",
@@ -189,6 +225,10 @@ export function llmsTxt() {
     page(PAGES.fiveMinuteDay.path, "A five-minute day", "What to do when you only have a few minutes."),
     page(PAGES.busyParents.path, "Habit tracker for busy parents", "A forgiving habit + short-workout plan for parents with no time."),
     page(PAGES.fiveMinuteWorkouts.path, "5-minute workouts", "Short, equipment-optional sessions for a packed day."),
+    page(PAGES.entrepreneurs.path, "Workout app for entrepreneurs", "Short sessions and habits for founders with no schedule."),
+    page(PAGES.professionals.path, "Workout app for busy professionals", "Trainable sessions between meetings; progress that compounds."),
+    page(PAGES.streakApp.path, "Habit streak app", "Forgiving streaks where one missed day doesn't erase months."),
+    page(PAGES.consistency.path, "How to stay consistent", "Staying consistent when motivation runs out."),
     page(PAGES.press.path, "Press kit", "Logo, colors, and typography. Press contact: press@everydayperform.com."),
     page(PAGES.privacy.path, "Privacy Policy", "How account, fitness, Health, and accountability information is handled."),
     page(PAGES.terms.path, "Terms of Use", "Health information, subscriptions, and community rules."),
@@ -461,6 +501,30 @@ export const guidesJsonLd = pageGraph(
         name: "5-minute workouts for a packed day",
         url: absoluteUrl(PAGES.fiveMinuteWorkouts.path),
       },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "Workout app for entrepreneurs",
+        url: absoluteUrl(PAGES.entrepreneurs.path),
+      },
+      {
+        "@type": "ListItem",
+        position: 5,
+        name: "Workout app for busy professionals",
+        url: absoluteUrl(PAGES.professionals.path),
+      },
+      {
+        "@type": "ListItem",
+        position: 6,
+        name: "A habit streak app that forgives a missed day",
+        url: absoluteUrl(PAGES.streakApp.path),
+      },
+      {
+        "@type": "ListItem",
+        position: 7,
+        name: "How to stay consistent with workouts",
+        url: absoluteUrl(PAGES.consistency.path),
+      },
     ],
   },
 );
@@ -525,6 +589,33 @@ export const fiveMinuteWorkoutsJsonLd = pageGraph(
   },
 );
 
+function guideArticleJsonLd(page: PageMeta, headline: string) {
+  return pageGraph(
+    breadcrumbNode([
+      { name: "Home", path: "/" },
+      { name: "Guides", path: PAGES.guides.path },
+      { name: headline, path: page.path },
+    ]),
+    {
+      "@type": "Article",
+      headline,
+      description: page.description,
+      datePublished: CONTENT_UPDATED,
+      dateModified: CONTENT_UPDATED,
+      image: OG_IMAGE,
+      inLanguage: "en",
+      mainEntityOfPage: absoluteUrl(page.path),
+      author: orgRef(),
+      publisher: orgRef(),
+    },
+  );
+}
+
+export const entrepreneursJsonLd = guideArticleJsonLd(PAGES.entrepreneurs, "Workout app for entrepreneurs");
+export const professionalsJsonLd = guideArticleJsonLd(PAGES.professionals, "Workout app for busy professionals");
+export const streakAppJsonLd = guideArticleJsonLd(PAGES.streakApp, "A habit streak app that forgives a missed day");
+export const consistencyJsonLd = guideArticleJsonLd(PAGES.consistency, "How to stay consistent with workouts");
+
 export const pressJsonLd = pageGraph(
   breadcrumbNode([
     { name: "Home", path: "/" },
@@ -559,6 +650,10 @@ export const JSON_LD_BY_PATH: Record<string, Record<string, unknown>> = {
   [PAGES.fiveMinuteDay.path]: fiveMinuteJsonLd,
   [PAGES.busyParents.path]: busyParentsJsonLd,
   [PAGES.fiveMinuteWorkouts.path]: fiveMinuteWorkoutsJsonLd,
+  [PAGES.entrepreneurs.path]: entrepreneursJsonLd,
+  [PAGES.professionals.path]: professionalsJsonLd,
+  [PAGES.streakApp.path]: streakAppJsonLd,
+  [PAGES.consistency.path]: consistencyJsonLd,
   [PAGES.press.path]: pressJsonLd,
   [PAGES.privacy.path]: privacyJsonLd,
   [PAGES.terms.path]: termsJsonLd,

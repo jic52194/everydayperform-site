@@ -8,6 +8,10 @@ import Features from "@/pages/Features";
 import FiveMinuteDay from "@/pages/FiveMinuteDay";
 import BusyParents from "@/pages/BusyParents";
 import FiveMinuteWorkouts from "@/pages/FiveMinuteWorkouts";
+import Entrepreneurs from "@/pages/Entrepreneurs";
+import Professionals from "@/pages/Professionals";
+import StreakApp from "@/pages/StreakApp";
+import Consistency from "@/pages/Consistency";
 import Guides from "@/pages/Guides";
 import HowItWorks from "@/pages/HowItWorks";
 import Privacy from "@/pages/Privacy";
@@ -47,6 +51,10 @@ export function renderRouteBodies() {
     "guides/five-minute-day": render(FiveMinuteDay),
     "guides/habit-tracker-for-busy-parents": render(BusyParents),
     "guides/5-minute-workouts": render(FiveMinuteWorkouts),
+    "guides/workout-app-for-entrepreneurs": render(Entrepreneurs),
+    "guides/workout-app-for-professionals": render(Professionals),
+    "guides/habit-streak-app": render(StreakApp),
+    "guides/how-to-stay-consistent": render(Consistency),
   };
 
   if (!pages.terms.includes("Terms of Use") || !pages.terms.includes("Last updated October 25, 2026") || !pages.terms.includes('id="health-disclaimer"')) {
@@ -64,6 +72,10 @@ export function renderRouteBodies() {
   if (!hasH1(pages["guides/five-minute-day"], "A five-minute day")) throw new Error("Guide prerender is missing its h1.");
   if (!hasH1(pages["guides/habit-tracker-for-busy-parents"], "Habit tracker for busy parents")) throw new Error("Busy-parents guide prerender is missing its h1.");
   if (!hasH1(pages["guides/5-minute-workouts"], "5-minute workouts")) throw new Error("5-minute workouts guide prerender is missing its h1.");
+  if (!hasH1(pages["guides/workout-app-for-entrepreneurs"], "Workout app for entrepreneurs")) throw new Error("Entrepreneurs guide prerender is missing its h1.");
+  if (!hasH1(pages["guides/workout-app-for-professionals"], "Workout app for busy professionals")) throw new Error("Professionals guide prerender is missing its h1.");
+  if (!hasH1(pages["guides/habit-streak-app"], "A habit streak app that forgives a missed day")) throw new Error("Streak-app guide prerender is missing its h1.");
+  if (!hasH1(pages["guides/how-to-stay-consistent"], "How to stay consistent with workouts")) throw new Error("Consistency guide prerender is missing its h1.");
 
   const combined = Object.values(pages).join("\n");
   if (/legal entity|mailing address|not on file/i.test(pages.terms + pages.privacy)) {
