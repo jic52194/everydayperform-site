@@ -1,23 +1,72 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
+import { SITE_ORIGIN } from "@/content/seo";
+
+export type JsonLd = Record<string, unknown>;
 
 interface SEOProps {
   title: string;
   description: string;
+  path?: string;
+  noindex?: boolean;
+  jsonLd?: JsonLd;
 }
 
-export function SEO({ title, description }: SEOProps) {
-  useEffect(() => {
+function upsertMeta(attr: "name" | "property", key: string, content: string) {
+  let el = document.head.querySelector(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+function canonicalFor(path: string, noindex: boolean) {
+  if (noindex) {
+    const normalized = path.startsWith("/") ? path : `/${path}`;
+    return `${SITE_ORIGIN}${normalized}`;
+  }
+  if (path === "/") return `${SITE_ORIGIN}/`;
+  const hashIndex = path.indexOf("#");
+  const hash = hashIndex >= 0 ? path.slice(hashIndex) : "";
+  const pathname = hashIndex >= 0 ? path.slice(0, hashIndex) : path;
+  const withLead = pathname.startsWith("/") ? pathname : `/${pathname}`;
+  const withSlash = withLead === "/" ? "/" : withLead.endsWith("/") ? withLead : `${withLead}/`;
+  return `${SITE_ORIGIN}${withSlash}${hash}`;
+}
+
+export function SEO({ title, description, path = "/", noindex = false, jsonLd }: SEOProps) {
+  useLayoutEffect(() => {
+    const url = canonicalFor(path, noindex);
     document.title = title;
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute("content", description);
-    } else {
-      const meta = document.createElement("meta");
-      meta.name = "description";
-      meta.content = description;
-      document.head.appendChild(meta);
+    upsertMeta("name", "description", description);
+    upsertMeta("property", "og:title", title);
+    upsertMeta("property", "og:description", description);
+    upsertMeta("property", "og:url", url);
+    upsertMeta("property", "og:type", "website");
+    upsertMeta("name", "twitter:title", title);
+    upsertMeta("name", "twitter:description", description);
+    upsertMeta("name", "robots", noindex ? "noindex, follow" : "index, follow");
+
+    let canonical = document.head.querySelector('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.setAttribute("rel", "canonical");
+      document.head.appendChild(canonical);
     }
-  }, [title, description]);
+    canonical.setAttribute("href", url);
+
+    const existing = document.getElementById("ld-json");
+    if (jsonLd) {
+      const script = existing ?? document.createElement("script");
+      script.id = "ld-json";
+      script.setAttribute("type", "application/ld+json");
+      script.textContent = JSON.stringify(jsonLd);
+      if (!existing) document.head.appendChild(script);
+    } else if (existing) {
+      existing.remove();
+    }
+  }, [title, description, path, noindex, jsonLd]);
 
   return null;
 }

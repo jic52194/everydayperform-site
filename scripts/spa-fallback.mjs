@@ -55,6 +55,48 @@ export function buildRouteHtml(homepageHtml, bodyHtml) {
   return stripped.replace(marker, `${shell}\n    ${marker}`);
 }
 
+function escapeAttr(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;");
+}
+
+function upsertMeta(html, attr, key, content) {
+  const tag = `<meta ${attr}="${key}" content="${escapeAttr(content)}" />`;
+  const re = new RegExp(`<meta\\s+${attr}="${key}"\\s+content="[^"]*"\\s*/?>`);
+  if (re.test(html)) return html.replace(re, tag);
+  return html.replace("</head>", `    ${tag}\n  </head>`);
+}
+
+export function applyHead(html, meta) {
+  let next = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeAttr(meta.title)}</title>`);
+  next = upsertMeta(next, "name", "description", meta.description);
+  next = upsertMeta(next, "property", "og:title", meta.title);
+  next = upsertMeta(next, "property", "og:description", meta.description);
+  next = upsertMeta(next, "property", "og:url", meta.url);
+  next = upsertMeta(next, "property", "og:type", "website");
+  next = upsertMeta(next, "name", "twitter:title", meta.title);
+  next = upsertMeta(next, "name", "twitter:description", meta.description);
+  next = upsertMeta(next, "name", "robots", meta.robots ?? "index, follow");
+  const canonical = `<link rel="canonical" href="${escapeAttr(meta.url)}" />`;
+  if (/<link rel="canonical" href="[^"]*"\s*\/?>/.test(next)) {
+    next = next.replace(/<link rel="canonical" href="[^"]*"\s*\/?>/, canonical);
+  } else {
+    next = next.replace("</head>", `    ${canonical}\n  </head>`);
+  }
+
+  const json = meta.jsonLd
+    ? `<script type="application/ld+json" id="ld-json">${JSON.stringify(meta.jsonLd).replace(/</g, "\\u003c")}</script>`
+    : "";
+  if (/<script type="application\/ld\+json" id="ld-json">[\s\S]*?<\/script>/.test(next)) {
+    next = next.replace(/<script type="application\/ld\+json" id="ld-json">[\s\S]*?<\/script>/, json);
+  } else if (json) {
+    next = next.replace("</head>", `    ${json}\n  </head>`);
+  }
+  return next;
+}
+
 async function prerenderLegalPages() {
   process.env.NODE_ENV = "production";
   const esbuild = await import("esbuild");
@@ -80,20 +122,9 @@ async function prerenderLegalPages() {
       logLevel: "silent",
     });
 
-    const { renderLegalPages } = await import(pathToFileURL(outfile).href);
-    const { terms, privacy } = renderLegalPages();
-
-    if (!terms.includes("Terms of Use") || !terms.includes("Last updated October 25, 2026") || !terms.includes('id="health-disclaimer"')) {
-      throw new Error("Terms prerender is missing the October 25 copy.");
-    }
-    if (!privacy.includes("Privacy Policy") || !privacy.includes("Last updated October 25, 2026")) {
-      throw new Error("Privacy prerender is missing the October 25 copy.");
-    }
-    if (/legal entity|mailing address|not on file/i.test(terms + privacy)) {
-      throw new Error("Legal prerender invented an entity or address.");
-    }
-
-    return { terms, privacy };
+    const built = await import(pathToFileURL(outfile).href);
+    const bodies = built.renderRouteBodies();
+    return { bodies, ...built };
   } finally {
     rmSync(outfile, { force: true });
   }
@@ -112,22 +143,58 @@ async function writeSpaFallbacks() {
     process.exit(1);
   }
 
-  const emptyRouteHtml = stripStaticShell(homepage);
-  if (emptyRouteHtml.includes("static-shell:start") || emptyRouteHtml.includes("id=\"static-shell\"")) {
-    console.error("Failed to strip the static hero from route copies.");
+  const built = await prerenderLegalPages();
+  const homeUrl = built.absoluteUrl("/");
+  const homeHtml = applyHead(homepage, {
+    title: built.PAGES.home.title,
+    description: built.PAGES.home.description,
+    url: homeUrl,
+    jsonLd: built.homeJsonLd,
+  });
+  if (!homeHtml.includes("static-shell:start") || !homeHtml.includes("Busiest People")) {
+    console.error("Homepage shell lost its static hero.");
     process.exit(1);
   }
+  writeFileSync(indexPath, homeHtml);
 
-  const legal = await prerenderLegalPages();
-  const routeHtml = {
-    privacy: buildRouteHtml(homepage, legal.privacy),
-    terms: buildRouteHtml(homepage, legal.terms),
-    "press-kit": emptyRouteHtml,
+  const pageByDir = {
+    features: built.PAGES.features,
+    "how-it-works": built.PAGES.howItWorks,
+    faq: built.PAGES.faq,
+    compare: built.PAGES.compare,
+    guides: built.PAGES.guides,
+    "guides/five-minute-day": built.PAGES.fiveMinuteDay,
+    "press-kit": built.PAGES.press,
+    privacy: built.PAGES.privacy,
+    terms: built.PAGES.terms,
   };
 
-  for (const [route, html] of Object.entries(routeHtml)) {
-    if (route !== "press-kit" && (html.includes("Busiest People") || !html.includes("Last updated October 25, 2026"))) {
-      console.error(`Route shell for /${route} is missing its legal page or still contains the homepage hero.`);
+  const bodies = {
+    ...built.bodies,
+    "press-kit": built.PRESS_STATIC_HTML,
+  };
+
+  for (const [route, page] of Object.entries(pageByDir)) {
+    const html = applyHead(buildRouteHtml(homeHtml, bodies[route]), {
+      title: page.title,
+      description: page.description,
+      url: built.absoluteUrl(page.path),
+      jsonLd: built.JSON_LD_BY_PATH[page.path],
+    });
+    if (html.includes("Busiest People")) {
+      console.error(`Route shell for /${route} still contains the homepage hero.`);
+      process.exit(1);
+    }
+    if (!html.includes("<h1")) {
+      console.error(`Route shell for /${route} is missing an h1.`);
+      process.exit(1);
+    }
+    if ((route === "privacy" || route === "terms") && !html.includes("Last updated October 25, 2026")) {
+      console.error(`Route shell for /${route} is missing the October 25 legal copy.`);
+      process.exit(1);
+    }
+    if (route === "terms" && !html.includes('id="health-disclaimer"')) {
+      console.error("Terms shell is missing #health-disclaimer.");
       process.exit(1);
     }
     const dir = `dist/${route}`;
@@ -135,7 +202,19 @@ async function writeSpaFallbacks() {
     writeFileSync(`${dir}/index.html`, html);
   }
 
-  writeFileSync("dist/404.html", emptyRouteHtml);
+  const notFound = applyHead(buildRouteHtml(homeHtml, built.NOT_FOUND_STATIC_HTML), {
+    title: built.NOT_FOUND_META.title,
+    description: built.NOT_FOUND_META.description,
+    url: `${built.absoluteUrl("/").replace(/\/$/, "")}/404`,
+    robots: built.NOT_FOUND_META.robots,
+    jsonLd: null,
+  });
+  if (!notFound.includes("noindex") || notFound.includes("Busiest People")) {
+    console.error("404 shell is missing noindex or still contains the homepage hero.");
+    process.exit(1);
+  }
+  writeFileSync("dist/404.html", notFound);
+  writeFileSync("dist/sitemap.xml", built.sitemapXml());
 
   // Browsers request these automatically. A missing pair shows up as two
   // "Failed to load resource" 404s on every route, including /terms/.
@@ -150,7 +229,7 @@ async function writeSpaFallbacks() {
   // includes it. The file's only line is the apex domain.
   writeFileSync("dist/CNAME", "everydayperform.com\n");
 
-  console.log(`SPA fallback written for ${Object.keys(routeHtml).join(", ")} and 404.html`);
+  console.log(`SPA fallback written for ${Object.keys(pageByDir).join(", ")} and 404.html`);
   console.log("CNAME written: everydayperform.com");
 }
 

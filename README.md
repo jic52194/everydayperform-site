@@ -20,7 +20,7 @@ npm install
 npm run dev
 ```
 
-Dev server: http://localhost:8080/ (home, `/press-kit`, `/privacy`, `/terms`).
+Dev server: http://localhost:8080/ (home, `/features`, `/how-it-works`, `/faq`, `/compare`, `/guides`, `/press-kit`, `/privacy`, `/terms`). GitHub Pages serves those directories with a trailing slash.
 
 ```bash
 npm run build    # production build, base /
@@ -45,7 +45,7 @@ The workflow is `.github/workflows/deploy.yml`, adapted from [nextweigh-site](ht
 2. Repo **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 3. Keep **Custom domain** set to `everydayperform.com`. It is already configured. Do not clear it.
 4. Open the Actions tab and confirm **Build & publish GitHub Pages** is green.
-5. Open https://everydayperform.com/ and check `/privacy`, `/terms`, and `/press-kit`.
+5. Open https://everydayperform.com/ and check `/features/`, `/how-it-works/`, `/faq/`, `/compare/`, `/guides/`, `/guides/five-minute-day/`, `/privacy/`, `/terms/`, and `/press-kit/`.
 
 ### SPA routes on Pages
 
@@ -53,10 +53,18 @@ The workflow is `.github/workflows/deploy.yml`, adapted from [nextweigh-site](ht
 
 GitHub Pages does not rewrite unknown paths to `index.html`. `scripts/spa-fallback.mjs` (run at the end of `npm run build`) writes the built shell to:
 
+- `features/index.html`
+- `how-it-works/index.html`
+- `faq/index.html`
+- `compare/index.html`
+- `guides/index.html`
+- `guides/five-minute-day/index.html`
 - `privacy/index.html`
 - `terms/index.html`
 - `press-kit/index.html`
 - `404.html` (any other path still loads the app, which shows the not-found page)
+
+`npm run build` also writes `dist/sitemap.xml`. `public/robots.txt` points at `https://everydayperform.com/sitemap.xml`.
 
 Add a new public route to that list when you add one in `src/App.tsx`. The same script writes `dist/CNAME` with the single line `everydayperform.com`, matching nextweigh-site (`writeFileSync` of `CNAME` into `dist` during the build). The Pages artifact is `dist`, so that file is published with the site.
 
@@ -84,10 +92,16 @@ and `www` CNAME at `jic52194.github.io`. After GitHub reports the HTTPS certific
 
 | Path | What |
 |---|---|
-| `/` | Marketing homepage |
-| `/press-kit` | Press kit. Inquiries: press@everydayperform.com |
-| `/privacy` | Privacy Policy aligned with the Everyday Performance OS app (last updated October 25, 2026). Contact: support@everydayperform.com |
-| `/terms` | Terms of Use aligned with the app (last updated October 25, 2026). Same contact. The health section keeps the `#health-disclaimer` anchor used by the homepage. |
+| `/` | Marketing homepage, including `#pricing` |
+| `/features/` | Feature deep-dive |
+| `/how-it-works/` | How the daily loop works |
+| `/faq/` | Pricing, trial, cancellation, and product questions |
+| `/compare/` | Category comparison. No named competitor trademarks and no review counts |
+| `/guides/` | Guide index |
+| `/guides/five-minute-day/` | Busy-day guide |
+| `/press-kit/` | Press kit. Inquiries: press@everydayperform.com |
+| `/privacy/` | Privacy Policy aligned with the Everyday Performance OS app (last updated October 25, 2026). Contact: support@everydayperform.com |
+| `/terms/` | Terms of Use aligned with the app (last updated October 25, 2026). Same contact. The health section keeps the `#health-disclaimer` anchor used by the homepage. |
 
 App-only chrome (in-app back button) is not on these pages. The policy wording matches the app legal pages published October 25, 2026. Navbar and footer are the marketing site chrome. Do not add an LLC name or mailing address unless one is confirmed.
 
@@ -96,7 +110,7 @@ App-only chrome (in-app back button) is not on these pages. The policy wording m
 Self-hosted in `public/` (logo, homepage hero, social image, press-kit background):
 
 - `logo.png`
-- `hero-bg.png`
+- `hero-bg.webp`
 - `og.png`
 - `press-bg.jpg`
 - `jared-c.jpg`
