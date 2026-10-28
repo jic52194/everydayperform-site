@@ -91,6 +91,33 @@ export default function Guides() {
           </p>
           <Link to={PAGES.consistency.path} className="text-primary underline underline-offset-4">Read the guide</Link>
         </article>
+        <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
+          <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
+            <Link to={PAGES.adhd.path} className="hover:text-primary">A habit tracker that works with an ADHD brain</Link>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Tiny habits, forgiving streaks, and a plan built to restart. General product guidance, not medical advice.
+          </p>
+          <Link to={PAGES.adhd.path} className="text-primary underline underline-offset-4">Read the guide</Link>
+        </article>
+        <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
+          <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
+            <Link to={PAGES.noEquipment.path} className="hover:text-primary">Home workouts with no equipment</Link>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Bodyweight sessions you can finish at home, scaled to the minutes you have, with the streak intact.
+          </p>
+          <Link to={PAGES.noEquipment.path} className="text-primary underline underline-offset-4">Read the guide</Link>
+        </article>
+        <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
+          <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
+            <Link to={PAGES.accountability.path} className="hover:text-primary">An accountability fitness app</Link>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Friends, squads, weekly leagues, and an optional coach who can see your workouts, habits, and streaks.
+          </p>
+          <Link to={PAGES.accountability.path} className="text-primary underline underline-offset-4">Read the guide</Link>
+        </article>
       </div>
     </MarketingLayout>
   );

@@ -107,6 +107,27 @@ export const PAGES = {
       "How to stay consistent with workouts and habits when motivation runs out: small wins, forgiving streaks, and a system that rewards showing up. Free account, no card.",
     ogType: "article",
   },
+  adhd: {
+    path: "/guides/habit-tracker-for-adhd/",
+    title: "A Habit Tracker That Works With an ADHD Brain | Everyday Performance",
+    description:
+      "A forgiving habit tracker for people who struggle with consistency: tiny habits, streaks that survive a missed day, and a plan built to restart. Not medical advice. Free account, no card.",
+    ogType: "article",
+  },
+  noEquipment: {
+    path: "/guides/home-workout-no-equipment/",
+    title: "Home Workouts With No Equipment | Everyday Performance",
+    description:
+      "Bodyweight home workouts with no equipment, logged in the time you have, with streaks and XP that reward showing up. Free account, no card.",
+    ogType: "article",
+  },
+  accountability: {
+    path: "/guides/accountability-fitness-app/",
+    title: "An Accountability Fitness App | Everyday Performance",
+    description:
+      "An accountability fitness app: friends, squads, weekly leagues, and an optional coach who can see your workouts, habits, and streaks. Free account, no card.",
+    ogType: "article",
+  },
   press: {
     path: "/press-kit/",
     title: "Press Kit & Media Kit | Everyday Performance OS",
@@ -140,6 +161,9 @@ export const INDEXABLE_PATHS = [
   PAGES.professionals.path,
   PAGES.streakApp.path,
   PAGES.consistency.path,
+  PAGES.adhd.path,
+  PAGES.noEquipment.path,
+  PAGES.accountability.path,
   PAGES.press.path,
   PAGES.privacy.path,
   PAGES.terms.path,
@@ -159,6 +183,9 @@ export const SPA_ROUTE_DIRS = [
   "guides/workout-app-for-professionals",
   "guides/habit-streak-app",
   "guides/how-to-stay-consistent",
+  "guides/habit-tracker-for-adhd",
+  "guides/home-workout-no-equipment",
+  "guides/accountability-fitness-app",
   "press-kit",
   "privacy",
   "terms",
@@ -229,6 +256,9 @@ export function llmsTxt() {
     page(PAGES.professionals.path, "Workout app for busy professionals", "Trainable sessions between meetings; progress that compounds."),
     page(PAGES.streakApp.path, "Habit streak app", "Forgiving streaks where one missed day doesn't erase months."),
     page(PAGES.consistency.path, "How to stay consistent", "Staying consistent when motivation runs out."),
+    page(PAGES.adhd.path, "Habit tracker for an ADHD brain", "Forgiving habits and restartable streaks. Not medical advice."),
+    page(PAGES.noEquipment.path, "Home workout, no equipment", "Bodyweight sessions logged in the time you have."),
+    page(PAGES.accountability.path, "Accountability fitness app", "Friends, squads, leagues, and an optional coach."),
     page(PAGES.press.path, "Press kit", "Logo, colors, and typography. Press contact: press@everydayperform.com."),
     page(PAGES.privacy.path, "Privacy Policy", "How account, fitness, Health, and accountability information is handled."),
     page(PAGES.terms.path, "Terms of Use", "Health information, subscriptions, and community rules."),
@@ -525,6 +555,24 @@ export const guidesJsonLd = pageGraph(
         name: "How to stay consistent with workouts",
         url: absoluteUrl(PAGES.consistency.path),
       },
+      {
+        "@type": "ListItem",
+        position: 8,
+        name: "A habit tracker that works with an ADHD brain",
+        url: absoluteUrl(PAGES.adhd.path),
+      },
+      {
+        "@type": "ListItem",
+        position: 9,
+        name: "Home workouts with no equipment",
+        url: absoluteUrl(PAGES.noEquipment.path),
+      },
+      {
+        "@type": "ListItem",
+        position: 10,
+        name: "An accountability fitness app",
+        url: absoluteUrl(PAGES.accountability.path),
+      },
     ],
   },
 );
@@ -615,6 +663,9 @@ export const entrepreneursJsonLd = guideArticleJsonLd(PAGES.entrepreneurs, "Work
 export const professionalsJsonLd = guideArticleJsonLd(PAGES.professionals, "Workout app for busy professionals");
 export const streakAppJsonLd = guideArticleJsonLd(PAGES.streakApp, "A habit streak app that forgives a missed day");
 export const consistencyJsonLd = guideArticleJsonLd(PAGES.consistency, "How to stay consistent with workouts");
+export const adhdJsonLd = guideArticleJsonLd(PAGES.adhd, "A habit tracker that works with an ADHD brain");
+export const noEquipmentJsonLd = guideArticleJsonLd(PAGES.noEquipment, "Home workouts with no equipment");
+export const accountabilityJsonLd = guideArticleJsonLd(PAGES.accountability, "An accountability fitness app");
 
 export const pressJsonLd = pageGraph(
   breadcrumbNode([
@@ -654,6 +705,9 @@ export const JSON_LD_BY_PATH: Record<string, Record<string, unknown>> = {
   [PAGES.professionals.path]: professionalsJsonLd,
   [PAGES.streakApp.path]: streakAppJsonLd,
   [PAGES.consistency.path]: consistencyJsonLd,
+  [PAGES.adhd.path]: adhdJsonLd,
+  [PAGES.noEquipment.path]: noEquipmentJsonLd,
+  [PAGES.accountability.path]: accountabilityJsonLd,
   [PAGES.press.path]: pressJsonLd,
   [PAGES.privacy.path]: privacyJsonLd,
   [PAGES.terms.path]: termsJsonLd,

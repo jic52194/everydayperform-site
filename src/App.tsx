@@ -17,6 +17,9 @@ import Entrepreneurs from "./pages/Entrepreneurs";
 import Professionals from "./pages/Professionals";
 import StreakApp from "./pages/StreakApp";
 import Consistency from "./pages/Consistency";
+import Adhd from "./pages/Adhd";
+import NoEquipment from "./pages/NoEquipment";
+import Accountability from "./pages/Accountability";
 import PressKit from "./pages/PressKit";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -48,6 +51,9 @@ const App = () => (
           <Route path="/guides/workout-app-for-professionals" element={<Professionals />} />
           <Route path="/guides/habit-streak-app" element={<StreakApp />} />
           <Route path="/guides/how-to-stay-consistent" element={<Consistency />} />
+          <Route path="/guides/habit-tracker-for-adhd" element={<Adhd />} />
+          <Route path="/guides/home-workout-no-equipment" element={<NoEquipment />} />
+          <Route path="/guides/accountability-fitness-app" element={<Accountability />} />
           <Route path="/press-kit" element={<PressKit />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
