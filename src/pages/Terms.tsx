@@ -1,16 +1,19 @@
 import { PublicNavbar } from "@/components/PublicNavbar";
 import { PublicFooter } from "@/components/PublicFooter";
 import { SEO } from "@/components/SEO";
+import { PAGES, termsJsonLd } from "@/content/seo";
 
 export default function Terms() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <SEO
-        title="Terms of Use | Everyday Performance OS"
-        description="Terms of Use for Everyday Performance OS, including health information, subscriptions, and community rules."
+        title={PAGES.terms.title}
+        description={PAGES.terms.description}
+        path={PAGES.terms.path}
+        jsonLd={termsJsonLd}
       />
       <PublicNavbar />
-      <main className="flex-1 relative z-10 pt-32 pb-16">
+      <main id="main" className="flex-1 relative z-10 pt-32 pb-16">
         <article className="container mx-auto px-4 max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-oswald uppercase tracking-wider text-primary mb-4">
             Terms of Use
@@ -28,7 +31,7 @@ export default function Terms() {
               The app provides general educational and wellness information, not medical diagnosis or treatment. It is not a substitute for advice from a qualified healthcare professional. Stop exercising and seek appropriate care if you experience pain, dizziness, breathing difficulty, or another concerning symptom. You are responsible for choosing activities appropriate for your condition and ability.
             </p>
 
-            <h2>Accountability and crisis limitations</h2>
+            <h2 id="accountability" className="scroll-mt-32">Accountability and crisis limitations</h2>
             <p>
               Alcohol and pornography accountability features are self-management and educational tools, not diagnosis, medical treatment, detoxification, psychotherapy, or emergency monitoring. Alcohol withdrawal after prolonged heavy drinking can be dangerous. Seek guidance from a qualified healthcare professional before stopping suddenly if that may apply to you, and call local emergency services for severe symptoms or immediate danger. An urge intervention cannot guarantee safety or replace professional, family, mutual-support, or crisis assistance.
             </p>

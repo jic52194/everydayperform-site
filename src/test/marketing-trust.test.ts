@@ -51,8 +51,8 @@ describe("marketing trust copy", () => {
   });
 
   it("ships real privacy and terms links plus a support contact", () => {
-    expect(footer).toContain('to="/privacy"');
-    expect(footer).toContain('to="/terms"');
+    expect(footer).toContain("PAGES.privacy.path");
+    expect(footer).toContain("PAGES.terms.path");
     expect(footer).toContain("support@everydayperform.com");
     expect(footer).toContain("Terms of Use");
     expect(footer).not.toContain("TODO");

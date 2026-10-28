@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import { PublicNavbar } from "@/components/PublicNavbar";
 import { PublicFooter } from "@/components/PublicFooter";
 import { SEO } from "@/components/SEO";
+import { StickySignup } from "@/components/StickySignup";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PAGES, pressJsonLd, PRICING_HASH } from "@/content/seo";
 import { Download } from "lucide-react";
 
 import { motion, Variants } from "framer-motion";
@@ -24,9 +26,11 @@ export default function PressKit() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col relative overflow-hidden">
-      <SEO 
-        title="Press Kit & Media Kit | Everyday Performance OS" 
-        description="Download official logos, brand colors, typography, and company information for Everyday Performance OS."
+      <SEO
+        title={PAGES.press.title}
+        description={PAGES.press.description}
+        path={PAGES.press.path}
+        jsonLd={pressJsonLd}
       />
       <PublicNavbar />
       
@@ -59,7 +63,7 @@ export default function PressKit() {
         />
       </div>
 
-      <main className="flex-1 relative z-10 pt-32 pb-16">
+      <main id="main" className="flex-1 relative z-10 pt-32 pb-16">
         <div className="container mx-auto px-4 max-w-5xl">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -92,6 +96,13 @@ export default function PressKit() {
                 <Link to="/">Back to Home</Link>
               </Button>
             </div>
+            <p className="mt-6 text-sm text-muted-foreground">
+              <Link to={PAGES.features.path} className="underline underline-offset-4 hover:text-primary">Features</Link>
+              {" · "}
+              <Link to={PRICING_HASH} className="underline underline-offset-4 hover:text-primary">Pricing</Link>
+              {" · "}
+              <Link to={PAGES.faq.path} className="underline underline-offset-4 hover:text-primary">FAQ</Link>
+            </p>
           </motion.div>
 
           <motion.div 
@@ -124,8 +135,10 @@ export default function PressKit() {
                     <div className="flex items-center justify-center py-12 bg-black/60 rounded-xl border border-white/5 group-hover:border-primary/30 transition-colors shadow-inner">
                       <img src={`${import.meta.env.BASE_URL}logo.png`} alt="Everyday Performance Logo" className="h-20 w-auto object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" />
                     </div>
-                    <Button variant="outline" className="w-full flex items-center gap-2 border-white/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all">
-                      <Download className="w-4 h-4" /> Download Logo Assets
+                    <Button variant="outline" className="w-full border-white/20 text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all" asChild>
+                      <a href={`${import.meta.env.BASE_URL}logo.png`} download="everyday-performance-logo.png">
+                        <Download className="w-4 h-4" /> Download Logo Assets
+                      </a>
                     </Button>
                   </CardContent>
                 </Card>
@@ -200,7 +213,9 @@ export default function PressKit() {
         </div>
       </main>
 
+      <div className="md:hidden h-24" aria-hidden="true" />
       <PublicFooter />
+      <StickySignup />
     </div>
   );
 }

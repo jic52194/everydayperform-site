@@ -1,16 +1,19 @@
 import { PublicNavbar } from "@/components/PublicNavbar";
 import { PublicFooter } from "@/components/PublicFooter";
 import { SEO } from "@/components/SEO";
+import { PAGES, privacyJsonLd } from "@/content/seo";
 
 export default function Privacy() {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <SEO
-        title="Privacy Policy | Everyday Performance OS"
-        description="How Everyday Performance OS collects, uses, and protects account, fitness, Health, and accountability information."
+        title={PAGES.privacy.title}
+        description={PAGES.privacy.description}
+        path={PAGES.privacy.path}
+        jsonLd={privacyJsonLd}
       />
       <PublicNavbar />
-      <main className="flex-1 relative z-10 pt-32 pb-16">
+      <main id="main" className="flex-1 relative z-10 pt-32 pb-16">
         <article className="container mx-auto px-4 max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-oswald uppercase tracking-wider text-primary mb-4">
             Privacy Policy

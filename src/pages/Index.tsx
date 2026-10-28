@@ -1,6 +1,8 @@
 import { PublicNavbar } from "@/components/PublicNavbar";
 import { PublicFooter } from "@/components/PublicFooter";
+import { PricingSection } from "@/components/PricingSection";
 import { SEO } from "@/components/SEO";
+import { StickySignup } from "@/components/StickySignup";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -15,6 +17,8 @@ import {
   PRICING_TEASER,
   SIGNUP_URL,
 } from "@/content/marketing";
+import { HOME_FAQ_IDS, faqsById } from "@/content/faq";
+import { PAGES, homeJsonLd } from "@/content/seo";
 
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
@@ -185,13 +189,13 @@ const TestimonialCard = ({ testimonial, index }: { testimonial: Note; index: num
       {testimonial.avatar && (
         <div className="relative w-20 h-20 shrink-0 mb-5">
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-primary/30 p-[2px]">
-            <img src={testimonial.avatar} alt={testimonial.name} className="w-full h-full object-cover rounded-full" />
+            <img src={testimonial.avatar} alt={`${testimonial.name}, member of Everyday Performance`} width={960} height={960} loading="lazy" decoding="async" className="w-full h-full object-cover rounded-full" />
           </div>
           {testimonial.mediaUrl && (
             <>
               <button onClick={togglePlay}
                 className="absolute inset-0 flex items-center justify-center bg-black/55 rounded-full hover:bg-black/70 transition-colors text-white"
-                aria-label={isPlaying ? "Pause" : "Play"}
+                aria-label={isPlaying ? "Pause Jared C's message" : "Play Jared C's message"}
               >
                 {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6 ml-0.5" />}
               </button>
@@ -259,15 +263,17 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col relative overflow-x-hidden bg-background text-foreground font-sans">
       <SEO
-        title="Everyday Performance OS"
-        description="Everyday Performance gives you short workouts, daily habits, streaks, XP, and adaptive coaching for busy schedules."
+        title={PAGES.home.title}
+        description={PAGES.home.description}
+        path={PAGES.home.path}
+        jsonLd={homeJsonLd}
       />
       <PublicNavbar />
 
       {/* Background */}
       <div className="fixed inset-0 z-0 pointer-events-none bg-background">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2.5 }} className="absolute inset-0 bg-cover bg-[position:65%_center] md:bg-[position:center_20%]"
-          style={{ backgroundImage: `url('${import.meta.env.BASE_URL}hero-bg.png')` }}
+          style={{ backgroundImage: `url('${import.meta.env.BASE_URL}hero-bg.webp')` }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.1)_100%)]" />
@@ -276,53 +282,51 @@ const Index = () => {
         />
       </div>
 
-      <main className="flex-1 relative z-10 flex flex-col">
+      <main id="main" className="flex-1 relative z-10 flex flex-col">
 
         {/* ── HERO ─────────────────────────────────────────────── */}
-        <section className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-40 pb-28 md:pt-44 md:pb-32">
-          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.1 }}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md px-5 py-2 text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-8"
-          >
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        <section className="relative z-10 flex flex-col items-center justify-center text-center px-6 pt-36 pb-20 md:pt-44 md:pb-28">
+          <p className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 backdrop-blur-md px-5 py-2 text-xs font-semibold text-primary uppercase tracking-[0.2em] mb-8">
             Everyday Performance OS
-          </motion.div>
+          </p>
 
-          <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-5xl sm:text-6xl md:text-[5.5rem] font-bold uppercase tracking-tight font-oswald leading-[1.05] max-w-4xl mb-7"
-          >
+          <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-bold uppercase tracking-tight font-oswald leading-[1.05] max-w-4xl mb-7">
             Built for the <br className="hidden md:block" />
             <span className="bg-gradient-to-r from-white via-white to-primary bg-clip-text text-transparent">
               Busiest People Alive.
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
-            className="text-base md:text-xl text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed mb-12"
-          >
-            Everyday Performance gives you short workouts, daily habits, streaks, XP, and adaptive coaching built for parents, professionals, entrepreneurs, and anyone whose schedule never stays perfect.
-          </motion.p>
+          <p className="text-base md:text-xl text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed mb-10">
+            Short workouts and daily habits you can finish on a packed day, with streaks, XP, and a plan that adjusts after a missed day. Built for parents, professionals, entrepreneurs, and anyone whose schedule never stays perfect.
+          </p>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4"
-          >
-            <Button onPointerDown={() => sounds.playClick()} size="lg" className="group rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-6 sm:px-10 py-4 sm:py-7 h-auto font-oswald uppercase tracking-[0.15em] shadow-[0_0_50px_-15px_rgba(143,143,86,0.6)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_70px_-15px_rgba(143,143,86,0.8)]" asChild>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
+            <Button onPointerDown={() => sounds.playClick()} size="lg" className="group rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-6 sm:px-10 py-4 sm:py-7 h-auto font-oswald uppercase tracking-[0.15em] shadow-[0_0_50px_-15px_rgba(143,143,86,0.6)] transition-all duration-300 motion-safe:hover:scale-105 hover:shadow-[0_0_70px_-15px_rgba(143,143,86,0.8)]" asChild>
               <a href={SIGNUP_URL} className="flex items-center justify-center gap-2 text-center">
                 <span>Create an Account</span>
-                <ArrowRight className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                <ArrowRight className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </a>
             </Button>
-            <Button onPointerDown={() => sounds.playClick()} size="lg" variant="outline" className="rounded-full border-white/15 hover:bg-white/8 backdrop-blur-sm bg-white/[0.04] text-base px-10 py-7 font-oswald uppercase tracking-[0.15em] transition-all duration-300 hover:scale-105 hover:border-white/30" asChild>
-              <a href="#how-it-works">See How It Works</a>
+            <Button onPointerDown={() => sounds.playClick()} size="lg" variant="outline" className="rounded-full border-white/15 hover:bg-white/8 backdrop-blur-sm bg-white/[0.04] text-sm sm:text-base px-6 sm:px-10 py-4 sm:py-7 h-auto font-oswald uppercase tracking-[0.15em] transition-all duration-300 motion-safe:hover:scale-105 hover:border-white/30" asChild>
+              <a href="#pricing">Compare Free and Pro</a>
             </Button>
-          </motion.div>
-          
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.5 }} className="mb-10">
-            <OfferNotes showDisclaimer />
-          </motion.div>
+          </div>
 
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.6 }} className="text-xs tracking-widest uppercase text-muted-foreground/70">
-            Built for professionals, parents, entrepreneurs, and busy adults who need consistency without hour-long workouts.
-          </motion.p>
+          <div className="mb-8">
+            <OfferNotes showDisclaimer />
+          </div>
+
+          <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs tracking-widest uppercase text-muted-foreground/80 max-w-3xl">
+            <li>Free account, no card</li>
+            <li>Start with about 5 minutes</li>
+            <li>Cancel Pro in account settings</li>
+          </ul>
+          <p className="mt-6 text-sm">
+            <a href="#how-it-works" className="text-primary underline underline-offset-4">See how it works</a>
+            {" · "}
+            <Link to={PAGES.fiveMinuteDay.path} className="text-primary underline underline-offset-4">Five-minute guide</Link>
+          </p>
         </section>
 
 
@@ -346,6 +350,9 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+          <p className="text-center mt-10">
+            <Link to={PAGES.features.path} className="text-primary underline underline-offset-4">See all features</Link>
+          </p>
         </Section>
 
         {/* ── APP PREVIEW ──────────────────────────────────────── */}
@@ -364,6 +371,9 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+          <p className="text-center text-sm text-muted-foreground mt-8 max-w-2xl mx-auto">
+            Sample screens of habits, streaks, and a workout. The numbers in the cards are illustrations, not a published member result.
+          </p>
         </Section>
 
         {/* ── OUR STORY ────────────────────────────────────────── */}
@@ -406,6 +416,9 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
+          <p className="text-center mb-8">
+            <Link to={PAGES.howItWorks.path} className="text-primary underline underline-offset-4">Read the full walkthrough</Link>
+          </p>
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.4 }} className="flex justify-center">
             <Button onPointerDown={() => sounds.playClick()} size="lg" className="group rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-base px-6 sm:px-10 py-4 sm:py-7 h-auto font-oswald uppercase tracking-[0.15em] shadow-[0_0_50px_-15px_rgba(143,143,86,0.6)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_70px_-15px_rgba(143,143,86,0.8)]" asChild>
               <a href={SIGNUP_URL} className="flex items-center justify-center gap-2 text-center">
@@ -419,6 +432,7 @@ const Index = () => {
         {/* ── TESTIMONIALS ─────────────────────────────────────── */}
         <Section className="py-28">
           <SectionHeading title="A MESSAGE FROM A USER" />
+          <p className="text-center text-sm text-muted-foreground -mt-10 mb-10 max-w-xl mx-auto">From Jared C, a member. This site does not publish a review count or a star rating.</p>
           <div className="max-w-xl mx-auto">
             <TestimonialCard
               index={0}
@@ -432,6 +446,8 @@ const Index = () => {
             />
           </div>
         </Section>
+
+        <PricingSection />
 
         {/* ── FINAL CTA ────────────────────────────────────────── */}
         <Section className="py-20 pb-28">
@@ -452,7 +468,7 @@ const Index = () => {
             </p>
             <div className="relative z-10 flex flex-col items-center justify-center gap-4">
               <a href={SIGNUP_URL} onPointerDown={() => sounds.playClick()}
-                className="inline-flex items-center justify-center gap-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-5 h-auto font-oswald uppercase tracking-[0.18em] shadow-[0_0_50px_-15px_rgba(143,143,86,0.6)] transition-all duration-300 hover:scale-105 hover:shadow-[0_0_80px_-15px_rgba(143,143,86,0.9)] text-center"
+                className="group inline-flex items-center justify-center gap-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 text-sm sm:text-lg px-6 sm:px-10 py-4 sm:py-5 h-auto font-oswald uppercase tracking-[0.18em] shadow-[0_0_50px_-15px_rgba(143,143,86,0.6)] transition-all duration-300 motion-safe:hover:scale-105 hover:shadow-[0_0_80px_-15px_rgba(143,143,86,0.9)] text-center"
               >
                 <span>Create an Account</span>
                 <ArrowRight className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1.5" />
@@ -470,23 +486,19 @@ const Index = () => {
             <SectionHeading eyebrow="Got Questions?" title="Frequently Asked" accent="Questions" />
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: 0.15 }}>
               <Accordion type="single" collapsible className="w-full space-y-3">
-                {[
-                  { q: "How much time do I need each day?", a: "You can start with 5 minutes. Everyday Performance is built around small daily wins, short workouts, and habits that scale up when you have more time." },
-                  { q: "Do I need any special equipment?", a: "No. You can start with bodyweight workouts, mobility, walking, hydration, and simple habits. If you have equipment, your plan can use it — but it is not required." },
-                  { q: "Is this personalized or a generic template?", a: "Everyday Performance is built around your goals, schedule, fitness level, habits, and available time. The system should help you build a plan that fits your actual life, not someone else's perfect routine." },
-                  { q: "What happens if I miss a day?", a: "Missing a day does not mean you failed. Everyday Performance is designed for comeback behavior with streaks, resets, flexible plans, and small wins that help you restart quickly." },
-                  { q: "Is this only for advanced fitness people?", a: "No. It is built for busy people at different levels, including beginners, parents, professionals, and anyone trying to become consistent again." },
-                  { q: "What do I get for free?", a: FREE_FAQ_ANSWER },
-                ].map((item, i) => (
-                  <AccordionItem key={i} value={`item-${i}`}
+                {faqsById(HOME_FAQ_IDS).map((item) => {
+                  const answer = item.id === "free" ? FREE_FAQ_ANSWER : item.a;
+                  return (
+                  <AccordionItem key={item.id} value={item.id}
                     className="bg-[#0e0e0e] border border-white/8 rounded-2xl px-6 data-[state=open]:bg-white/[0.04] data-[state=open]:border-primary/20 transition-all duration-300"
                   >
                     <AccordionTrigger className="text-left font-oswald uppercase text-base tracking-wide hover:no-underline py-6 hover:text-primary transition-colors">
                       {item.q}
                     </AccordionTrigger>
-                  <AccordionContent className="text-gray-400 text-sm leading-relaxed pb-6">{item.a}</AccordionContent>
+                  <AccordionContent className="text-gray-400 text-sm leading-relaxed pb-6">{answer}</AccordionContent>
                   </AccordionItem>
-                ))}
+                );
+                })}
               </Accordion>
             </motion.div>
 
@@ -498,27 +510,17 @@ const Index = () => {
                 </a>
               </Button>
               <OfferNotes />
+              <Link to={PAGES.faq.path} className="text-sm text-primary underline underline-offset-4">Read the full FAQ</Link>
             </motion.div>
           </div>
         </Section>
       </main>
 
       {/* Spacer for mobile sticky bar */}
-      <div className="md:hidden h-20" />
+      <div className="md:hidden h-24" aria-hidden="true" />
 
       <PublicFooter />
-
-      {/* ── STICKY MOBILE CTA ────────────────────────────────── */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
-        <div className="bg-[#050505]/90 backdrop-blur-2xl border-t border-white/8 px-5 py-3">
-          <a href={SIGNUP_URL}
-            className="flex items-center justify-center gap-2 w-full bg-primary text-primary-foreground font-oswald uppercase tracking-[0.18em] text-sm py-4 rounded-full shadow-[0_0_30px_-8px_rgba(143,143,86,0.7)] hover:bg-primary/90 transition-all active:scale-95"
-          >
-            Create an Account
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-      </div>
+      <StickySignup />
     </div>
   );
 };

@@ -5,6 +5,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScrollToHash } from "@/components/ScrollToHash";
 import Index from "./pages/Index";
+import Features from "./pages/Features";
+import HowItWorks from "./pages/HowItWorks";
+import Faq from "./pages/Faq";
+import Compare from "./pages/Compare";
+import Guides from "./pages/Guides";
+import FiveMinuteDay from "./pages/FiveMinuteDay";
 import PressKit from "./pages/PressKit";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -24,6 +30,12 @@ const App = () => (
         <ScrollToHash />
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/features" element={<Features />} />
+          <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/compare" element={<Compare />} />
+          <Route path="/guides" element={<Guides />} />
+          <Route path="/guides/five-minute-day" element={<FiveMinuteDay />} />
           <Route path="/press-kit" element={<PressKit />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
