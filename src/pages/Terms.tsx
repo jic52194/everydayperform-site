@@ -41,7 +41,7 @@ export default function Terms() {
               The iPhone Premium monthly subscription is displayed in the app using the live price and currency provided by the App Store. The price and subscription period shown on the purchase screen and Apple&apos;s confirmation sheet control your purchase. Payment is charged to your Apple Account at confirmation. The subscription renews automatically unless canceled at least 24 hours before the current period ends, and Apple may charge the renewal within 24 hours before the end of that period. You can manage or cancel it in your Apple Account subscription settings.
             </p>
             <p>
-              The free plan does not require a card. On the website, Pro is $14.99 per month or $119 per year ($9.92 per month effective on the annual plan). The optional Pro trial lasts 7 days, requires a card, and then auto-bills through Stripe unless you cancel before it ends. Cancel anytime in the billing portal. Those website prices are not the App Store price. Coach plans are a separate purchase and are not consumer Pro.
+              The free plan does not require a card. On the website, Pro is $14.99 per month or $149.99 per year ($12.50 per month effective on the annual plan). The optional Pro trial lasts 7 days, requires a card, and then auto-bills through Stripe unless you cancel before it ends. Cancel anytime in the billing portal. Those website prices are not the App Store price. Coach plans are a separate purchase and are not consumer Pro.
             </p>
             <p>
               Deleting your Everyday Performance account does not cancel an App Store or web subscription. Refund eligibility and billing disputes are handled under the terms of the payment provider that processed the purchase.

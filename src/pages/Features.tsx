@@ -75,7 +75,7 @@ export default function Features() {
       <section className="mt-8">
         <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">Free account and Pro</h2>
         <p className="text-muted-foreground leading-relaxed">
-          A free account does not require a card. Pro is $14.99/mo or $119/yr. The 7-day Pro trial requires a card and auto-renews unless you cancel in account settings. Coach plans are a separate purchase and are not consumer Pro. Website prices are not the App Store price.{" "}
+          A free account does not require a card. Pro is $14.99/mo or $149.99/yr. The 7-day Pro trial requires a card and auto-renews unless you cancel in account settings. Coach plans are a separate purchase and are not consumer Pro. Website prices are not the App Store price.{" "}
           <Link to={PRICING_HASH} className="text-primary underline underline-offset-4">Compare Free and Pro</Link>.
         </p>
       </section>

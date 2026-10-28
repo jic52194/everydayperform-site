@@ -34,7 +34,7 @@ export default function FiveMinuteDay() {
         <section>
           <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">Create the account once</h2>
           <p>
-            A free account does not require a card. You create it in the app, and the daily plan is there the next time you are in a hurry. Pro is optional. Pro is $14.99/mo or $119/yr, and the 7-day Pro trial requires a card and auto-renews unless you cancel in account settings. The yearly price works out to $9.92 per month.{" "}
+            A free account does not require a card. You create it in the app, and the daily plan is there the next time you are in a hurry. Pro is optional. Pro is $14.99/mo or $149.99/yr, and the 7-day Pro trial requires a card and auto-renews unless you cancel in account settings. The yearly price works out to $12.50 per month.{" "}
             <Link to={PRICING_HASH} className="text-primary underline underline-offset-4">See Free and Pro</Link>.
           </p>
         </section>

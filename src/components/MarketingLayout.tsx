@@ -56,7 +56,7 @@ export function MarketingLayout({
           <div className="mt-14 rounded-[2rem] border border-primary/25 bg-[#0e0e0e] px-6 py-10 md:px-10 text-center">
             <h2 className="font-oswald uppercase text-3xl tracking-tight mb-3">Create an account</h2>
             <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-              A free account does not require a card. Pro is $14.99/mo or $119/yr. The 7-day Pro trial requires a card and auto-renews.
+              A free account does not require a card. Pro is $14.99/mo or $149.99/yr. The 7-day Pro trial requires a card and auto-renews.
             </p>
             <div className="flex justify-center">
               <SignupLink />

@@ -4,7 +4,7 @@ export const SITE_ORIGIN = "https://everydayperform.com";
 
 export const HOME_TITLE = "Everyday Performance OS | Daily Habits and Short Workouts";
 export const HOME_DESCRIPTION =
-  "Create a free Everyday Performance account with no card. Short workouts, daily habits, streaks, and XP for busy schedules. Pro is $14.99/mo or $119/yr.";
+  "Create a free Everyday Performance account with no card. Short workouts, daily habits, streaks, and XP for busy schedules. Pro is $14.99/mo or $149.99/yr.";
 
 export type PageMeta = {
   path: string;
@@ -28,13 +28,13 @@ export const PAGES = {
     path: "/how-it-works/",
     title: "How It Works | Everyday Performance OS",
     description:
-      "Create a free account with no card, follow a short daily plan, and restart after a missed day. Pro is $14.99/mo or $119/yr.",
+      "Create a free account with no card, follow a short daily plan, and restart after a missed day. Pro is $14.99/mo or $149.99/yr.",
   },
   faq: {
     path: "/faq/",
     title: "FAQ | Everyday Performance OS",
     description:
-      "Answers on free accounts, Pro at $14.99/mo or $119/yr, the 7-day trial card requirement, cancellation, equipment, and the health disclaimer.",
+      "Answers on free accounts, Pro at $14.99/mo or $149.99/yr, the 7-day trial card requirement, cancellation, equipment, and the health disclaimer.",
   },
   compare: {
     path: "/compare/",
@@ -160,9 +160,9 @@ function softwareNode() {
       {
         "@type": "Offer",
         name: "Pro yearly",
-        price: "119",
+        price: "149.99",
         priceCurrency: "USD",
-        description: "Pro yearly, $9.92 per month effective. The 7-day Pro trial requires a card and auto-renews.",
+        description: "Pro yearly, $12.50 per month effective. The 7-day Pro trial requires a card and auto-renews.",
         url: absoluteUrl("/#pricing"),
       },
     ],
@@ -343,7 +343,7 @@ export const PRESS_STATIC_HTML = [
   '<p style="color:#8F8F56;letter-spacing:0.18em;text-transform:uppercase;font-size:0.75rem">Press</p>',
   '<h1 style="font-family:Oswald,sans-serif;text-transform:uppercase;font-size:2.5rem;line-height:1.1;margin:0.75rem 0 1rem">Press and media kit</h1>',
   '<p style="line-height:1.6;color:rgba(245,245,245,0.78)">For press inquiries, contact <a href="mailto:press@everydayperform.com" style="color:#d5d5a4">press@everydayperform.com</a>.</p>',
-  '<p style="line-height:1.6;color:rgba(245,245,245,0.78)">Everyday Performance helps busy people build healthier lives through simple daily habits. A free account does not require a card. Pro is $14.99/mo or $119/yr. The 7-day Pro trial requires a card and auto-renews.</p>',
+  '<p style="line-height:1.6;color:rgba(245,245,245,0.78)">Everyday Performance helps busy people build healthier lives through simple daily habits. A free account does not require a card. Pro is $14.99/mo or $149.99/yr. The 7-day Pro trial requires a card and auto-renews.</p>',
   '<p style="line-height:1.6"><a href="/features/" style="color:#d5d5a4">Features</a> · <a href="/" style="color:#d5d5a4">Home</a></p>',
   "</main>",
 ].join("");

@@ -38,7 +38,7 @@ export function PricingSection() {
             <p className="mt-4 font-oswald text-5xl text-white">
               $14.99<span className="text-2xl text-white/80">/mo</span>
             </p>
-            <p className="mt-2 text-foreground">or $119/yr <span className="text-muted-foreground">($9.92/mo effective)</span></p>
+            <p className="mt-2 text-foreground">or $149.99/yr <span className="text-muted-foreground">($12.50/mo effective)</span></p>
             <p className="mt-4 text-sm text-primary leading-relaxed">
               7-day Pro trial requires a card and auto-renews unless you cancel.
             </p>
