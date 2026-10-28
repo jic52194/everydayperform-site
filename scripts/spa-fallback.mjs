@@ -75,9 +75,21 @@ export function applyHead(html, meta) {
   next = upsertMeta(next, "property", "og:title", meta.title);
   next = upsertMeta(next, "property", "og:description", meta.description);
   next = upsertMeta(next, "property", "og:url", meta.url);
-  next = upsertMeta(next, "property", "og:type", "website");
+  next = upsertMeta(next, "property", "og:type", meta.ogType ?? "website");
+  next = upsertMeta(next, "property", "og:site_name", meta.siteName ?? "Everyday Performance");
+  next = upsertMeta(next, "property", "og:locale", "en_US");
+  if (meta.image) {
+    next = upsertMeta(next, "property", "og:image", meta.image);
+    next = upsertMeta(next, "property", "og:image:alt", meta.imageAlt ?? "Everyday Performance OS");
+    next = upsertMeta(next, "property", "og:image:width", meta.imageWidth ?? "1200");
+    next = upsertMeta(next, "property", "og:image:height", meta.imageHeight ?? "630");
+    next = upsertMeta(next, "name", "twitter:image", meta.image);
+    next = upsertMeta(next, "name", "twitter:image:alt", meta.imageAlt ?? "Everyday Performance OS");
+  }
+  next = upsertMeta(next, "name", "twitter:card", "summary_large_image");
   next = upsertMeta(next, "name", "twitter:title", meta.title);
   next = upsertMeta(next, "name", "twitter:description", meta.description);
+  next = upsertMeta(next, "name", "twitter:url", meta.url);
   next = upsertMeta(next, "name", "robots", meta.robots ?? "index, follow");
   const canonical = `<link rel="canonical" href="${escapeAttr(meta.url)}" />`;
   if (/<link rel="canonical" href="[^"]*"\s*\/?>/.test(next)) {
@@ -144,11 +156,20 @@ async function writeSpaFallbacks() {
   }
 
   const built = await prerenderLegalPages();
+  const social = {
+    siteName: built.SITE_NAME,
+    image: built.OG_IMAGE,
+    imageAlt: built.OG_IMAGE_ALT,
+    imageWidth: built.OG_IMAGE_WIDTH,
+    imageHeight: built.OG_IMAGE_HEIGHT,
+  };
   const homeUrl = built.absoluteUrl("/");
   const homeHtml = applyHead(homepage, {
     title: built.PAGES.home.title,
     description: built.PAGES.home.description,
     url: homeUrl,
+    ogType: built.PAGES.home.ogType,
+    ...social,
     jsonLd: built.homeJsonLd,
   });
   if (!homeHtml.includes("static-shell:start") || !homeHtml.includes("Busiest People")) {
@@ -179,6 +200,8 @@ async function writeSpaFallbacks() {
       title: page.title,
       description: page.description,
       url: built.absoluteUrl(page.path),
+      ogType: page.ogType,
+      ...social,
       jsonLd: built.JSON_LD_BY_PATH[page.path],
     });
     if (html.includes("Busiest People")) {
@@ -207,6 +230,7 @@ async function writeSpaFallbacks() {
     description: built.NOT_FOUND_META.description,
     url: `${built.absoluteUrl("/").replace(/\/$/, "")}/404`,
     robots: built.NOT_FOUND_META.robots,
+    ...social,
     jsonLd: null,
   });
   if (!notFound.includes("noindex") || notFound.includes("Busiest People")) {
@@ -215,6 +239,7 @@ async function writeSpaFallbacks() {
   }
   writeFileSync("dist/404.html", notFound);
   writeFileSync("dist/sitemap.xml", built.sitemapXml());
+  writeFileSync("dist/llms.txt", built.llmsTxt());
 
   // Browsers request these automatically. A missing pair shows up as two
   // "Failed to load resource" 404s on every route, including /terms/.

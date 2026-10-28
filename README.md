@@ -7,7 +7,7 @@ Static marketing homepage for Everyday Performance / Everyday Performance OS. Si
 
 There is no email waitlist form and no GoHighLevel webhook on this site. Do not describe the product as a waitlist or as coming soon.
 
-Offer copy on the homepage matches the app: a free account does not require a card. Pro is $14.99/mo or $119/yr. The short pricing line and the fine print both say the 7-day Pro trial requires a card and auto-renews. Cancel Pro anytime in account settings.
+Offer copy on the homepage matches the app: a free account does not require a card. Pro is $14.99/mo or $149.99/yr. The short pricing line and the fine print both say the 7-day Pro trial requires a card and auto-renews. Cancel Pro anytime in account settings.
 
 This repository publishes **https://everydayperform.com/** on GitHub Pages. Custom-domain cutover is applied in this repo: the production build uses the site root, canonical and social URLs point at the apex, and the Pages artifact includes `dist/CNAME`. This repository does not change DNS or the registrar. The GitHub Pages custom domain is already `everydayperform.com`; do not clear it.
 
@@ -64,7 +64,7 @@ GitHub Pages does not rewrite unknown paths to `index.html`. `scripts/spa-fallba
 - `press-kit/index.html`
 - `404.html` (any other path still loads the app, which shows the not-found page)
 
-`npm run build` also writes `dist/sitemap.xml`. `public/robots.txt` points at `https://everydayperform.com/sitemap.xml`.
+`npm run build` also writes `dist/sitemap.xml` and `dist/llms.txt`. `public/robots.txt` points at `https://everydayperform.com/sitemap.xml` and allows common AI crawlers. `public/llms.txt` is the LLM-readable summary at `https://everydayperform.com/llms.txt`.
 
 Add a new public route to that list when you add one in `src/App.tsx`. The same script writes `dist/CNAME` with the single line `everydayperform.com`, matching nextweigh-site (`writeFileSync` of `CNAME` into `dist` during the build). The Pages artifact is `dist`, so that file is published with the site.
 

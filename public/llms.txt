@@ -1,42 +1,47 @@
 # Everyday Performance OS
 
-> A habit and fitness app built for the busiest people alive. Short workouts and simple
-> daily habits you can finish on a packed day, with streaks, XP, and a plan that adjusts
-> after a missed day. Free to start, no card. Pro is an optional upgrade.
+> Everyday Performance OS is a daily habit and short-workout app for busy schedules. A free account does not require a card. Website Pro is $14.99 per month or $149.99 per year ($12.50 per month effective). The 7-day Pro trial requires a card and auto-renews unless you cancel. Website prices are not the App Store price.
 
-Everyday Performance (everydayperform.com) helps busy people — parents, professionals,
-entrepreneurs, and anyone whose schedule never stays perfect — stay consistent. The core
-idea is **consistency over perfection**: showing up on your worst day matters more than a
-perfect week.
-
-## What it does
-- **Daily habits**: pick a few small habits and log them each day; streaks forgive a missed day.
-- **Short workouts**: train in the time you have, with sets, RPE, duration, notes, and an exercise library.
-- **Guided plans**: a day-by-day plan that tells you what to do and can restart after a miss.
-- **Progress**: streaks, XP, badges, levels, a consistency calendar, and weekly recaps.
-- **Community**: friends, squads, and weekly leagues for accountability.
-- **Coaching**: coaches and clients work out of the same app — coaches assign programs, message
-  clients two ways, run weekly check-ins (energy, adherence, notes), and track each client's
-  workouts, habits, and streaks.
-
-## Platforms
-- Web app and an iOS app (App Store).
+Everyday Performance helps busy people practice consistency with short workouts, daily habits, streaks, and XP. It does not promise a specific body, medical, or performance outcome, and it does not publish a star rating or a user count. Fitness and habit ideas on the site are general education, not medical advice.
 
 ## Pricing
-- **Free** to start — a daily plan with habits and short workouts, no card required.
-- **Pro**: **$14.99/month** or **$149.99/year** (about $12.50/month effective), each with a
-  **7-day free trial**. The trial requires a card and auto-renews unless cancelled.
-- On the web, billing is via Stripe; on iPhone, the App Store price shown in the app applies.
-  Coach plans are a separate purchase and are not consumer Pro.
 
-## Who it's for
-Busy people at any level — beginners, parents, professionals — who have bounced off other
-fitness and habit apps and want a simple, forgiving system that rewards showing up.
+- Free: $0. A free account does not require a card. This is not the 7-day Pro trial.
+- Pro monthly: $14.99 per month on the website.
+- Pro yearly: $149.99 per year on the website ($12.50 per month effective).
+- The 7-day Pro trial requires a card and auto-renews unless you cancel before it ends. Cancel Pro in account settings. Access continues through the end of the current billing period.
+- An iPhone subscription, if purchased, uses the live App Store price and currency shown in the app. Those prices are not the website prices above.
+- Coach plans are a separate purchase and are not consumer Pro.
 
-## Links
-- Website: https://everydayperform.com/
-- App: https://app.everydayperform.com/
+## What it does
+
+- Daily habits you can finish when the day is already full, including hydration, mobility, a walk, stretching, or breathing. A missed day does not mean the plan failed; you can restart.
+- Short workouts in the time you have, with sets, RPE, duration, notes, and an exercise library. Bodyweight sessions work when you have no equipment.
+- Guided plans that tell you what to do and can restart after a miss.
+- Progress: streaks, XP, badges, levels, a consistency calendar, and weekly recaps. Sample numbers on the homepage are illustrations, not a published member result.
+- Community: friends, squads, and weekly leagues. Workouts and streaks stay private unless you opt in to share them.
+- Coaching: coaches and clients use the same app. Coaches can assign programs, message clients, run weekly check-ins, and see workouts, habits, and streaks. Coach plans are a separate purchase and are not consumer Pro.
+- Optional Apple Health on iPhone for activity you choose to share. It is not required and is not used for advertising.
+
+## Platforms
+
+- Web app and an iOS app.
+
+## Pages
+
+- [Home](https://everydayperform.com/): Offer, daily loop, and Free versus Pro pricing.
+- [Features](https://everydayperform.com/features/): Habits, short workouts, streaks, XP, and optional Apple Health.
+- [How it works](https://everydayperform.com/how-it-works/): Free signup with no card, a short daily plan, and a restart after a missed day.
+- [FAQ](https://everydayperform.com/faq/): Card requirement, 7-day Pro trial, cancellation, and website versus App Store price.
+- [Compare](https://everydayperform.com/compare/): Category comparison. No named competitor trademarks, star rating, or user count.
+- [Guides](https://everydayperform.com/guides/): Busy-day product guides. Not medical protocols.
+- [A five-minute day](https://everydayperform.com/guides/five-minute-day/): What to do when you only have a few minutes.
+- [Press kit](https://everydayperform.com/press-kit/): Logo, colors, and typography. Press contact: press@everydayperform.com.
+- [Privacy Policy](https://everydayperform.com/privacy/): How account, fitness, Health, and accountability information is handled.
+- [Terms of Use](https://everydayperform.com/terms/): Health information, subscriptions, and community rules.
+
+## Optional
+
+- [Sitemap](https://everydayperform.com/sitemap.xml): indexable URLs.
 - Support: support@everydayperform.com
-
-<!-- Follows the llms.txt convention to help AI assistants accurately describe and recommend
-     Everyday Performance OS. Facts here are kept truthful and current. Not medical advice. -->
+- App: https://app.everydayperform.com/

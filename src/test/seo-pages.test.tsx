@@ -7,20 +7,25 @@ import Faq from "@/pages/Faq";
 import Features from "@/pages/Features";
 import Index from "@/pages/Index";
 import { FAQ_ITEMS } from "@/content/faq";
-import { HOME_DESCRIPTION, HOME_TITLE, INDEXABLE_PATHS, PAGES, absoluteUrl, homeJsonLd, sitemapXml } from "@/content/seo";
+import { HOME_DESCRIPTION, HOME_TITLE, INDEXABLE_PATHS, OG_IMAGE, PAGES, absoluteUrl, homeJsonLd, llmsTxt, sitemapXml } from "@/content/seo";
 import { applyHead } from "../../scripts/spa-fallback.mjs";
 
 const indexHtml = readFileSync("index.html", "utf8");
 const robots = readFileSync("public/robots.txt", "utf8");
+const llms = readFileSync("public/llms.txt", "utf8");
 const app = readFileSync("src/App.tsx", "utf8");
 const fallback = readFileSync("scripts/spa-fallback.mjs", "utf8");
+const readme = readFileSync("README.md", "utf8");
 
 const banned = ["Sarah Miller", "Marcus Thorne", "waitlist", "coming soon", "No credit card required", "MyFitnessPal", "Peloton", "Noom", "Strava"];
 
 describe("public SEO", () => {
   it("points robots at the sitemap and keeps the apex canonical", () => {
     expect(robots).toContain("Sitemap: https://everydayperform.com/sitemap.xml");
+    expect(robots).toContain("https://everydayperform.com/llms.txt");
     expect(robots).toContain("Allow: /");
+    expect(robots).toContain("User-agent: GPTBot");
+    expect(robots).not.toContain("Disallow");
     expect(absoluteUrl("/")).toBe("https://everydayperform.com/");
     expect(absoluteUrl("/features/")).toBe("https://everydayperform.com/features/");
     expect(absoluteUrl("/#pricing")).toBe("https://everydayperform.com/#pricing");
@@ -28,12 +33,21 @@ describe("public SEO", () => {
       expect(sitemapXml()).toContain(`<loc>${absoluteUrl(path)}</loc>`);
     }
     expect(sitemapXml()).not.toContain("/404");
+    expect(llms).toBe(llmsTxt());
+    expect(llms).toContain("$14.99");
+    expect(llms).toContain("$149.99");
+    expect(llms).toContain("does not require a card");
+    expect(llms).toContain("7-day Pro trial requires a card");
+    expect(llms).not.toContain("$119");
   });
 
   it("keeps homepage head copy aligned with the shared SEO source", () => {
     expect(indexHtml).toContain(`<title>${HOME_TITLE}</title>`);
     expect(indexHtml).toContain(`content="${HOME_DESCRIPTION}"`);
     expect(indexHtml).toContain('rel="canonical" href="https://everydayperform.com/"');
+    expect(indexHtml).toContain('property="og:image" content="https://everydayperform.com/og.png"');
+    expect(indexHtml).toContain('name="twitter:card" content="summary_large_image"');
+    expect(indexHtml).toContain('href="https://everydayperform.com/llms.txt"');
     const jsonLd = indexHtml.match(/<script type="application\/ld\+json" id="ld-json">([\s\S]*?)<\/script>/);
     expect(jsonLd).not.toBeNull();
     expect(JSON.parse(jsonLd?.[1] ?? "")).toEqual(homeJsonLd);
@@ -48,10 +62,16 @@ describe("public SEO", () => {
       title: PAGES.faq.title,
       description: PAGES.faq.description,
       url: absoluteUrl(PAGES.faq.path),
+      ogType: "article",
+      image: OG_IMAGE,
       jsonLd: { "@type": "FAQPage" },
     });
     expect(html).toContain(`<title>${PAGES.faq.title}</title>`);
     expect(html).toContain('rel="canonical" href="https://everydayperform.com/faq/"');
+    expect(html).toContain('property="og:image" content="https://everydayperform.com/og.png"');
+    expect(html).toContain('name="twitter:card" content="summary_large_image"');
+    expect(html).toContain('name="twitter:url" content="https://everydayperform.com/faq/"');
+    expect(html).toContain('property="og:type" content="article"');
     expect(html).toContain('"@type":"FAQPage"');
     expect(html).not.toContain(`<title>${HOME_TITLE}</title>`);
     expect(html.match(/rel="canonical"/g)).toHaveLength(1);
@@ -63,6 +83,7 @@ describe("public SEO", () => {
       expect(fallback).toContain(route);
     }
     expect(fallback).toContain("dist/sitemap.xml");
+    expect(fallback).toContain("dist/llms.txt");
     expect(fallback).toContain("dist/CNAME");
     expect(fallback).toContain("everydayperform.com");
   });
@@ -125,5 +146,17 @@ describe("public SEO", () => {
     }
     expect(JSON.stringify(homeJsonLd)).not.toContain("https://app.everydayperform.com/signup");
     expect(JSON.stringify(homeJsonLd)).not.toContain("aggregateRating");
+    const structured = JSON.stringify(homeJsonLd);
+    expect(structured).toContain("MobileApplication");
+    expect(structured).toContain("Organization");
+    expect(structured).toContain("FAQPage");
+    expect(structured).toContain('"price":"0"');
+    expect(structured).toContain('"price":"14.99"');
+    expect(structured).toContain('"price":"149.99"');
+    expect(structured).toContain("Requires a card");
+    for (const source of [indexHtml, llms, readme, structured, readFileSync("src/content/marketing.ts", "utf8"), readFileSync("src/content/faq.ts", "utf8")]) {
+      expect(source).not.toContain("$119");
+      expect(source).not.toContain('price":"119"');
+    }
   });
 });
