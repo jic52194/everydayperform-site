@@ -65,6 +65,20 @@ export const PAGES = {
       "One habit, an optional short workout, and a restart after a missed day. A free Everyday Performance account does not require a card.",
     ogType: "article",
   },
+  busyParents: {
+    path: "/guides/habit-tracker-for-busy-parents/",
+    title: "Habit Tracker for Busy Parents | Everyday Performance",
+    description:
+      "A forgiving habit tracker and short-workout plan for busy parents: tiny daily habits, streaks that survive a missed day, and sessions you can finish between everything else. Free account, no card.",
+    ogType: "article",
+  },
+  fiveMinuteWorkouts: {
+    path: "/guides/5-minute-workouts/",
+    title: "5-Minute Workouts for a Packed Day | Everyday Performance",
+    description:
+      "Short, equipment-optional 5-minute workouts for professionals and parents with no time. Log it, keep the streak, and let a few minutes still count. Free account, no card.",
+    ogType: "article",
+  },
   press: {
     path: "/press-kit/",
     title: "Press Kit & Media Kit | Everyday Performance OS",
@@ -92,6 +106,8 @@ export const INDEXABLE_PATHS = [
   PAGES.compare.path,
   PAGES.guides.path,
   PAGES.fiveMinuteDay.path,
+  PAGES.busyParents.path,
+  PAGES.fiveMinuteWorkouts.path,
   PAGES.press.path,
   PAGES.privacy.path,
   PAGES.terms.path,
@@ -105,6 +121,8 @@ export const SPA_ROUTE_DIRS = [
   "compare",
   "guides",
   "guides/five-minute-day",
+  "guides/habit-tracker-for-busy-parents",
+  "guides/5-minute-workouts",
   "press-kit",
   "privacy",
   "terms",
@@ -169,6 +187,8 @@ export function llmsTxt() {
     page(PAGES.compare.path, "Compare", "Category comparison. No named competitor trademarks, star rating, or user count."),
     page(PAGES.guides.path, "Guides", "Busy-day product guides. Not medical protocols."),
     page(PAGES.fiveMinuteDay.path, "A five-minute day", "What to do when you only have a few minutes."),
+    page(PAGES.busyParents.path, "Habit tracker for busy parents", "A forgiving habit + short-workout plan for parents with no time."),
+    page(PAGES.fiveMinuteWorkouts.path, "5-minute workouts", "Short, equipment-optional sessions for a packed day."),
     page(PAGES.press.path, "Press kit", "Logo, colors, and typography. Press contact: press@everydayperform.com."),
     page(PAGES.privacy.path, "Privacy Policy", "How account, fitness, Health, and accountability information is handled."),
     page(PAGES.terms.path, "Terms of Use", "Health information, subscriptions, and community rules."),
@@ -429,6 +449,18 @@ export const guidesJsonLd = pageGraph(
         name: "A five-minute day",
         url: absoluteUrl(PAGES.fiveMinuteDay.path),
       },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Habit tracker for busy parents",
+        url: absoluteUrl(PAGES.busyParents.path),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "5-minute workouts for a packed day",
+        url: absoluteUrl(PAGES.fiveMinuteWorkouts.path),
+      },
     ],
   },
 );
@@ -448,6 +480,46 @@ export const fiveMinuteJsonLd = pageGraph(
     image: OG_IMAGE,
     inLanguage: "en",
     mainEntityOfPage: absoluteUrl(PAGES.fiveMinuteDay.path),
+    author: orgRef(),
+    publisher: orgRef(),
+  },
+);
+
+export const busyParentsJsonLd = pageGraph(
+  breadcrumbNode([
+    { name: "Home", path: "/" },
+    { name: "Guides", path: PAGES.guides.path },
+    { name: "Habit tracker for busy parents", path: PAGES.busyParents.path },
+  ]),
+  {
+    "@type": "Article",
+    headline: "Habit tracker for busy parents",
+    description: PAGES.busyParents.description,
+    datePublished: CONTENT_UPDATED,
+    dateModified: CONTENT_UPDATED,
+    image: OG_IMAGE,
+    inLanguage: "en",
+    mainEntityOfPage: absoluteUrl(PAGES.busyParents.path),
+    author: orgRef(),
+    publisher: orgRef(),
+  },
+);
+
+export const fiveMinuteWorkoutsJsonLd = pageGraph(
+  breadcrumbNode([
+    { name: "Home", path: "/" },
+    { name: "Guides", path: PAGES.guides.path },
+    { name: "5-minute workouts for a packed day", path: PAGES.fiveMinuteWorkouts.path },
+  ]),
+  {
+    "@type": "Article",
+    headline: "5-minute workouts for a packed day",
+    description: PAGES.fiveMinuteWorkouts.description,
+    datePublished: CONTENT_UPDATED,
+    dateModified: CONTENT_UPDATED,
+    image: OG_IMAGE,
+    inLanguage: "en",
+    mainEntityOfPage: absoluteUrl(PAGES.fiveMinuteWorkouts.path),
     author: orgRef(),
     publisher: orgRef(),
   },
@@ -485,6 +557,8 @@ export const JSON_LD_BY_PATH: Record<string, Record<string, unknown>> = {
   [PAGES.compare.path]: compareJsonLd,
   [PAGES.guides.path]: guidesJsonLd,
   [PAGES.fiveMinuteDay.path]: fiveMinuteJsonLd,
+  [PAGES.busyParents.path]: busyParentsJsonLd,
+  [PAGES.fiveMinuteWorkouts.path]: fiveMinuteWorkoutsJsonLd,
   [PAGES.press.path]: pressJsonLd,
   [PAGES.privacy.path]: privacyJsonLd,
   [PAGES.terms.path]: termsJsonLd,

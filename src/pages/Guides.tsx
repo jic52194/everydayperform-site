@@ -27,19 +27,35 @@ export default function Guides() {
           Short, practical notes for using Everyday Performance on a real schedule. These are product guides, not medical protocols.
         </p>
       </header>
-      <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
-        <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
-          <Link to={PAGES.fiveMinuteDay.path} className="hover:text-primary">
-            A five-minute day
-          </Link>
-        </h2>
-        <p className="text-muted-foreground leading-relaxed mb-4">
-          What to do in the app when you only have a few minutes, including how to come back after a missed day.
-        </p>
-        <Link to={PAGES.fiveMinuteDay.path} className="text-primary underline underline-offset-4">
-          Read the guide
-        </Link>
-      </article>
+      <div className="grid gap-5">
+        <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
+          <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
+            <Link to={PAGES.fiveMinuteDay.path} className="hover:text-primary">A five-minute day</Link>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            What to do in the app when you only have a few minutes, including how to come back after a missed day.
+          </p>
+          <Link to={PAGES.fiveMinuteDay.path} className="text-primary underline underline-offset-4">Read the guide</Link>
+        </article>
+        <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
+          <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
+            <Link to={PAGES.busyParents.path} className="hover:text-primary">Habit tracker for busy parents</Link>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            A forgiving habit tracker and short-workout plan for parents with no clean hour — tiny habits, streaks that survive a missed day.
+          </p>
+          <Link to={PAGES.busyParents.path} className="text-primary underline underline-offset-4">Read the guide</Link>
+        </article>
+        <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
+          <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
+            <Link to={PAGES.fiveMinuteWorkouts.path} className="hover:text-primary">5-minute workouts</Link>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Short, equipment-optional sessions for a packed day — how a few minutes still counts and keeps the streak alive.
+          </p>
+          <Link to={PAGES.fiveMinuteWorkouts.path} className="text-primary underline underline-offset-4">Read the guide</Link>
+        </article>
+      </div>
     </MarketingLayout>
   );
 }

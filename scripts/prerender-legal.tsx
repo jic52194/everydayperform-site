@@ -6,6 +6,8 @@ import Compare from "@/pages/Compare";
 import Faq from "@/pages/Faq";
 import Features from "@/pages/Features";
 import FiveMinuteDay from "@/pages/FiveMinuteDay";
+import BusyParents from "@/pages/BusyParents";
+import FiveMinuteWorkouts from "@/pages/FiveMinuteWorkouts";
 import Guides from "@/pages/Guides";
 import HowItWorks from "@/pages/HowItWorks";
 import Privacy from "@/pages/Privacy";
@@ -43,6 +45,8 @@ export function renderRouteBodies() {
     compare: render(Compare),
     guides: render(Guides),
     "guides/five-minute-day": render(FiveMinuteDay),
+    "guides/habit-tracker-for-busy-parents": render(BusyParents),
+    "guides/5-minute-workouts": render(FiveMinuteWorkouts),
   };
 
   if (!pages.terms.includes("Terms of Use") || !pages.terms.includes("Last updated October 25, 2026") || !pages.terms.includes('id="health-disclaimer"')) {
@@ -58,6 +62,8 @@ export function renderRouteBodies() {
   if (!hasH1(pages.compare, "How Everyday Performance compares")) throw new Error("Compare prerender is missing its h1.");
   if (!hasH1(pages.guides, "Guides")) throw new Error("Guides prerender is missing its h1.");
   if (!hasH1(pages["guides/five-minute-day"], "A five-minute day")) throw new Error("Guide prerender is missing its h1.");
+  if (!hasH1(pages["guides/habit-tracker-for-busy-parents"], "Habit tracker for busy parents")) throw new Error("Busy-parents guide prerender is missing its h1.");
+  if (!hasH1(pages["guides/5-minute-workouts"], "5-minute workouts")) throw new Error("5-minute workouts guide prerender is missing its h1.");
 
   const combined = Object.values(pages).join("\n");
   if (/legal entity|mailing address|not on file/i.test(pages.terms + pages.privacy)) {
