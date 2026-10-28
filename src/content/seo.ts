@@ -1,15 +1,25 @@
 import { FAQ_ITEMS, HOME_FAQ_IDS, PRICING_FAQ_IDS, faqPageEntities } from "@/content/faq";
 
 export const SITE_ORIGIN = "https://everydayperform.com";
+export const SITE_NAME = "Everyday Performance";
+export const OG_IMAGE = `${SITE_ORIGIN}/og.png`;
+export const OG_IMAGE_ALT = "Everyday Performance OS";
+export const OG_IMAGE_WIDTH = "1200";
+export const OG_IMAGE_HEIGHT = "630";
+const ORG_ID = `${SITE_ORIGIN}/#organization`;
+const WEBSITE_ID = `${SITE_ORIGIN}/#website`;
+const APP_ID = `${SITE_ORIGIN}/#app`;
+const CONTENT_UPDATED = "2026-10-28";
 
 export const HOME_TITLE = "Everyday Performance OS | Daily Habits and Short Workouts";
 export const HOME_DESCRIPTION =
-  "Create a free Everyday Performance account with no card. Short workouts, daily habits, streaks, and XP for busy schedules. Pro is $14.99/mo or $149.99/yr.";
+  "Free account, no card. Short workouts, daily habits, streaks, and XP for busy days. Pro is $14.99/mo or $149.99/yr; the 7-day trial needs a card.";
 
 export type PageMeta = {
   path: string;
   title: string;
   description: string;
+  ogType?: "website" | "article";
 };
 
 export const PAGES = {
@@ -20,38 +30,40 @@ export const PAGES = {
   },
   features: {
     path: "/features/",
-    title: "Features | Everyday Performance OS",
+    title: "Habits, Short Workouts, and XP | Everyday Performance",
     description:
-      "Daily habits, short workouts, streaks, XP, and a plan for busy days. See what is in Everyday Performance OS, including optional Apple Health.",
+      "Daily habits, short workouts, streaks, XP, and optional Apple Health. A free account needs no card. Pro is $14.99/mo or $149.99/yr.",
   },
   howItWorks: {
     path: "/how-it-works/",
-    title: "How It Works | Everyday Performance OS",
+    title: "How the Daily Plan Works | Everyday Performance",
     description:
-      "Create a free account with no card, follow a short daily plan, and restart after a missed day. Pro is $14.99/mo or $149.99/yr.",
+      "Create a free account with no card, finish a short daily plan, and restart after a missed day. Pro is $14.99/mo or $149.99/yr.",
   },
   faq: {
     path: "/faq/",
-    title: "FAQ | Everyday Performance OS",
+    title: "Free, Pro, and Trial FAQ | Everyday Performance",
     description:
-      "Answers on free accounts, Pro at $14.99/mo or $149.99/yr, the 7-day trial card requirement, cancellation, equipment, and the health disclaimer.",
+      "Free accounts need no card. Pro is $14.99/mo or $149.99/yr. The 7-day Pro trial requires a card and auto-renews. Cancel in account settings.",
   },
   compare: {
     path: "/compare/",
-    title: "Compare Everyday Performance | Habits, Workouts, and Busy Days",
+    title: "Compare Habits and Busy Days | Everyday Performance",
     description:
       "How Everyday Performance differs from a long workout catalog, a habit checklist, or an all-or-nothing program. No star rating and no user count.",
   },
   guides: {
     path: "/guides/",
-    title: "Guides | Everyday Performance OS",
-    description: "Practical guides for using Everyday Performance on a busy day, starting with a five-minute plan you can finish.",
+    title: "Busy-Day Guides | Everyday Performance",
+    description:
+      "Practical guides for a packed schedule, starting with a five-minute Everyday Performance plan you can finish. Free account, no card.",
   },
   fiveMinuteDay: {
     path: "/guides/five-minute-day/",
     title: "A Five-Minute Day | Everyday Performance",
     description:
-      "Use Everyday Performance when you only have a few minutes: one habit, an optional short workout, and a restart after a missed day.",
+      "One habit, an optional short workout, and a restart after a missed day. A free Everyday Performance account does not require a card.",
+    ogType: "article",
   },
   press: {
     path: "/press-kit/",
@@ -110,8 +122,64 @@ export function absoluteUrl(path: string) {
 }
 
 export function sitemapXml() {
-  const urls = INDEXABLE_PATHS.map((path) => `  <url><loc>${absoluteUrl(path)}</loc></url>`).join("\n");
+  const urls = INDEXABLE_PATHS.map(
+    (path) => `  <url><loc>${absoluteUrl(path)}</loc><lastmod>${CONTENT_UPDATED}</lastmod></url>`,
+  ).join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+}
+
+export function llmsTxt() {
+  const page = (path: string, label: string, note: string) => `- [${label}](${absoluteUrl(path)}): ${note}`;
+  return [
+    "# Everyday Performance OS",
+    "",
+    "> Everyday Performance OS is a daily habit and short-workout app for busy schedules. A free account does not require a card. Website Pro is $14.99 per month or $149.99 per year ($12.50 per month effective). The 7-day Pro trial requires a card and auto-renews unless you cancel. Website prices are not the App Store price.",
+    "",
+    "Everyday Performance helps busy people practice consistency with short workouts, daily habits, streaks, and XP. It does not promise a specific body, medical, or performance outcome, and it does not publish a star rating or a user count. Fitness and habit ideas on the site are general education, not medical advice.",
+    "",
+    "## Pricing",
+    "",
+    "- Free: $0. A free account does not require a card. This is not the 7-day Pro trial.",
+    "- Pro monthly: $14.99 per month on the website.",
+    "- Pro yearly: $149.99 per year on the website ($12.50 per month effective).",
+    "- The 7-day Pro trial requires a card and auto-renews unless you cancel before it ends. Cancel Pro in account settings. Access continues through the end of the current billing period.",
+    "- An iPhone subscription, if purchased, uses the live App Store price and currency shown in the app. Those prices are not the website prices above.",
+    "- Coach plans are a separate purchase and are not consumer Pro.",
+    "",
+    "## What it does",
+    "",
+    "- Daily habits you can finish when the day is already full, including hydration, mobility, a walk, stretching, or breathing. A missed day does not mean the plan failed; you can restart.",
+    "- Short workouts in the time you have, with sets, RPE, duration, notes, and an exercise library. Bodyweight sessions work when you have no equipment.",
+    "- Guided plans that tell you what to do and can restart after a miss.",
+    "- Progress: streaks, XP, badges, levels, a consistency calendar, and weekly recaps. Sample numbers on the homepage are illustrations, not a published member result.",
+    "- Community: friends, squads, and weekly leagues. Workouts and streaks stay private unless you opt in to share them.",
+    "- Coaching: coaches and clients use the same app. Coaches can assign programs, message clients, run weekly check-ins, and see workouts, habits, and streaks. Coach plans are a separate purchase and are not consumer Pro.",
+    "- Optional Apple Health on iPhone for activity you choose to share. It is not required and is not used for advertising.",
+    "",
+    "## Platforms",
+    "",
+    "- Web app and an iOS app.",
+    "",
+    "## Pages",
+    "",
+    page("/", "Home", "Offer, daily loop, and Free versus Pro pricing."),
+    page(PAGES.features.path, "Features", "Habits, short workouts, streaks, XP, and optional Apple Health."),
+    page(PAGES.howItWorks.path, "How it works", "Free signup with no card, a short daily plan, and a restart after a missed day."),
+    page(PAGES.faq.path, "FAQ", "Card requirement, 7-day Pro trial, cancellation, and website versus App Store price."),
+    page(PAGES.compare.path, "Compare", "Category comparison. No named competitor trademarks, star rating, or user count."),
+    page(PAGES.guides.path, "Guides", "Busy-day product guides. Not medical protocols."),
+    page(PAGES.fiveMinuteDay.path, "A five-minute day", "What to do when you only have a few minutes."),
+    page(PAGES.press.path, "Press kit", "Logo, colors, and typography. Press contact: press@everydayperform.com."),
+    page(PAGES.privacy.path, "Privacy Policy", "How account, fitness, Health, and accountability information is handled."),
+    page(PAGES.terms.path, "Terms of Use", "Health information, subscriptions, and community rules."),
+    "",
+    "## Optional",
+    "",
+    `- [Sitemap](${SITE_ORIGIN}/sitemap.xml): indexable URLs.`,
+    "- Support: support@everydayperform.com",
+    "- App: https://app.everydayperform.com/",
+    "",
+  ].join("\n");
 }
 
 function graph(...nodes: Record<string, unknown>[]) {
@@ -121,32 +189,89 @@ function graph(...nodes: Record<string, unknown>[]) {
   };
 }
 
+function orgRef() {
+  return { "@id": ORG_ID };
+}
+
 function organizationNode() {
   return {
     "@type": "Organization",
-    name: "Everyday Performance",
+    "@id": ORG_ID,
+    name: SITE_NAME,
     url: absoluteUrl("/"),
-    logo: `${SITE_ORIGIN}/logo.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_ORIGIN}/logo.png`,
+      width: 200,
+      height: 100,
+    },
     email: "support@everydayperform.com",
+    description:
+      "Everyday Performance OS is a daily system of short workouts and habits, with streaks and XP, for busy schedules. A free account does not require a card.",
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        email: "support@everydayperform.com",
+        contactType: "customer support",
+        availableLanguage: "English",
+      },
+      {
+        "@type": "ContactPoint",
+        email: "press@everydayperform.com",
+        contactType: "press",
+        availableLanguage: "English",
+      },
+    ],
   };
 }
 
-function softwareNode() {
+const TRIAL_NOTE = "The 7-day Pro trial requires a card and auto-renews unless you cancel. It is not included with the free account.";
+const WEBSITE_PRICE_NOTE = "This is the website price, not the App Store price.";
+
+function unitPrice(price: string, unitText: string, unitCode: string) {
   return {
-    "@type": "SoftwareApplication",
+    "@type": "UnitPriceSpecification",
+    price,
+    priceCurrency: "USD",
+    unitText,
+    referenceQuantity: {
+      "@type": "QuantitativeValue",
+      value: 1,
+      unitCode,
+    },
+  };
+}
+
+function trialProperty() {
+  return {
+    "@type": "PropertyValue",
+    name: "Trial",
+    value: "7 days. Requires a card and auto-renews unless you cancel.",
+  };
+}
+
+function mobileApplicationNode() {
+  return {
+    "@type": ["MobileApplication", "SoftwareApplication"],
+    "@id": APP_ID,
     name: "Everyday Performance OS",
     applicationCategory: "HealthApplication",
-    operatingSystem: "Web, iOS",
+    operatingSystem: "iOS, Web",
     url: absoluteUrl("/"),
+    image: OG_IMAGE,
     description: HOME_DESCRIPTION,
+    inLanguage: "en",
     isAccessibleForFree: true,
+    publisher: orgRef(),
     offers: [
       {
         "@type": "Offer",
         name: "Free",
         price: "0",
         priceCurrency: "USD",
-        description: "Free account. Does not require a card.",
+        availability: "https://schema.org/InStock",
+        category: "Website price",
+        description: "Free website account. Does not require a card. This is not the 7-day Pro trial.",
         url: absoluteUrl("/#pricing"),
       },
       {
@@ -154,16 +279,24 @@ function softwareNode() {
         name: "Pro monthly",
         price: "14.99",
         priceCurrency: "USD",
-        description: "Pro monthly. The 7-day Pro trial requires a card and auto-renews.",
+        availability: "https://schema.org/InStock",
+        category: "Website price",
+        description: `Website Pro, billed monthly at $14.99. ${TRIAL_NOTE} ${WEBSITE_PRICE_NOTE}`,
         url: absoluteUrl("/#pricing"),
+        priceSpecification: unitPrice("14.99", "MONTH", "MON"),
+        additionalProperty: trialProperty(),
       },
       {
         "@type": "Offer",
         name: "Pro yearly",
         price: "149.99",
         priceCurrency: "USD",
-        description: "Pro yearly, $12.50 per month effective. The 7-day Pro trial requires a card and auto-renews.",
+        availability: "https://schema.org/InStock",
+        category: "Website price",
+        description: `Website Pro, billed yearly at $149.99 ($12.50 per month effective). ${TRIAL_NOTE} ${WEBSITE_PRICE_NOTE}`,
         url: absoluteUrl("/#pricing"),
+        priceSpecification: unitPrice("149.99", "YEAR", "ANN"),
+        additionalProperty: trialProperty(),
       },
     ],
     featureList: [
@@ -176,18 +309,30 @@ function softwareNode() {
   };
 }
 
+function pageGraph(...nodes: Record<string, unknown>[]) {
+  return graph(organizationNode(), ...nodes);
+}
+
+function websiteNode() {
+  return {
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    name: SITE_NAME,
+    url: absoluteUrl("/"),
+    description: HOME_DESCRIPTION,
+    inLanguage: "en",
+    publisher: orgRef(),
+  };
+}
+
 function webPageNode(page: PageMeta) {
   return {
     "@type": "WebPage",
     name: page.title,
     description: page.description,
     url: absoluteUrl(page.path),
-    isPartOf: {
-      "@type": "WebSite",
-      name: "Everyday Performance",
-      url: absoluteUrl("/"),
-    },
-    publisher: organizationNode(),
+    isPartOf: { "@id": WEBSITE_ID },
+    publisher: orgRef(),
   };
 }
 
@@ -203,62 +348,61 @@ function breadcrumbNode(items: { name: string; path: string }[]) {
   };
 }
 
-function faqNode(ids: readonly string[]) {
+function faqNode(pageUrl: string, ids: readonly string[]) {
   return {
     "@type": "FAQPage",
+    "@id": `${pageUrl}#faq`,
+    url: pageUrl,
     mainEntity: faqPageEntities(ids),
   };
 }
 
 const homeFaqIds = [...PRICING_FAQ_IDS, ...HOME_FAQ_IDS];
 
-export const homeJsonLd = graph(
-  organizationNode(),
-  {
-    "@type": "WebSite",
-    name: "Everyday Performance",
-    url: absoluteUrl("/"),
-    publisher: organizationNode(),
-  },
-  softwareNode(),
-  faqNode(homeFaqIds),
+export const homeJsonLd = pageGraph(
+  websiteNode(),
+  mobileApplicationNode(),
+  faqNode(absoluteUrl("/"), homeFaqIds),
 );
 
-export const featuresJsonLd = graph(
+export const featuresJsonLd = pageGraph(
   breadcrumbNode([
     { name: "Home", path: "/" },
     { name: "Features", path: PAGES.features.path },
   ]),
   webPageNode(PAGES.features),
-  softwareNode(),
+  mobileApplicationNode(),
 );
 
-export const howItWorksJsonLd = graph(
+export const howItWorksJsonLd = pageGraph(
   breadcrumbNode([
     { name: "Home", path: "/" },
     { name: "How it works", path: PAGES.howItWorks.path },
   ]),
   webPageNode(PAGES.howItWorks),
+  mobileApplicationNode(),
 );
 
-export const faqJsonLd = graph(
+export const faqJsonLd = pageGraph(
   breadcrumbNode([
     { name: "Home", path: "/" },
     { name: "FAQ", path: PAGES.faq.path },
   ]),
   webPageNode(PAGES.faq),
-  faqNode(FAQ_ITEMS.map((item) => item.id)),
+  faqNode(absoluteUrl(PAGES.faq.path), FAQ_ITEMS.map((item) => item.id)),
+  mobileApplicationNode(),
 );
 
-export const compareJsonLd = graph(
+export const compareJsonLd = pageGraph(
   breadcrumbNode([
     { name: "Home", path: "/" },
     { name: "Compare", path: PAGES.compare.path },
   ]),
   webPageNode(PAGES.compare),
+  mobileApplicationNode(),
 );
 
-export const guidesJsonLd = graph(
+export const guidesJsonLd = pageGraph(
   breadcrumbNode([
     { name: "Home", path: "/" },
     { name: "Guides", path: PAGES.guides.path },
@@ -277,7 +421,7 @@ export const guidesJsonLd = graph(
   },
 );
 
-export const fiveMinuteJsonLd = graph(
+export const fiveMinuteJsonLd = pageGraph(
   breadcrumbNode([
     { name: "Home", path: "/" },
     { name: "Guides", path: PAGES.guides.path },
@@ -287,15 +431,17 @@ export const fiveMinuteJsonLd = graph(
     "@type": "Article",
     headline: "A five-minute day",
     description: PAGES.fiveMinuteDay.description,
-    datePublished: "2026-10-28",
-    dateModified: "2026-10-28",
+    datePublished: CONTENT_UPDATED,
+    dateModified: CONTENT_UPDATED,
+    image: OG_IMAGE,
+    inLanguage: "en",
     mainEntityOfPage: absoluteUrl(PAGES.fiveMinuteDay.path),
-    author: organizationNode(),
-    publisher: organizationNode(),
+    author: orgRef(),
+    publisher: orgRef(),
   },
 );
 
-export const pressJsonLd = graph(
+export const pressJsonLd = pageGraph(
   breadcrumbNode([
     { name: "Home", path: "/" },
     { name: "Press kit", path: PAGES.press.path },
@@ -303,7 +449,7 @@ export const pressJsonLd = graph(
   webPageNode(PAGES.press),
 );
 
-export const privacyJsonLd = graph(
+export const privacyJsonLd = pageGraph(
   breadcrumbNode([
     { name: "Home", path: "/" },
     { name: "Privacy Policy", path: PAGES.privacy.path },
@@ -311,7 +457,7 @@ export const privacyJsonLd = graph(
   webPageNode(PAGES.privacy),
 );
 
-export const termsJsonLd = graph(
+export const termsJsonLd = pageGraph(
   breadcrumbNode([
     { name: "Home", path: "/" },
     { name: "Terms of Use", path: PAGES.terms.path },

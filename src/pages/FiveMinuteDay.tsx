@@ -8,6 +8,7 @@ export default function FiveMinuteDay() {
       title={PAGES.fiveMinuteDay.title}
       description={PAGES.fiveMinuteDay.description}
       path={PAGES.fiveMinuteDay.path}
+      ogType={PAGES.fiveMinuteDay.ogType}
       jsonLd={fiveMinuteJsonLd}
       crumbs={[
         { label: "Home", to: "/" },

@@ -15,6 +15,7 @@ export function MarketingLayout({
   description,
   path,
   jsonLd,
+  ogType = "website",
   crumbs,
   children,
   width = "narrow",
@@ -24,6 +25,7 @@ export function MarketingLayout({
   description: string;
   path: string;
   jsonLd?: JsonLd;
+  ogType?: "website" | "article";
   crumbs: Crumb[];
   children: ReactNode;
   width?: "narrow" | "wide";
@@ -31,7 +33,7 @@ export function MarketingLayout({
 }) {
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col">
-      <SEO title={title} description={description} path={path} jsonLd={jsonLd} />
+      <SEO title={title} description={description} path={path} ogType={ogType} jsonLd={jsonLd} />
       <PublicNavbar />
       <main id="main" className="flex-1 relative z-10 pt-28 md:pt-32 pb-8">
         <article className={`container mx-auto px-4 ${width === "wide" ? "max-w-5xl" : "max-w-3xl"}`}>

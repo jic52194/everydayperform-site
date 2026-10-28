@@ -15,11 +15,17 @@ export {
   JSON_LD_BY_PATH,
   NOT_FOUND_META,
   NOT_FOUND_STATIC_HTML,
+  OG_IMAGE,
+  OG_IMAGE_ALT,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
   PAGES,
   PRESS_STATIC_HTML,
+  SITE_NAME,
   SPA_ROUTE_DIRS,
   absoluteUrl,
   homeJsonLd,
+  llmsTxt,
   sitemapXml,
 } from "@/content/seo";
 
