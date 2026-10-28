@@ -198,7 +198,18 @@ function organizationNode() {
     "@type": "Organization",
     "@id": ORG_ID,
     name: SITE_NAME,
+    // Brand-name variants so search engines associate common spellings and
+    // spacings ("every day perform", "everydayperform", "everyday performance")
+    // with this entity.
+    alternateName: [
+      "Everyday Performance OS",
+      "EverydayPerform",
+      "Every Day Perform",
+      "Everyday Performance App",
+      "everydayperform",
+    ],
     url: absoluteUrl("/"),
+    sameAs: ["https://app.everydayperform.com/"],
     logo: {
       "@type": "ImageObject",
       url: `${SITE_ORIGIN}/logo.png`,
@@ -318,6 +329,7 @@ function websiteNode() {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
     name: SITE_NAME,
+    alternateName: ["Everyday Performance OS", "EverydayPerform", "Every Day Perform"],
     url: absoluteUrl("/"),
     description: HOME_DESCRIPTION,
     inLanguage: "en",
