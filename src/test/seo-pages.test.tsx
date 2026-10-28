@@ -7,7 +7,10 @@ import Faq from "@/pages/Faq";
 import Features from "@/pages/Features";
 import Index from "@/pages/Index";
 import { FAQ_ITEMS } from "@/content/faq";
-import { HOME_DESCRIPTION, HOME_TITLE, INDEXABLE_PATHS, OG_IMAGE, PAGES, absoluteUrl, homeJsonLd, llmsTxt, sitemapXml } from "@/content/seo";
+import HowItWorks from "@/pages/HowItWorks";
+import Guides from "@/pages/Guides";
+import FiveMinuteDay from "@/pages/FiveMinuteDay";
+import { HOME_DESCRIPTION, HOME_TITLE, INDEXABLE_PATHS, OG_IMAGE, PAGES, absoluteUrl, canonicalUrl, faqJsonLd, featuresJsonLd, homeJsonLd, llmsTxt, sitemapXml } from "@/content/seo";
 import { applyHead } from "../../scripts/spa-fallback.mjs";
 
 const indexHtml = readFileSync("index.html", "utf8");
@@ -29,6 +32,15 @@ describe("public SEO", () => {
     expect(absoluteUrl("/")).toBe("https://everydayperform.com/");
     expect(absoluteUrl("/features/")).toBe("https://everydayperform.com/features/");
     expect(absoluteUrl("/#pricing")).toBe("https://everydayperform.com/#pricing");
+    expect(canonicalUrl("/#pricing")).toBe("https://everydayperform.com/");
+    expect(canonicalUrl("/faq/#faq-community")).toBe("https://everydayperform.com/faq/");
+    expect(canonicalUrl("/not-a-page#hash", { noindex: true })).toBe("https://everydayperform.com/not-a-page");
+    expect(sitemapXml()).toContain("<loc>https://everydayperform.com/features/</loc><lastmod>2026-10-28</lastmod>");
+    expect(sitemapXml()).toContain("<loc>https://everydayperform.com/privacy/</loc><lastmod>2026-10-25</lastmod>");
+    expect(sitemapXml()).toContain("<loc>https://everydayperform.com/terms/</loc><lastmod>2026-10-25</lastmod>");
+    expect(llms).toContain("seed floor");
+    expect(llms).toContain("Morning Floor");
+    expect(llms).toContain("show-up calendar");
     for (const path of INDEXABLE_PATHS) {
       expect(sitemapXml()).toContain(`<loc>${absoluteUrl(path)}</loc>`);
     }
@@ -144,6 +156,10 @@ describe("public SEO", () => {
     for (const item of FAQ_ITEMS) {
       expect(text).toContain(item.q);
     }
+    expect(text).toContain("Morning Floor");
+    expect(text).toContain("seed floor");
+    expect(text).toContain("show-up calendar");
+    expect(text).not.toContain("$119");
     expect(JSON.stringify(homeJsonLd)).not.toContain("https://app.everydayperform.com/signup");
     expect(JSON.stringify(homeJsonLd)).not.toContain("aggregateRating");
     const structured = JSON.stringify(homeJsonLd);
@@ -154,9 +170,41 @@ describe("public SEO", () => {
     expect(structured).toContain('"price":"14.99"');
     expect(structured).toContain('"price":"149.99"');
     expect(structured).toContain("Requires a card");
+    expect(structured).toContain('"@type":"WebPage"');
+    expect(structured).not.toContain("BreadcrumbList");
+    const featuresLd = JSON.stringify(featuresJsonLd);
+    expect(featuresLd).toContain('"@id":"https://everydayperform.com/features/#breadcrumb"');
+    expect(featuresLd).toContain('"breadcrumb":{"@id":"https://everydayperform.com/features/#breadcrumb"}');
+    expect(JSON.stringify(faqJsonLd)).toContain("What is the community seed floor?");
+    expect(JSON.stringify(faqJsonLd)).toContain("What progress analytics do I get on Free and on Pro?");
+    expect(indexHtml).toContain("Habits, analytics, community, and coaches");
     for (const source of [indexHtml, llms, readme, structured, readFileSync("src/content/marketing.ts", "utf8"), readFileSync("src/content/faq.ts", "utf8")]) {
       expect(source).not.toContain("$119");
       expect(source).not.toContain('price":"119"');
+    }
+  });
+
+  it("cross-links features, how it works, FAQ, compare, and guides", () => {
+    const pages: { path: string; element: JSX.Element }[] = [
+      { path: "/features/", element: <Features /> },
+      { path: "/how-it-works/", element: <HowItWorks /> },
+      { path: "/faq/", element: <Faq /> },
+      { path: "/compare/", element: <Compare /> },
+      { path: "/guides/", element: <Guides /> },
+      { path: "/guides/five-minute-day/", element: <FiveMinuteDay /> },
+    ];
+    const hasHref = (html: string, path: string) => new RegExp(`href="${path}(?:#[^"]*)?"`).test(html);
+
+    for (const page of pages) {
+      const { container, unmount } = render(<MemoryRouter>{page.element}</MemoryRouter>);
+      for (const target of pages) {
+        if (target.path === page.path) continue;
+        expect(hasHref(container.innerHTML, target.path), `${page.path} should link to ${target.path}`).toBe(true);
+      }
+      expect(container.innerHTML).toContain("$14.99");
+      expect(container.innerHTML).toContain("$149.99");
+      expect(container.innerHTML).not.toContain("$119");
+      unmount();
     }
   });
 });

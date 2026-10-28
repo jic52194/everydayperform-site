@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { MarketingLayout } from "@/components/MarketingLayout";
+import { siblingLinks } from "@/content/internalLinks";
 import { fiveMinuteJsonLd, PAGES, PRICING_HASH } from "@/content/seo";
 
 export default function FiveMinuteDay() {
@@ -15,12 +16,12 @@ export default function FiveMinuteDay() {
         { label: "Guides", to: PAGES.guides.path },
         { label: "A five-minute day", to: PAGES.fiveMinuteDay.path },
       ]}
-      related={[
-        { to: PAGES.howItWorks.path, label: "How it works" },
-        { to: PAGES.features.path, label: "Features" },
-        { to: PRICING_HASH, label: "Free and Pro pricing" },
+      related={siblingLinks(PAGES.fiveMinuteDay.path, [
+        { to: "/features/#habits", label: "Habit presets" },
+        { to: "/faq/#faq-miss", label: "Missed-day FAQ" },
+        { to: "/faq/#faq-analytics", label: "What the free plan shows after you log" },
         { to: "/terms#health-disclaimer", label: "Health disclaimer" },
-      ]}
+      ])}
     >
       <header className="mb-8">
         <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold mb-4">Guide</p>
@@ -42,8 +43,8 @@ export default function FiveMinuteDay() {
         <section>
           <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">Pick one habit you can finish</h2>
           <p>
-            Open today's habits and choose one action that fits the room you are actually in. Hydration, a short walk, mobility, stretching, or breathing are the kinds of habits the product is built around. Checking one box is a finished day if that is all you have.{" "}
-            <Link to={PAGES.features.path} className="text-primary underline underline-offset-4">See how habits fit with workouts</Link>.
+            Open today's habits and choose one you can finish. Presets include drinking enough water, stretch or mobility, and 5 minutes of mindfulness. The app is built for picking two or three that are small enough for a bad day. Checking one off is a finished day if that is all you have.{" "}
+            <Link to="/features/#habits" className="text-primary underline underline-offset-4">See how habits fit with workouts</Link>.
           </p>
         </section>
         <section>
@@ -55,20 +56,25 @@ export default function FiveMinuteDay() {
         <section>
           <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">Log it</h2>
           <p>
-            Streaks, XP, badges, and levels record that you showed up. They are a record of consistency, not a grade of the perfect week. Workouts and streaks stay private unless you opt in to share them.
+            Streaks, XP, badges, and levels record that you showed up. The free plan includes streaks and this week's view, including the weekly recap. Longer-range charts are part of Pro. They are a record of consistency, not a grade of the perfect week, and not a medical result. Workouts and streaks stay private unless you opt in to share them.{" "}
+            <Link to="/faq/#faq-analytics" className="text-primary underline underline-offset-4">Free versus Pro analytics</Link>.
           </p>
         </section>
         <section>
           <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">If you miss tomorrow</h2>
           <p>
-            Open the app and complete one habit. Missing a day does not mean the account failed. The plan is meant to restart. That comeback is part of{" "}
-            <Link to={PAGES.howItWorks.path} className="text-primary underline underline-offset-4">how the product works</Link>, not a special recovery mode you have to earn.
+            Open the app and complete one habit. Missing a day does not close the account. Streak freezes are built to turn on when a day is missed, so one miss does not have to erase the streak. That comeback is part of{" "}
+            <Link to="/how-it-works/#restart" className="text-primary underline underline-offset-4">how the product works</Link>
+            {", and the "}
+            <Link to="/faq/#faq-miss" className="text-primary underline underline-offset-4">missed-day FAQ</Link>
+            {" says the same thing. A freeze is not a fitness promise."}
           </p>
         </section>
         <section>
           <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">What this guide will not tell you</h2>
           <p>
-            It will not clear you for exercise, prescribe a diet, or promise a change in your body. Stop if you feel pain, dizziness, breathing difficulty, or anything else that concerns you. Talk with a clinician before you start. The full health wording is in the Terms of Use.
+            It will not clear you for exercise, prescribe a diet, or promise a change in your body. Stop if you feel pain, dizziness, breathing difficulty, or anything else that concerns you. Talk with a clinician before you start. The full health wording is in the Terms of Use. For how this differs from a long catalog or a public feed, read{" "}
+            <Link to={PAGES.compare.path} className="text-primary underline underline-offset-4">the comparison</Link>.
           </p>
         </section>
       </div>

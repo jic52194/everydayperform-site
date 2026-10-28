@@ -26,7 +26,7 @@ export function PricingSection() {
             <p className="mt-4 font-oswald text-5xl text-white">$0</p>
             <p className="mt-2 text-primary font-medium">Free forever, no card</p>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed flex-1">
-              A free account lets you start a daily plan with habits, short workouts, or both. It does not require a card.
+              A free account lets you start a daily plan with habits, short workouts, or both. Streaks and this week's view, including the weekly recap, are included. It does not require a card.
             </p>
             <div className="mt-8">
               <SignupLink label="Create an Account" className="w-full whitespace-normal text-center" />
@@ -43,7 +43,7 @@ export function PricingSection() {
               7-day Pro trial requires a card and auto-renews unless you cancel.
             </p>
             <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
-              Create an account, then start Pro from the app if you want the paid plan. Cancel anytime in account settings. Access continues through the end of the current billing period.
+              Pro adds longer-range progress: load volume, workout frequency, habit consistency, a show-up calendar, and personal records. It does not assign a human coach. Create an account, then start Pro from the app if you want the paid plan. Cancel anytime in account settings. Access continues through the end of the current billing period.
             </p>
             <div className="mt-8">
               <SignupLink label="Choose Pro" className="w-full whitespace-normal text-center" />
@@ -61,9 +61,21 @@ export function PricingSection() {
               </div>
             ))}
           </div>
-          <p className="text-center mt-8">
+          <p className="text-center mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <Link to={PAGES.faq.path} className="text-primary underline underline-offset-4 hover:text-primary/80">
               Read the full FAQ
+            </Link>
+            <Link to="/faq/#faq-analytics" className="text-primary underline underline-offset-4 hover:text-primary/80">
+              Analytics
+            </Link>
+            <Link to="/faq/#faq-community" className="text-primary underline underline-offset-4 hover:text-primary/80">
+              Community floor
+            </Link>
+            <Link to="/features/#coaches" className="text-primary underline underline-offset-4 hover:text-primary/80">
+              Coaches
+            </Link>
+            <Link to={PAGES.compare.path} className="text-primary underline underline-offset-4 hover:text-primary/80">
+              Compare
             </Link>
           </p>
           <HealthNote className="text-center max-w-xl mx-auto mt-6" />

@@ -10,6 +10,7 @@ const ORG_ID = `${SITE_ORIGIN}/#organization`;
 const WEBSITE_ID = `${SITE_ORIGIN}/#website`;
 const APP_ID = `${SITE_ORIGIN}/#app`;
 const CONTENT_UPDATED = "2026-10-28";
+const LEGAL_UPDATED = "2026-10-25";
 
 export const HOME_TITLE = "Everyday Performance OS | Daily Habits and Short Workouts";
 export const HOME_DESCRIPTION =
@@ -30,27 +31,27 @@ export const PAGES = {
   },
   features: {
     path: "/features/",
-    title: "Habits, Short Workouts, and XP | Everyday Performance",
+    title: "Habits, Analytics, and Coaches | Everyday Performance",
     description:
-      "Daily habits, short workouts, streaks, XP, and optional Apple Health. A free account needs no card. Pro is $14.99/mo or $149.99/yr.",
+      "Habits, short workouts, free streaks, and Pro charts. Community starts on a seed floor. Coaches are separate. Free, no card. Pro is $14.99/mo or $149.99/yr.",
   },
   howItWorks: {
     path: "/how-it-works/",
     title: "How the Daily Plan Works | Everyday Performance",
     description:
-      "Create a free account with no card, finish a short daily plan, and restart after a missed day. Pro is $14.99/mo or $149.99/yr.",
+      "Create a free account with no card, finish a short daily plan, and use a streak freeze after a miss. Pro is $14.99/mo or $149.99/yr.",
   },
   faq: {
     path: "/faq/",
-    title: "Free, Pro, and Trial FAQ | Everyday Performance",
+    title: "Habits, Analytics, and Pro FAQ | Everyday Performance",
     description:
-      "Free accounts need no card. Pro is $14.99/mo or $149.99/yr. The 7-day Pro trial requires a card and auto-renews. Cancel in account settings.",
+      "Free needs no card. Pro is $14.99/mo or $149.99/yr; the 7-day trial needs a card. Habits, analytics, the seed community floor, and coach plans.",
   },
   compare: {
     path: "/compare/",
     title: "Compare Habits and Busy Days | Everyday Performance",
     description:
-      "How Everyday Performance differs from a long workout catalog, a habit checklist, or an all-or-nothing program. No star rating and no user count.",
+      "Short daily plans versus a long catalog, a habit checklist, a public feed, or an all-or-nothing program. No star rating and no user count.",
   },
   guides: {
     path: "/guides/",
@@ -121,10 +122,24 @@ export function absoluteUrl(path: string) {
   return `${SITE_ORIGIN}${withSlash}${hash}`;
 }
 
+const SITEMAP_LASTMOD: Record<string, string> = {
+  [PAGES.privacy.path]: LEGAL_UPDATED,
+  [PAGES.terms.path]: LEGAL_UPDATED,
+};
+
+export function canonicalUrl(path: string, options?: { noindex?: boolean }) {
+  if (options?.noindex) {
+    const normalized = path.startsWith("/") ? path : `/${path}`;
+    return `${SITE_ORIGIN}${normalized.split("#")[0]}`;
+  }
+  return absoluteUrl(path).split("#")[0];
+}
+
 export function sitemapXml() {
-  const urls = INDEXABLE_PATHS.map(
-    (path) => `  <url><loc>${absoluteUrl(path)}</loc><lastmod>${CONTENT_UPDATED}</lastmod></url>`,
-  ).join("\n");
+  const urls = INDEXABLE_PATHS.map((path) => {
+    const lastmod = SITEMAP_LASTMOD[path] ?? CONTENT_UPDATED;
+    return `  <url><loc>${absoluteUrl(path)}</loc><lastmod>${lastmod}</lastmod></url>`;
+  }).join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 }
 
@@ -148,12 +163,12 @@ export function llmsTxt() {
     "",
     "## What it does",
     "",
-    "- Daily habits you can finish when the day is already full, including hydration, mobility, a walk, stretching, or breathing. A missed day does not mean the plan failed; you can restart.",
+    "- Daily habits you choose. Presets include water, moving for 20 minutes, stretch or mobility, 5 minutes of mindfulness, sleep, steps, protein, reading, no snooze, and no added sugar. Pick two or three small enough for a bad day. Completing a habit earns XP. A missed day does not close the account. Streak freezes are built to turn on when a day is missed, so one miss does not have to erase the streak.",
     "- Short workouts in the time you have, with sets, RPE, duration, notes, and an exercise library. Bodyweight sessions work when you have no equipment.",
-    "- Guided plans that tell you what to do and can restart after a miss.",
-    "- Progress: streaks, XP, badges, levels, a consistency calendar, and weekly recaps. Sample numbers on the homepage are illustrations, not a published member result.",
-    "- Community: friends, squads, and weekly leagues. Workouts and streaks stay private unless you opt in to share them.",
-    "- Coaching: coaches and clients use the same app. Coaches can assign programs, message clients, run weekly check-ins, and see workouts, habits, and streaks. Coach plans are a separate purchase and are not consumer Pro.",
+    "- Guided plans shaped by focus, training days, experience, and the habits you pick. They can restart after a miss. This is not a clinical assessment.",
+    "- Progress analytics: the free plan includes streaks and this week's view, including the weekly recap. Pro adds load volume, workout frequency, habit consistency, a show-up calendar, and personal records. Charts count what you log. Sample numbers on the homepage are illustrations, not a published member result.",
+    "- Community seed floor: a new account gets a welcome, a friend request, and a place to reply. Coaches and guides on that floor are part of the product so the room is not empty. They are not a member count and not reviews. You can join the Morning Floor squad, invite a friend, and see a weekly league ranked by XP since Monday. Workouts and streaks stay private unless you opt in to share them.",
+    "- Coaching: coaches and clients use the same app. A coach applies and the application is reviewed. Coaches can assign day-by-day programs, message clients, run check-ins, and see workouts, habits, and streaks. Coach plans are a separate purchase and are not consumer Pro. Pro does not assign a human coach.",
     "- Optional Apple Health on iPhone for activity you choose to share. It is not required and is not used for advertising.",
     "",
     "## Platforms",
@@ -163,10 +178,10 @@ export function llmsTxt() {
     "## Pages",
     "",
     page("/", "Home", "Offer, daily loop, and Free versus Pro pricing."),
-    page(PAGES.features.path, "Features", "Habits, short workouts, streaks, XP, and optional Apple Health."),
-    page(PAGES.howItWorks.path, "How it works", "Free signup with no card, a short daily plan, and a restart after a missed day."),
-    page(PAGES.faq.path, "FAQ", "Card requirement, 7-day Pro trial, cancellation, and website versus App Store price."),
-    page(PAGES.compare.path, "Compare", "Category comparison. No named competitor trademarks, star rating, or user count."),
+    page(PAGES.features.path, "Features", "Habits, short workouts, free versus Pro analytics, the community seed floor, coaches, and optional Apple Health."),
+    page(PAGES.howItWorks.path, "How it works", "Free signup with no card, a short daily plan, streak freezes, and a restart after a missed day."),
+    page(PAGES.faq.path, "FAQ", "Card requirement, 7-day Pro trial, habits, analytics, the community seed floor, coaches, and cancellation."),
+    page(PAGES.compare.path, "Compare", "Category comparison, including a public feed versus the seed floor. No named competitor trademarks, star rating, or user count."),
     page(PAGES.guides.path, "Guides", "Busy-day product guides. Not medical protocols."),
     page(PAGES.fiveMinuteDay.path, "A five-minute day", "What to do when you only have a few minutes."),
     page(PAGES.press.path, "Press kit", "Logo, colors, and typography. Press contact: press@everydayperform.com."),
@@ -300,10 +315,13 @@ function mobileApplicationNode() {
       },
     ],
     featureList: [
-      "Daily habits",
+      "Daily habits you choose",
       "Short workouts",
-      "Streaks, XP, badges, and levels",
-      "A daily plan that can restart after a missed day",
+      "Streaks, XP, badges, levels, and a weekly recap on the free plan",
+      "Pro progress: load volume, workout frequency, habit consistency, a show-up calendar, and personal records",
+      "A seed community floor, squads, and weekly leagues",
+      "Coach plans separate from consumer Pro",
+      "A daily plan that can restart after a missed day, with streak freezes",
       "Optional Apple Health on iPhone",
     ],
   };
@@ -325,20 +343,34 @@ function websiteNode() {
   };
 }
 
-function webPageNode(page: PageMeta) {
+function breadcrumbId(path: string) {
+  return `${absoluteUrl(path)}#breadcrumb`;
+}
+
+function webPageNode(
+  page: PageMeta,
+  options?: { dateModified?: string; breadcrumb?: boolean; mainEntityId?: string },
+) {
+  const url = absoluteUrl(page.path);
+  const withCrumb = options?.breadcrumb !== false;
   return {
     "@type": "WebPage",
+    "@id": `${url}#webpage`,
     name: page.title,
     description: page.description,
-    url: absoluteUrl(page.path),
+    url,
+    dateModified: options?.dateModified ?? CONTENT_UPDATED,
     isPartOf: { "@id": WEBSITE_ID },
     publisher: orgRef(),
+    ...(withCrumb ? { breadcrumb: { "@id": breadcrumbId(page.path) } } : {}),
+    ...(options?.mainEntityId ? { mainEntity: { "@id": options.mainEntityId } } : {}),
   };
 }
 
-function breadcrumbNode(items: { name: string; path: string }[]) {
+function breadcrumbNode(pagePath: string, items: { name: string; path: string }[]) {
   return {
     "@type": "BreadcrumbList",
+    "@id": breadcrumbId(pagePath),
     itemListElement: items.map((item, index) => ({
       "@type": "ListItem",
       position: index + 1,
@@ -361,40 +393,41 @@ const homeFaqIds = [...PRICING_FAQ_IDS, ...HOME_FAQ_IDS];
 
 export const homeJsonLd = pageGraph(
   websiteNode(),
+  webPageNode(PAGES.home, { breadcrumb: false, mainEntityId: APP_ID }),
   mobileApplicationNode(),
   faqNode(absoluteUrl("/"), homeFaqIds),
 );
 
 export const featuresJsonLd = pageGraph(
-  breadcrumbNode([
+  breadcrumbNode(PAGES.features.path, [
     { name: "Home", path: "/" },
     { name: "Features", path: PAGES.features.path },
   ]),
-  webPageNode(PAGES.features),
+  webPageNode(PAGES.features, { mainEntityId: APP_ID }),
   mobileApplicationNode(),
 );
 
 export const howItWorksJsonLd = pageGraph(
-  breadcrumbNode([
+  breadcrumbNode(PAGES.howItWorks.path, [
     { name: "Home", path: "/" },
     { name: "How it works", path: PAGES.howItWorks.path },
   ]),
-  webPageNode(PAGES.howItWorks),
+  webPageNode(PAGES.howItWorks, { mainEntityId: APP_ID }),
   mobileApplicationNode(),
 );
 
 export const faqJsonLd = pageGraph(
-  breadcrumbNode([
+  breadcrumbNode(PAGES.faq.path, [
     { name: "Home", path: "/" },
     { name: "FAQ", path: PAGES.faq.path },
   ]),
-  webPageNode(PAGES.faq),
+  webPageNode(PAGES.faq, { mainEntityId: `${absoluteUrl(PAGES.faq.path)}#faq` }),
   faqNode(absoluteUrl(PAGES.faq.path), FAQ_ITEMS.map((item) => item.id)),
   mobileApplicationNode(),
 );
 
 export const compareJsonLd = pageGraph(
-  breadcrumbNode([
+  breadcrumbNode(PAGES.compare.path, [
     { name: "Home", path: "/" },
     { name: "Compare", path: PAGES.compare.path },
   ]),
@@ -403,7 +436,7 @@ export const compareJsonLd = pageGraph(
 );
 
 export const guidesJsonLd = pageGraph(
-  breadcrumbNode([
+  breadcrumbNode(PAGES.guides.path, [
     { name: "Home", path: "/" },
     { name: "Guides", path: PAGES.guides.path },
   ]),
@@ -422,13 +455,14 @@ export const guidesJsonLd = pageGraph(
 );
 
 export const fiveMinuteJsonLd = pageGraph(
-  breadcrumbNode([
+  breadcrumbNode(PAGES.fiveMinuteDay.path, [
     { name: "Home", path: "/" },
     { name: "Guides", path: PAGES.guides.path },
     { name: "A five-minute day", path: PAGES.fiveMinuteDay.path },
   ]),
   {
     "@type": "Article",
+    "@id": `${absoluteUrl(PAGES.fiveMinuteDay.path)}#article`,
     headline: "A five-minute day",
     description: PAGES.fiveMinuteDay.description,
     datePublished: CONTENT_UPDATED,
@@ -436,13 +470,14 @@ export const fiveMinuteJsonLd = pageGraph(
     image: OG_IMAGE,
     inLanguage: "en",
     mainEntityOfPage: absoluteUrl(PAGES.fiveMinuteDay.path),
+    breadcrumb: { "@id": breadcrumbId(PAGES.fiveMinuteDay.path) },
     author: orgRef(),
     publisher: orgRef(),
   },
 );
 
 export const pressJsonLd = pageGraph(
-  breadcrumbNode([
+  breadcrumbNode(PAGES.press.path, [
     { name: "Home", path: "/" },
     { name: "Press kit", path: PAGES.press.path },
   ]),
@@ -450,19 +485,19 @@ export const pressJsonLd = pageGraph(
 );
 
 export const privacyJsonLd = pageGraph(
-  breadcrumbNode([
+  breadcrumbNode(PAGES.privacy.path, [
     { name: "Home", path: "/" },
     { name: "Privacy Policy", path: PAGES.privacy.path },
   ]),
-  webPageNode(PAGES.privacy),
+  webPageNode(PAGES.privacy, { dateModified: LEGAL_UPDATED }),
 );
 
 export const termsJsonLd = pageGraph(
-  breadcrumbNode([
+  breadcrumbNode(PAGES.terms.path, [
     { name: "Home", path: "/" },
     { name: "Terms of Use", path: PAGES.terms.path },
   ]),
-  webPageNode(PAGES.terms),
+  webPageNode(PAGES.terms, { dateModified: LEGAL_UPDATED }),
 );
 
 export const JSON_LD_BY_PATH: Record<string, Record<string, unknown>> = {

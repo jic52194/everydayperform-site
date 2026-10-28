@@ -33,10 +33,10 @@ const cardBase =
 
 const HabitTrackerPreview = () => {
   const [habits, setHabits] = useState([
-    { id: 1, name: "Morning Hydration", completed: true },
-    { id: 2, name: "5-Min Mobility", completed: false },
-    { id: 3, name: "Walk or Workout", completed: false },
-    { id: 4, name: "Evening Reset", completed: false },
+    { id: 1, name: "Drink enough water", completed: true },
+    { id: 2, name: "Stretch or mobility", completed: false },
+    { id: 3, name: "Move for 20 minutes", completed: false },
+    { id: 4, name: "5 minutes of mindfulness", completed: false },
   ]);
 
   const toggleHabit = (id: number) => {
@@ -298,7 +298,7 @@ const Index = () => {
           </h1>
 
           <p className="text-base md:text-xl text-muted-foreground font-medium max-w-2xl mx-auto leading-relaxed mb-10">
-            Short workouts and daily habits you can finish on a packed day, with streaks, XP, and a plan that adjusts after a missed day. Built for parents, professionals, entrepreneurs, and anyone whose schedule never stays perfect.
+            Short workouts and daily habits you can finish on a packed day, with streaks, XP, and a plan you can restart after a missed day. Built for parents, professionals, entrepreneurs, and anyone whose schedule never stays perfect.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
@@ -322,11 +322,14 @@ const Index = () => {
             <li>Start with about 5 minutes</li>
             <li>Cancel Pro in account settings</li>
           </ul>
-          <p className="mt-6 text-sm">
+          <nav aria-label="Explore" className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm max-w-3xl">
             <a href="#how-it-works" className="text-primary underline underline-offset-4">See how it works</a>
-            {" · "}
+            <Link to={PAGES.features.path} className="text-primary underline underline-offset-4">Features</Link>
+            <Link to={PAGES.compare.path} className="text-primary underline underline-offset-4">Compare</Link>
+            <Link to={PAGES.guides.path} className="text-primary underline underline-offset-4">Guides</Link>
+            <Link to={PAGES.faq.path} className="text-primary underline underline-offset-4">FAQ</Link>
             <Link to={PAGES.fiveMinuteDay.path} className="text-primary underline underline-offset-4">Five-minute guide</Link>
-          </p>
+          </nav>
         </section>
 
 
@@ -335,9 +338,9 @@ const Index = () => {
           <SectionHeading eyebrow="The Difference" title="Why Everyday Performance Works" accent="When Normal Fitness Apps Don't" sub="Most fitness apps assume you have perfect time, perfect energy, and perfect motivation. Everyday Performance is built for real life: short wins, flexible plans, and progress that survives missed days." />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {[
-              { icon: Clock, color: "primary", glow: "bg-primary/15", label: "5-Minute Wins", body: "Start with tiny actions you can actually finish: hydration, mobility, walking, stretching, breathing, or a short workout. Build momentum even on packed days." },
-              { icon: Trophy, color: "primary", glow: "bg-primary/15", label: "Gamified Progress", body: "Earn XP, build streaks, unlock badges, and level up for showing up. Everyday Performance turns consistency into a game you want to keep playing." },
-              { icon: ShieldCheck, color: "primary", glow: "bg-primary/15", label: "Your Coach, Your Plan", body: "Get a plan that adapts to your schedule, energy, goals, and missed days. When life hits, the system adjusts instead of making you feel behind." },
+              { icon: Clock, color: "primary", glow: "bg-primary/15", label: "5-Minute Wins", body: "Start with presets you can finish: water, stretch or mobility, a short bout of movement, 5 minutes of mindfulness, or a short workout." },
+              { icon: Trophy, color: "primary", glow: "bg-primary/15", label: "Progress You Can See", body: "Earn XP, build streaks, unlock badges, and level up for showing up. Streaks and this week's recap stay on the free plan. Longer-range charts are part of Pro." },
+              { icon: ShieldCheck, color: "primary", glow: "bg-primary/15", label: "Streak Freezes", body: "Streak freezes are built to turn on when a day is missed, so one miss does not have to erase the streak. A human coach is a separate plan, not part of Pro." },
             ].map(({ icon: Icon, color, glow, label, body }, i) => (
               <motion.div key={label} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6, delay: i * 0.12 }}
                 className="bg-[#0e0e0e] border border-white/8 p-8 rounded-[2rem] hover:border-primary/30 hover:shadow-[0_0_50px_-20px_rgba(143,143,86,0.3)] transition-all duration-500 group"
@@ -350,9 +353,32 @@ const Index = () => {
               </motion.div>
             ))}
           </div>
-          <p className="text-center mt-10">
-            <Link to={PAGES.features.path} className="text-primary underline underline-offset-4">See all features</Link>
-          </p>
+          <nav aria-label="Product pages" className="mt-12 max-w-3xl mx-auto">
+            <h2 className="font-oswald uppercase tracking-wide text-2xl text-center text-white mb-6">Explore the product</h2>
+            <ul className="space-y-3 text-sm text-muted-foreground leading-relaxed">
+              <li>
+                <Link to={PAGES.features.path} className="text-primary underline underline-offset-4">Features</Link>
+                {" — habits you choose, short workouts, free streaks and a weekly recap, Pro progress charts, a seed community floor, coaches separate from Pro, and optional Apple Health."}
+              </li>
+              <li>
+                <Link to={PAGES.howItWorks.path} className="text-primary underline underline-offset-4">How it works</Link>
+                {" — a free account with no card, today's plan, and a restart after a missed day."}
+              </li>
+              <li>
+                <Link to={PAGES.faq.path} className="text-primary underline underline-offset-4">FAQ</Link>
+                {" — the card, the 7-day Pro trial, habits, analytics, the community floor, and coaches."}
+              </li>
+              <li>
+                <Link to={PAGES.compare.path} className="text-primary underline underline-offset-4">Compare</Link>
+                {" — a long catalog, a checklist, a public feed, or a coach package. No star rating and no user count."}
+              </li>
+              <li>
+                <Link to={PAGES.guides.path} className="text-primary underline underline-offset-4">Guides</Link>
+                {" — start with "}
+                <Link to={PAGES.fiveMinuteDay.path} className="text-primary underline underline-offset-4">a five-minute day</Link>.
+              </li>
+            </ul>
+          </nav>
         </Section>
 
         {/* ── APP PREVIEW ──────────────────────────────────────── */}
@@ -510,7 +536,17 @@ const Index = () => {
                 </a>
               </Button>
               <OfferNotes />
-              <Link to={PAGES.faq.path} className="text-sm text-primary underline underline-offset-4">Read the full FAQ</Link>
+              <p className="text-sm text-center text-muted-foreground">
+                <Link to={PAGES.faq.path} className="text-primary underline underline-offset-4">Read the full FAQ</Link>
+                {" · "}
+                <Link to="/faq/#faq-habits" className="text-primary underline underline-offset-4">Habits</Link>
+                {" · "}
+                <Link to="/faq/#faq-analytics" className="text-primary underline underline-offset-4">Analytics</Link>
+                {" · "}
+                <Link to="/faq/#faq-community" className="text-primary underline underline-offset-4">Community floor</Link>
+                {" · "}
+                <Link to="/faq/#faq-coach" className="text-primary underline underline-offset-4">Coaches</Link>
+              </p>
             </motion.div>
           </div>
         </Section>

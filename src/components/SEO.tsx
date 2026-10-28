@@ -1,5 +1,5 @@
 import { useLayoutEffect } from "react";
-import { OG_IMAGE, OG_IMAGE_ALT, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_NAME, SITE_ORIGIN } from "@/content/seo";
+import { canonicalUrl, OG_IMAGE, OG_IMAGE_ALT, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_NAME } from "@/content/seo";
 
 export type JsonLd = Record<string, unknown>;
 
@@ -23,17 +23,7 @@ function upsertMeta(attr: "name" | "property", key: string, content: string) {
 }
 
 function canonicalFor(path: string, noindex: boolean) {
-  if (noindex) {
-    const normalized = path.startsWith("/") ? path : `/${path}`;
-    return `${SITE_ORIGIN}${normalized}`;
-  }
-  if (path === "/") return `${SITE_ORIGIN}/`;
-  const hashIndex = path.indexOf("#");
-  const hash = hashIndex >= 0 ? path.slice(hashIndex) : "";
-  const pathname = hashIndex >= 0 ? path.slice(0, hashIndex) : path;
-  const withLead = pathname.startsWith("/") ? pathname : `/${pathname}`;
-  const withSlash = withLead === "/" ? "/" : withLead.endsWith("/") ? withLead : `${withLead}/`;
-  return `${SITE_ORIGIN}${withSlash}${hash}`;
+  return canonicalUrl(path, { noindex });
 }
 
 export function SEO({ title, description, path = "/", noindex = false, ogType = "website", jsonLd }: SEOProps) {
