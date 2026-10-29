@@ -4,6 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="1xuX4Q_D_Jnvh51gBuaFzS48zPKIVkvo8mM_O5p0JxA" />
+    <!-- Google tag (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QGNWK6DLF3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QGNWK6DLF3', { linker: { domains: ['everydayperform.com', 'app.everydayperform.com'] } });
+      (function () {
+        var last = location.pathname + location.search;
+        function track() {
+          var cur = location.pathname + location.search;
+          if (cur === last) return;
+          last = cur;
+          gtag('event', 'page_view', { page_location: location.href, page_path: cur, page_title: document.title });
+        }
+        ['pushState', 'replaceState'].forEach(function (m) {
+          var orig = history[m];
+          history[m] = function () { var r = orig.apply(this, arguments); setTimeout(track, 0); return r; };
+        });
+        window.addEventListener('popstate', track);
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest && e.target.closest('a[href*="app.everydayperform.com/signup"]');
+          if (a) gtag('event', 'signup_click', { link_url: a.href });
+        });
+      })();
+    </script>
     <title>Everyday Performance OS | Daily Habits and Short Workouts</title>
     <meta name="description" content="Free account, no card. Short workouts, daily habits, streaks, and XP for busy days. Pro is $14.99/mo or $149.99/yr; the 7-day trial needs a card." />
     <meta name="author" content="Everyday Performance" />
