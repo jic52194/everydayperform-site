@@ -15,6 +15,10 @@ import Consistency from "@/pages/Consistency";
 import Adhd from "@/pages/Adhd";
 import NoEquipment from "@/pages/NoEquipment";
 import Accountability from "@/pages/Accountability";
+import StreakTracker from "@/pages/StreakTracker";
+import SimpleHabit from "@/pages/SimpleHabit";
+import Beginners from "@/pages/Beginners";
+import DailyTracker from "@/pages/DailyTracker";
 import Guides from "@/pages/Guides";
 import HowItWorks from "@/pages/HowItWorks";
 import Privacy from "@/pages/Privacy";
@@ -61,6 +65,10 @@ export function renderRouteBodies() {
     "guides/habit-tracker-for-adhd": render(Adhd),
     "guides/home-workout-no-equipment": render(NoEquipment),
     "guides/accountability-fitness-app": render(Accountability),
+    "guides/workout-streak-tracker": render(StreakTracker),
+    "guides/simple-habit-app": render(SimpleHabit),
+    "guides/fitness-app-for-beginners": render(Beginners),
+    "guides/daily-habit-tracker": render(DailyTracker),
   };
 
   if (!pages.terms.includes("Terms of Use") || !pages.terms.includes("Last updated October 25, 2026") || !pages.terms.includes('id="health-disclaimer"')) {
@@ -85,6 +93,10 @@ export function renderRouteBodies() {
   if (!hasH1(pages["guides/habit-tracker-for-adhd"], "A habit tracker that works with an ADHD brain")) throw new Error("ADHD guide prerender is missing its h1.");
   if (!hasH1(pages["guides/home-workout-no-equipment"], "Home workouts with no equipment")) throw new Error("No-equipment guide prerender is missing its h1.");
   if (!hasH1(pages["guides/accountability-fitness-app"], "An accountability fitness app")) throw new Error("Accountability guide prerender is missing its h1.");
+  if (!hasH1(pages["guides/workout-streak-tracker"], "A workout streak tracker")) throw new Error("Streak-tracker guide prerender is missing its h1.");
+  if (!hasH1(pages["guides/simple-habit-app"], "A simple habit app")) throw new Error("Simple-habit guide prerender is missing its h1.");
+  if (!hasH1(pages["guides/fitness-app-for-beginners"], "A fitness app for beginners")) throw new Error("Beginners guide prerender is missing its h1.");
+  if (!hasH1(pages["guides/daily-habit-tracker"], "A daily habit tracker")) throw new Error("Daily-tracker guide prerender is missing its h1.");
 
   const combined = Object.values(pages).join("\n");
   if (/legal entity|mailing address|not on file/i.test(pages.terms + pages.privacy)) {

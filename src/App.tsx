@@ -20,6 +20,10 @@ import Consistency from "./pages/Consistency";
 import Adhd from "./pages/Adhd";
 import NoEquipment from "./pages/NoEquipment";
 import Accountability from "./pages/Accountability";
+import StreakTracker from "./pages/StreakTracker";
+import SimpleHabit from "./pages/SimpleHabit";
+import Beginners from "./pages/Beginners";
+import DailyTracker from "./pages/DailyTracker";
 import PressKit from "./pages/PressKit";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
@@ -54,6 +58,10 @@ const App = () => (
           <Route path="/guides/habit-tracker-for-adhd" element={<Adhd />} />
           <Route path="/guides/home-workout-no-equipment" element={<NoEquipment />} />
           <Route path="/guides/accountability-fitness-app" element={<Accountability />} />
+          <Route path="/guides/workout-streak-tracker" element={<StreakTracker />} />
+          <Route path="/guides/simple-habit-app" element={<SimpleHabit />} />
+          <Route path="/guides/fitness-app-for-beginners" element={<Beginners />} />
+          <Route path="/guides/daily-habit-tracker" element={<DailyTracker />} />
           <Route path="/press-kit" element={<PressKit />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />

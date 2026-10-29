@@ -128,6 +128,34 @@ export const PAGES = {
       "An accountability fitness app: friends, squads, weekly leagues, and an optional coach who can see your workouts, habits, and streaks. Free account, no card.",
     ogType: "article",
   },
+  streakTracker: {
+    path: "/guides/workout-streak-tracker/",
+    title: "A Workout Streak Tracker | Everyday Performance",
+    description:
+      "A workout streak tracker that rewards showing up and survives a missed day — log a session, keep the streak, watch it compound. Free account, no card.",
+    ogType: "article",
+  },
+  simpleHabit: {
+    path: "/guides/simple-habit-app/",
+    title: "A Simple Habit App | Everyday Performance",
+    description:
+      "A simple habit app without the clutter: pick two or three habits, tap to log, and let forgiving streaks carry you. Free account, no card.",
+    ogType: "article",
+  },
+  beginners: {
+    path: "/guides/fitness-app-for-beginners/",
+    title: "A Fitness App for Beginners | Everyday Performance",
+    description:
+      "A beginner-friendly fitness app: start with one small habit and a short workout, no experience or equipment needed, and build from there. Free account, no card.",
+    ogType: "article",
+  },
+  dailyTracker: {
+    path: "/guides/daily-habit-tracker/",
+    title: "A Daily Habit Tracker | Everyday Performance",
+    description:
+      "A daily habit tracker built for real life: small daily habits, a consistency calendar, and streaks that forgive a missed day. Free account, no card.",
+    ogType: "article",
+  },
   press: {
     path: "/press-kit/",
     title: "Press Kit & Media Kit | Everyday Performance OS",
@@ -164,6 +192,10 @@ export const INDEXABLE_PATHS = [
   PAGES.adhd.path,
   PAGES.noEquipment.path,
   PAGES.accountability.path,
+  PAGES.streakTracker.path,
+  PAGES.simpleHabit.path,
+  PAGES.beginners.path,
+  PAGES.dailyTracker.path,
   PAGES.press.path,
   PAGES.privacy.path,
   PAGES.terms.path,
@@ -186,6 +218,10 @@ export const SPA_ROUTE_DIRS = [
   "guides/habit-tracker-for-adhd",
   "guides/home-workout-no-equipment",
   "guides/accountability-fitness-app",
+  "guides/workout-streak-tracker",
+  "guides/simple-habit-app",
+  "guides/fitness-app-for-beginners",
+  "guides/daily-habit-tracker",
   "press-kit",
   "privacy",
   "terms",
@@ -259,6 +295,10 @@ export function llmsTxt() {
     page(PAGES.adhd.path, "Habit tracker for an ADHD brain", "Forgiving habits and restartable streaks. Not medical advice."),
     page(PAGES.noEquipment.path, "Home workout, no equipment", "Bodyweight sessions logged in the time you have."),
     page(PAGES.accountability.path, "Accountability fitness app", "Friends, squads, leagues, and an optional coach."),
+    page(PAGES.streakTracker.path, "Workout streak tracker", "Rewards showing up and survives a missed day."),
+    page(PAGES.simpleHabit.path, "Simple habit app", "Two or three habits, tap to log, no clutter."),
+    page(PAGES.beginners.path, "Fitness app for beginners", "Start with one habit and a short workout; no experience needed."),
+    page(PAGES.dailyTracker.path, "Daily habit tracker", "Small daily habits, a consistency calendar, forgiving streaks."),
     page(PAGES.press.path, "Press kit", "Logo, colors, and typography. Press contact: press@everydayperform.com."),
     page(PAGES.privacy.path, "Privacy Policy", "How account, fitness, Health, and accountability information is handled."),
     page(PAGES.terms.path, "Terms of Use", "Health information, subscriptions, and community rules."),
@@ -573,6 +613,30 @@ export const guidesJsonLd = pageGraph(
         name: "An accountability fitness app",
         url: absoluteUrl(PAGES.accountability.path),
       },
+      {
+        "@type": "ListItem",
+        position: 11,
+        name: "A workout streak tracker",
+        url: absoluteUrl(PAGES.streakTracker.path),
+      },
+      {
+        "@type": "ListItem",
+        position: 12,
+        name: "A simple habit app",
+        url: absoluteUrl(PAGES.simpleHabit.path),
+      },
+      {
+        "@type": "ListItem",
+        position: 13,
+        name: "A fitness app for beginners",
+        url: absoluteUrl(PAGES.beginners.path),
+      },
+      {
+        "@type": "ListItem",
+        position: 14,
+        name: "A daily habit tracker",
+        url: absoluteUrl(PAGES.dailyTracker.path),
+      },
     ],
   },
 );
@@ -666,6 +730,10 @@ export const consistencyJsonLd = guideArticleJsonLd(PAGES.consistency, "How to s
 export const adhdJsonLd = guideArticleJsonLd(PAGES.adhd, "A habit tracker that works with an ADHD brain");
 export const noEquipmentJsonLd = guideArticleJsonLd(PAGES.noEquipment, "Home workouts with no equipment");
 export const accountabilityJsonLd = guideArticleJsonLd(PAGES.accountability, "An accountability fitness app");
+export const streakTrackerJsonLd = guideArticleJsonLd(PAGES.streakTracker, "A workout streak tracker");
+export const simpleHabitJsonLd = guideArticleJsonLd(PAGES.simpleHabit, "A simple habit app");
+export const beginnersJsonLd = guideArticleJsonLd(PAGES.beginners, "A fitness app for beginners");
+export const dailyTrackerJsonLd = guideArticleJsonLd(PAGES.dailyTracker, "A daily habit tracker");
 
 export const pressJsonLd = pageGraph(
   breadcrumbNode([
@@ -708,6 +776,10 @@ export const JSON_LD_BY_PATH: Record<string, Record<string, unknown>> = {
   [PAGES.adhd.path]: adhdJsonLd,
   [PAGES.noEquipment.path]: noEquipmentJsonLd,
   [PAGES.accountability.path]: accountabilityJsonLd,
+  [PAGES.streakTracker.path]: streakTrackerJsonLd,
+  [PAGES.simpleHabit.path]: simpleHabitJsonLd,
+  [PAGES.beginners.path]: beginnersJsonLd,
+  [PAGES.dailyTracker.path]: dailyTrackerJsonLd,
   [PAGES.press.path]: pressJsonLd,
   [PAGES.privacy.path]: privacyJsonLd,
   [PAGES.terms.path]: termsJsonLd,
