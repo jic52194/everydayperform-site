@@ -118,6 +118,42 @@ export default function Guides() {
           </p>
           <Link to={PAGES.accountability.path} className="text-primary underline underline-offset-4">Read the guide</Link>
         </article>
+        <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
+          <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
+            <Link to={PAGES.streakTracker.path} className="hover:text-primary">A workout streak tracker</Link>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Log a session, keep the streak, watch it compound — showing up is what counts, and a missed day doesn't wipe it.
+          </p>
+          <Link to={PAGES.streakTracker.path} className="text-primary underline underline-offset-4">Read the guide</Link>
+        </article>
+        <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
+          <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
+            <Link to={PAGES.simpleHabit.path} className="hover:text-primary">A simple habit app</Link>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            No clutter: pick two or three habits, tap to log, and let a forgiving streak carry you.
+          </p>
+          <Link to={PAGES.simpleHabit.path} className="text-primary underline underline-offset-4">Read the guide</Link>
+        </article>
+        <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
+          <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
+            <Link to={PAGES.beginners.path} className="hover:text-primary">A fitness app for beginners</Link>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            Built for day one — one small habit and a short workout, no experience or equipment needed.
+          </p>
+          <Link to={PAGES.beginners.path} className="text-primary underline underline-offset-4">Read the guide</Link>
+        </article>
+        <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-7">
+          <h2 className="font-oswald uppercase tracking-wide text-2xl text-white mb-3">
+            <Link to={PAGES.dailyTracker.path} className="hover:text-primary">A daily habit tracker</Link>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            One small daily loop, a consistency calendar, and streaks that forgive the occasional miss.
+          </p>
+          <Link to={PAGES.dailyTracker.path} className="text-primary underline underline-offset-4">Read the guide</Link>
+        </article>
       </div>
     </MarketingLayout>
   );
