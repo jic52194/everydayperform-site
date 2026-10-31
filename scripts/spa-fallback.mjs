@@ -201,6 +201,7 @@ async function writeSpaFallbacks() {
     "press-kit": built.PAGES.press,
     privacy: built.PAGES.privacy,
     terms: built.PAGES.terms,
+    affiliate: built.PAGES.affiliate,
   };
 
   const bodies = {

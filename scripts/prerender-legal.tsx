@@ -21,6 +21,7 @@ import Beginners from "@/pages/Beginners";
 import DailyTracker from "@/pages/DailyTracker";
 import Guides from "@/pages/Guides";
 import HowItWorks from "@/pages/HowItWorks";
+import Affiliate from "@/pages/Affiliate";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
 
@@ -69,6 +70,7 @@ export function renderRouteBodies() {
     "guides/simple-habit-app": render(SimpleHabit),
     "guides/fitness-app-for-beginners": render(Beginners),
     "guides/daily-habit-tracker": render(DailyTracker),
+    affiliate: render(Affiliate),
   };
 
   if (!pages.terms.includes("Terms of Use") || !pages.terms.includes("Last updated October 25, 2026") || !pages.terms.includes('id="health-disclaimer"')) {
@@ -97,6 +99,7 @@ export function renderRouteBodies() {
   if (!hasH1(pages["guides/simple-habit-app"], "A simple habit app")) throw new Error("Simple-habit guide prerender is missing its h1.");
   if (!hasH1(pages["guides/fitness-app-for-beginners"], "A fitness app for beginners")) throw new Error("Beginners guide prerender is missing its h1.");
   if (!hasH1(pages["guides/daily-habit-tracker"], "A daily habit tracker")) throw new Error("Daily-tracker guide prerender is missing its h1.");
+  if (!hasH1(pages.affiliate, "Affiliate program")) throw new Error("Affiliate prerender is missing its h1.");
 
   const combined = Object.values(pages).join("\n");
   if (/legal entity|mailing address|not on file/i.test(pages.terms + pages.privacy)) {

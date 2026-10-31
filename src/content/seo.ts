@@ -171,6 +171,12 @@ export const PAGES = {
     title: "Terms of Use | Everyday Performance OS",
     description: "Terms of Use for Everyday Performance OS, including health information, subscriptions, and community rules.",
   },
+  affiliate: {
+    path: "/affiliate/",
+    title: "Affiliate Program — Earn 25% Recurring | Everyday Performance",
+    description:
+      "Join the Everyday Performance affiliate program. Earn 25% recurring commission for every member you refer, with a 60-day window and monthly payouts. Free to join.",
+  },
 } as const satisfies Record<string, PageMeta>;
 
 export const PRICING_HASH = "/#pricing";
@@ -199,6 +205,7 @@ export const INDEXABLE_PATHS = [
   PAGES.press.path,
   PAGES.privacy.path,
   PAGES.terms.path,
+  PAGES.affiliate.path,
 ] as const;
 
 /** Directory copies written by scripts/spa-fallback.mjs. Home is dist/index.html. */
@@ -225,6 +232,7 @@ export const SPA_ROUTE_DIRS = [
   "press-kit",
   "privacy",
   "terms",
+  "affiliate",
 ] as const;
 
 export function absoluteUrl(path: string) {
@@ -302,6 +310,7 @@ export function llmsTxt() {
     page(PAGES.press.path, "Press kit", "Logo, colors, and typography. Press contact: press@everydayperform.com."),
     page(PAGES.privacy.path, "Privacy Policy", "How account, fitness, Health, and accountability information is handled."),
     page(PAGES.terms.path, "Terms of Use", "Health information, subscriptions, and community rules."),
+    page(PAGES.affiliate.path, "Affiliate program", "Earn 25% recurring commission per referral; 60-day window; monthly payouts. Free to join."),
     "",
     "## Optional",
     "",
