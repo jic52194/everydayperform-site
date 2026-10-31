@@ -22,6 +22,7 @@ export function PublicFooter() {
           ))}
         </nav>
         <nav aria-label="Company" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 md:gap-x-6 text-xs md:text-sm text-muted-foreground font-medium">
+          <Link to={PAGES.affiliate.path} className="hover:text-primary transition-colors">Affiliate</Link>
           <Link to={PAGES.press.path} className="hover:text-primary transition-colors">Press</Link>
           <Link to={PAGES.privacy.path} className="hover:text-primary transition-colors">Privacy Policy</Link>
           <Link to={PAGES.terms.path} className="hover:text-primary transition-colors">Terms of Use</Link>
