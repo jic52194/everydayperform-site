@@ -66,7 +66,10 @@ All colors MUST be HSL.
     --popover-foreground: 0 0% 96%;
 
     --primary: 60 25% 45%;
-    --primary-foreground: 0 0% 100%;
+    /* Dark text on the olive primary. White (0 0% 100%) gave 3.37:1 on this
+       olive and failed WCAG AA on every primary button/badge; the brand
+       charcoal gives ~5.5:1 and matches the app's accent treatment. */
+    --primary-foreground: 220 13% 6%;
 
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 96%;
