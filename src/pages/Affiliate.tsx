@@ -119,7 +119,7 @@ export default function Affiliate() {
             </div>
           ))}
         </div>
-        <p className="text-xs text-muted-foreground/70 mt-4">
+        <p className="text-xs text-muted-foreground mt-4">
           Earnings examples are illustrative and assume referred members stay actively subscribed. Actual results vary.
         </p>
       </section>
