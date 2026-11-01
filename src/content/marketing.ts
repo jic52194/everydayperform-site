@@ -3,7 +3,7 @@ export const SIGNUP_URL = "https://app.everydayperform.com/signup";
 
 /** Confirmed app prices. The short line names the Pro trial card requirement so it is not vaguer than the fine print. */
 export const PRICING_TEASER =
-  "Free forever, no card · Pro $14.99/mo or $149.99/yr · 7-day Pro trial requires a card and auto-renews";
+  "Free to start, no card · Pro $14.99/mo or $149.99/yr · 7-day Pro trial requires a card and auto-renews";
 
 /** Free signup does not need a card. The Pro trial does, and it auto-renews. */
 export const CARD_LINE =

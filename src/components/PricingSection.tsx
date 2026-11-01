@@ -24,7 +24,7 @@ export function PricingSection() {
           <article className="bg-[#0e0e0e] border border-white/10 rounded-[2rem] p-8 flex flex-col">
             <h3 className="font-oswald uppercase tracking-wide text-xl text-white">Free</h3>
             <p className="mt-4 font-oswald text-5xl text-white">$0</p>
-            <p className="mt-2 text-primary font-medium">Free forever, no card</p>
+            <p className="mt-2 text-primary font-medium">Free to start, no card</p>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed flex-1">
               A free account lets you start a daily plan with habits, short workouts, or both. It does not require a card.
             </p>
