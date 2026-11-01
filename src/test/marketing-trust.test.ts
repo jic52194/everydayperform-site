@@ -26,7 +26,7 @@ describe("marketing trust copy", () => {
   it("states free vs Pro pricing without a blanket no-card claim", () => {
     expect(PRICING_TEASER).toContain("$14.99/mo");
     expect(PRICING_TEASER).toContain("$149.99/yr");
-    expect(PRICING_TEASER).toContain("Free forever, no card");
+    expect(PRICING_TEASER).toContain("Free to start, no card");
     expect(PRICING_TEASER).toContain("7-day Pro trial requires a card and auto-renews");
     expect(PRICING_TEASER).not.toContain("7-day trial in app");
     expect(CARD_LINE).toContain("auto-renews");
